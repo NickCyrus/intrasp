@@ -1,0 +1,9 @@
+{
+     
+        "email": "Email",
+        "usuario": "Usuari",
+        "password": "Contrasenya",
+        "btnEntrar": "Entrar",
+        "rememberpass": "Has oblidat la teva contrasenta?",
+        "notAccount" : "No tens compte?"
+}

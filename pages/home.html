@@ -1,0 +1,104 @@
+<!-- PAGE HOME !-->
+<div class="page" data-page="home" data-start="right">
+    <header>
+        <nav>
+            <a class="btn right" onclick="app.animatePage('profile','in-right');">
+                <i class="ico-bar3"></i>
+            </a>
+            <a class="btn left">
+                <i class="ico-lupa"></i>
+            </a>
+            <div class="title">
+                    <img src="images/header-nav-logo.png" />
+            </div>
+        </nav>
+    </header> 
+    <section class="sidebar" data-sidebar="profile" data-start="right">
+            <div class="sibar-content">
+                
+                 <a class="close" onclick="app.backNavigator();"></a>
+                 
+                 <div class="avatar">
+                        <img src="images/avatar.jpg" />
+                 </div>
+                 <div class="nice-name">
+                 </div>
+                
+                 <div class="bottom-area">
+                        <ul>
+                            <li><a class="icon-config">Configuració</a></li>
+                            <li><a class="icon-equip" onclick="app.animatePage('equip','bottom-top');">Equip</a></li>
+                            <div class="separador"></div>
+                            <li>
+                                <a class="icon-notification">Notifications
+                                    <div style="float:right; margin-right: 20px;">
+                                            <input type="checkbox" class="js-switch" checked /> 
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                 </div>
+                  
+            </div>
+    </section>
+    <div class="content">
+            <ul class="item-option">
+                <li><a>
+                        <i class="icon icon-folder"></i>
+                            FITXA CLIENTS
+                    </a></li>
+                 <li><a>
+                        <i class="icon icon-mail"></i>
+                            GESTIÓ MAILS
+                    </a></li>
+                 <li><a>
+                        <i class="icon icon-cataleg"></i>
+                            CATÀLEG
+                    </a></li>
+                 <li><a>
+                        <i class="icon icon-productes"></i>
+                            PRODUCTE
+                    </a></li>
+                 <li><a>
+                        <i class="icon icon-top"></i>
+                            OPORTUNITATS
+                    </a></li>
+                 <li><a>
+                        <i class="icon icon-pass"></i>
+                            CONTRASENYES
+                    </a></li>
+                 <li><a>
+                        <i class="icon icon-accident"></i>
+                            ACCIDENTS
+                    </a></li>
+                 <li><a>
+                        <i class="icon icon-rg"></i>
+                            REGULARITZACIONS
+                    </a></li>
+                 
+                
+            </ul>    
+    </div>
+     <footer>
+        <nav>
+            <a class="btn right">
+                <i class="ico-rs" id="count-mail">
+                    <span class="numberCount">3</span>
+                </i>
+            </a>
+            <a class="btn left">
+                <i class="ico-mail" id="count-rs">
+                    <span class="numberCount">1</span>        
+                </i>
+            </a>
+            <div class="title">
+                    <a class="btn">
+                        <i class="ico-top" id="count-alertas">
+                            <span class="numberCount">1</span>
+                        </i>
+                    </a>
+            </div>
+        </nav>
+    </footer>
+</div>
+<!-- END HOME !-->

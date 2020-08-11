@@ -1,0 +1,472 @@
+body{ 
+  margin:0px;
+  padding: 0px;
+  font-family: 'Montserrat Regular';
+}
+
+.page{
+    display: none;
+    width: 100%;
+} 
+
+.page.active{
+    display: block !important;
+}
+
+*{
+ outline: none;   
+}
+
+.ajax-loading-medium{
+    text-align: center;
+}
+
+.ajax-loading-medium img{
+    width: 62px; 
+}
+
+.currentPageActive{
+    z-index: 99999999;
+}
+
+.bg-login{
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../images/login-background.png") no-repeat center 10px fixed;
+  -webkit-background-size: cover;
+  background-size: cover;
+ 
+}
+
+.animated-page{
+    position: absolute;
+    top:0px;
+    display: block;
+}
+
+.logo{
+    margin: 108px auto 20% auto;
+    text-align: center;
+}
+
+.logo img{
+    /*
+    width: 206px;
+    height: 206px;
+    */
+    width: 206px;
+}
+
+ 
+
+.loginData{ 
+  width: 85%;
+  padding: 40px 10px 10px 10px;
+  border-radius: 10px;
+  margin: auto;
+  display: block;
+}
+
+.login-input{
+  margin-bottom: 3px;
+  border:none;
+  padding: 10px;
+  width: 100%;
+}
+
+.login-input,
+.login-input:focus,
+.login-input:active,
+input[type="text"],
+input[type="text"]:focus,
+input[type="text"]:active {
+    outline: none;
+    border-bottom-style: solid;
+    background: #FFF;
+    padding: 15px;
+    border: none;
+    font-family: Montserrat Regular;
+}
+
+input.ico-mail{
+    background: rgba(0, 0, 0, 0) url("../images/login-email.png") no-repeat scroll 10px center;
+    background-size: 8%;
+    padding-left: 50px;
+}
+
+input.ico-pass{
+    background: rgba(0, 0, 0, 0) url("../images/home-contrasenyes.png") no-repeat scroll 13px center;
+    background-size: 6%;
+    padding-left: 50px;
+}
+
+.bg-primary{
+  background: #E18560;
+}
+
+.cblanco{ color : #FFF; }
+
+#btn-login{
+   background: #E18560;    
+  border-radius: 10px;
+  margin: auto;
+  color : #FFF;
+  width: 100%;
+  border:none;
+  padding: 10px;
+    font-size: 20px;
+}
+
+.remember{
+  margin: 10px;
+  display: block;
+  text-align: center;
+  color: #9B9B9B;
+}
+
+.header-bar ~ .content {
+    margin-bottom: 70px;
+    margin-top: 50px;
+}
+
+.content-header{
+    margin-top: 50px; 
+}
+
+[data-page="home"]{
+    position: absolute;
+    right: -360px;
+    top: 0px;
+    background: #F3F2F3;
+}
+
+[data-start="right"]{
+    position: absolute;
+    right: -360px;
+    top: 0px; 
+}
+
+[data-start="left"]{
+    position: absolute;
+    left: -360px;
+    top: 0px; 
+}
+
+
+[data-start="bottom"]{
+    position: absolute;
+    left: 0px;
+    top: 640px; 
+}
+
+
+/****************************** HEADERS **************************/
+
+header nav{
+    position: absolute;
+    top:0px;
+    left: 0px;
+    height: 50px;
+    background: #E18560;
+    width: 100%;
+}
+
+footer nav{
+    position: absolute;
+    bottom:0px;
+    left: 0px;
+    height: 50px;
+    background: #494949;
+    width: 100%;
+    z-index: 100;
+}
+
+
+header nav .btn , footer nav .btn{
+    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+ul , li {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+
+header nav .btn.left , footer nav .btn.left {  float: left; }
+header nav .btn.right , footer nav .btn.right {  float: right; }
+
+header nav .btn i , footer nav .btn i{
+    display: block;
+    height: 50px;
+    width: 50px;
+    background-size: 40%;
+    position: relative;
+}
+
+header nav .btn .ico-lupa , 
+footer nav .btn .ico-lupa { background: url('../images/header-nav-search.png') no-repeat center center ; background-size: 40%; }
+header nav .btn .ico-bar3 , 
+footer nav .btn .ico-bar3 { background: url('../images/header-nav-menu.png') no-repeat center center ; background-size: 40%; }
+header nav .btn .ico-arrow-back { background: url('../images/header-nav-turn-back.png') no-repeat center center ; background-size: 40%; }
+footer nav .btn .ico-mail { background: url('../images/bottom-nav-email.png') no-repeat center center ; background-size: 70%; }
+footer nav .btn .ico-rs { background: url('../images/bottom-nav-regularitzacions.png') no-repeat center center ; background-size: 70%; }
+footer nav .btn .ico-top { background: url('../images/bottom-nav-oportunitats.png') no-repeat center center ; background-size: 70%; }
+
+
+
+header nav .title {
+    text-align: center;
+    height: 50px;
+    display: block;
+    vertical-align: middle;
+    color:#FFF;
+    font-size: 20px;
+    padding-top: 12px;
+    text-transform: uppercase;
+}
+
+footer nav .title{
+    text-align: center;
+    height: 50px;
+    display: block;
+    vertical-align: middle;
+    color:#FFF;
+    font-size: 20px;
+    
+}
+
+header nav .title.left { text-align: left; padding-left: 20px;}
+header nav .title.right { text-align: right; padding-right: 20px;}
+
+header nav .title img{
+    max-height: 40px;
+    margin-top: -8px;
+}
+
+.content{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    height: 100%;
+    display: block;
+    overflow: auto;
+}
+
+.numberCount{
+    background: red none repeat scroll 0 0;
+    border-radius: 25px;
+    bottom: 5px;
+    color: #fff;
+    display: inline-flex;
+    padding: 0 5px;
+    position: absolute;
+    right: 3px;
+    font-size: 12px;
+}
+
+.sidebar{
+    background: rgba(0,0,0,0.5);
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 5000;
+}
+
+.sidebar .sibar-content{
+    background: #e18560 none repeat scroll 0 0;
+    display: block;
+    height: 100%;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    width: 80%;
+}
+
+.sidebar .sibar-content .close{
+    display: block;
+    height: 29px;
+    margin-left: 20px;
+    margin-top: 30px;
+    width: 27px;
+    background: url('../images/menu-close.png') no-repeat;
+    background-size:100%;
+    cursor: pointer;
+}
+
+.bgbase{ background: #F3F2F3;}
+.bgColor{ background: #E18560;}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.avatar{
+    text-align: center;
+    display: block;
+    
+}
+
+.avatar img{
+    border-radius: 50%;
+    margin: 60px 0 10px 0;
+    width: 130px;
+}
+
+#detailsAvatar img{
+    width: 200px;
+    margin: 50px 0 10px 0;
+}
+
+/*** MENU **/
+.item-option{
+    margin: 0px;
+    padding: 20px;
+    display: block;
+}
+
+.item-option li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.item-option li a{
+    background: #FFF;
+    color: #000;
+    border-radius: 7px;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+     
+    -webkit-box-shadow: 2px 2px 3px -1px rgba(225,224,225,1);
+    -moz-box-shadow: 2px 2px 3px -1px rgba(225,224,225,1);
+    box-shadow: 2px 2px 3px -1px rgba(225,224,225,1);
+    
+}
+
+.item-option li a {
+    cursor: pointer;
+}
+
+.item-option li a .icon{
+    display: block;
+    float: left;
+    height: 50px;
+    margin-right: 10px;
+    margin-top: -16px;
+    width: 50px;
+}
+
+.icon-folder{ background: url('../images/home-fitxa-client.png') no-repeat center center ; background-size: 60%; }
+.icon-mail{ background: url('../images/home-email.png') no-repeat center center ; background-size: 60%; }
+.icon-cataleg{ background: url('../images/home-cataleg.png') no-repeat center center ; background-size: 60%; }
+.icon-productes{ background: url('../images/home-producte.png') no-repeat center center ; background-size: 60%; }
+.icon-top{ background: url('../images/home-oportunitats.png') no-repeat center center ; background-size: 60%; }
+.icon-pass{ background: url('../images/home-contrasenyes.png') no-repeat center center ; background-size: 48%; } 
+.icon-accident{ background: url('../images/home-accidents.png') no-repeat center center ; background-size: 60%; }
+.icon-rg{ background: url('../images/home-regularitzacions.png') no-repeat center center ; background-size: 60%; }
+
+.nice-name{
+    text-align: center;
+    font-size: 20px;
+    color:#FFF;
+}
+
+.bottom-area{
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    background: #FFF;
+}
+
+.bottom-area ul {  margin: 20px 0px; padding: 0px; }
+
+.bottom-area ul li{  
+        background: #F3F2F3;
+        list-style: none;
+        
+}
+
+.bottom-area ul li a{
+    padding: 7px;
+    border-bottom: 1px solid #E4E2E4;
+    display: block;
+    cursor: pointer;
+}
+
+.icon-config{
+    background: url('../images/menu-config.png') no-repeat 9px 8px ; 
+    background-size: 8%;
+    padding-left: 40px !important;
+}
+
+.icon-equip{
+    background: url('../images/menu-equip.png') no-repeat 9px 8px ; 
+    background-size: 7%;
+    padding-left: 40px  !important;
+}
+
+.icon-notification{
+    background: url('../images/menu-alert.png') no-repeat 10px 5px; 
+    background-size: 6%;
+    padding-left: 40px  !important;;
+}
+ 
+
+.separador{
+    display: block;
+    height: 15px;
+}
+
+.bottom-area ul li:last-child{
+    border-bottom: none;
+}
+
+ul.box{
+    padding: 20px;
+}
+
+a{
+    cursor: pointer;
+}
+
+/********************* TEAM */
+
+.category-team{
+    background: #9b9b9b none repeat scroll 0 0;
+    border-radius: 9px;
+    color: #fff;
+    float: right;
+    margin-top: -5px;
+    padding: 5px 15px;
+    width: 63%;
+}
+
+#equip-list li{
+    margin-bottom: 20px;
+}
+
+[data-page="detailsEquip"] .bottom-area ul{  margin:0px; }
+[data-page="detailsEquip"] .bottom-area ul li {  padding:10px; border-bottom: 1px solid #E4E2E4; }
+[data-page="detailsEquip"] .bottom-area ul li a { border-bottom: none;} 
+
+.title-small {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+[data-page="detailsEquip"] .bottom-area ul {
+    position: absolute;
+    bottom: 0px;
+    width: 100%; 
+}
