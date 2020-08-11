@@ -40,7 +40,7 @@ jQuery(function($){
 
   
 app = {
-        debug : debug , 
+        debug : false , 
         loading : '' ,
         pageBefore : '',
         wDivice : 0,
