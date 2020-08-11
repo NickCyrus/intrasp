@@ -90,10 +90,9 @@
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-statusbar" />
     <plugin name="cordova-plugin-device" />
-    <plugin name="cordova-plugin-file-transfer" />
     <plugin name="cordova-plugin-x-socialsharing" />
     <plugin name="com.darktalker.cordova.screenshot" />
-    <plugin name="cordova-plugin-whitelist" />
+    <plugin name="cordova-plugin-whitelist" /> 
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
