@@ -177,7 +177,6 @@ app = {
         oauth : function(){
             
                 var oauth = Cookies.getJSON('loginoauth');
-                alert(oauth);
                 if (oauth){
                         LoginData = oauth;
                         this.login(LoginData.gc_username , LoginData.gc_password);
@@ -327,7 +326,7 @@ app = {
                     page = $('section[data-sidebar="'+pageName+'"]');
                     velocity = 100;
                 }        
-                
+                 
                 if(!page.length)  return false;
 
                 page.css({'display':'block'});
