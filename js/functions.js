@@ -319,13 +319,12 @@ app = {
             
                 var page = $('.page[data-page="'+pageName+'"]');
                 
-                var StatusBarColor = page.data('StatusBar');
+                var StatusBarColor = page.attr("data-StatusBar");
 
                 if(!page.length) {
                     page = $('section[data-sidebar="'+pageName+'"]');
                     velocity = 100;
                 }        
-                
                 
                 if(!page.length)  return false;
             
