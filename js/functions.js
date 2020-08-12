@@ -1,8 +1,6 @@
 var LoginData = {}
 var bigData = {}
 
-navigator.splashscreen.show();
-
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
