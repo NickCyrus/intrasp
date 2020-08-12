@@ -5,9 +5,9 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.socialpartnetorg.roc"
-        version   = "1.1.7">
+        version   = "1.1.8">
 
-    <name>SP 1.7</name>
+    <name>SP 1.8</name>
  
     <description>
         Social Partneres
