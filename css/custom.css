@@ -59,7 +59,7 @@ body{
 
 .loginData{ 
   width: 85%;
-  padding: 40px 10px 10px 10px;
+  padding: 20px 10px 10px 10px;
   border-radius: 10px;
   margin: auto;
   display: block;
@@ -104,22 +104,41 @@ input.ico-pass{
 
 .cblanco{ color : #FFF; }
 
-#btn-login{
-   background: #E18560;    
-  border-radius: 10px;
-  margin: auto;
-  color : #FFF;
-  width: 100%;
-  border:none;
-  padding: 10px;
-    font-size: 20px;
+#btn-login, .btnlogin{
+    background: #E18560;
+    margin: auto;
+    color: #FFF;
+    width: 100%;
+    border: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 15px;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;;
 }
 
 .remember{
-  margin: 10px;
-  display: block;
-  text-align: center;
-  color: #9B9B9B;
+    margin: 5px 0px;
+    display: block;
+    color: #FFF;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: right;
+}
+
+.notAccount{
+    margin-top: 10px;
+    display: block;
+    color: #FFF;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: left;
 }
 
 .header-bar ~ .content {
@@ -186,6 +205,10 @@ header nav .btn , footer nav .btn{
     height: 50px;
     text-align: center;
     cursor: pointer;
+}
+
+header nav .btn img , footer nav .btn img{
+    margin:auto;
 }
 
 ul , li {
@@ -469,4 +492,46 @@ a{
     position: absolute;
     bottom: 0px;
     width: 100%; 
+}
+
+.modal-info{
+    background: linear-gradient(0deg, rgba(220, 191, 167, 0.92), rgba(220, 191, 167, 0.92)), url(../images/login-background.png) no-repeat;
+    height: 100%;
+    background-size: contain; 
+    position: relative;
+}
+
+.closex{
+   width: 14px;
+   height: 14px;
+   background: url('../svg/close_x.svg') no-repeat;
+   display: block; 
+}
+
+.closex-left-top{
+    position: absolute;
+    left: 9.83%;
+    top: 9%;
+}
+
+.modal-logo{
+    position: absolute;
+    right: 20px;
+    top: 53px;
+    width: 105px;
+    height: 105px;
+}
+
+.modal-info {
+    font-weight: 500 ;
+}
+.modal-logo img { width: 100%; height: 100%; }
+.modal-info .modal-content{ padding: 175px 60px 0px 60px;}
+.modal-info a {
+    text-decoration: none;
+    color:#000;
+} 
+.remember-email{
+    border-bottom: 1px solid #E18560;
+    margin-top: 15px; 
 }

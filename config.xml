@@ -33,12 +33,9 @@
     <preference name="EnableViewportScale" value="true"/>
     <preference name="Orientation" value="portrait" />
     <preference name="ShowTitle" value="false"/>  
-    
-        <preference name="HideKeyboardFormAccessoryBar" value="true"/>
-        <!-- <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" /> !-->
-        <preference name="StatusBarOverlaysWebView" value="true" />
-        <preference name="StatusBarBackgroundColor" value="#FFFFFF" />
-        <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="HideKeyboardFormAccessoryBar" value="true"/>
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarStyle" value="lightcontent" />
       
   
     <!-- Define app icon for each platform. -->
@@ -57,25 +54,7 @@
     <icon src="res/icons/windows-phone/icon-48.png"  gap:platform="winphone" />
     <icon src="res/icons/windows-phone/icon-173.png" gap:platform="winphone"   gap:role="background" />
     
-    <!--
     
-    <splash src="splash.png" width="320" height="480"/>
-    <splash src="splash.png" width="640" height="960"/>
-    <splash src="splash.png" width="768" height="1024"/>
-    <splash src="splash.png" width="1536" height="2048"/>
-    <splash src="splash.png" width="1024" height="768"/>
-    <splash src="splash.png" width="2048" height="1536"/>
-    <splash src="splash.png" width="640" height="1136"/>
-    <splash src="splash.png" width="750" height="1334"/>
-    <splash src="splash.png" width="1242" height="2208"/>
-    
-    
-    <preference name="SplashScreenBackgroundColor" value="#E18560" />
-    <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="ShowSplashScreenSpinner" value="false"/>
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="SplashShowOnlyFirstTime" value="false" />
-    !--> 
     <gap:config-file platform="ios" parent="CFBundleShortVersionString">
         <string>100</string>
     </gap:config-file>

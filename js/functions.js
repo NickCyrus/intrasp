@@ -4,7 +4,7 @@ var bigData = {}
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
-       // navigator.splashscreen.hide();
+      navigator.splashscreen.hide();
 }
 
 
@@ -27,14 +27,27 @@ jQuery(function($){
           e.preventDefault();
     })
 
+    $(document).on('submit','#rememberPass', {} , function(e){        
+           
+        var email = $('#email_remember').val();
+       
+        if (!email){ $('#email_remember').focus(); return false; }
+       
+        if (email){
+            app.rememberPass(email);
+        }
+
+        e.preventDefault();
+  })
+
+    
+
+
 })
 
  $(document).ready(function(){
         app.main(); 
-     
-        // var elem = document.querySelector('.js-switch');
-        // var init = new Switchery(elem , { size: 'small' });
-     
+   
  })
 
 
@@ -57,7 +70,7 @@ app = {
             this.loadPages();
             this.setSizeMobil();
             this.hastControl();
-           // this.oauth();
+            this.oauth();
         },
 
         loadPages : function(){
@@ -103,28 +116,52 @@ app = {
             });
             self.language = items;            
         },
-        
-        login : function( email , pass){
-            
+        rememberPass : function( email ){
+            var self = this
             this.ajax({
                          beforeSend : function(){
-                                app.dialogWait('Validant accés, per favor esperi');
+                                app.dialogWait( self.language['pleacewait']);
+                         },
+                         datos : { opc : 'rememberPass', email: email },
+                         success: function(rs){
+                                app.dialogClose();
+                                if (rs.error){
+                                    $('#email_token').focus();
+                                    app.alertConfirm( self.language['valiLoginError'], self.language['ErrorRememberPass']);
+                                }
+                             
+                                if (rs.success){
+                                    $('[data-page="modal-mremember"] .modal-content').css('padding-top','140px');    
+                                    $('[data-page="modal-mremember"] .modal-content').html(self.language['SuccessRememberPass'])
+                                }
+                                
+                                 
+                         },
+                         errorCallback : function(){
+                             app.dialogClose();
+                         }
+                      })
+        },
+        login : function( email , pass){
+            var self = this
+            this.ajax({
+                         beforeSend : function(){
+                                app.dialogWait( self.language['valiLogin']);
                          },
                          datos : { opc : 'login', user: email , pass : pass },
                          success: function( rs){
                                 app.dialogClose();
                                 if (rs.error){
                                     $('#email_token').focus();
-                                    app.alertConfirm('Acceso denegado', "Nom d'usuari incorrecte");
+                                    app.alertConfirm( self.language['valiLoginError'], self.language['valiLoginErrorMsg']);
                                 }
                              
-                                if (rs.LoginData){
-                                    LoginData = rs.LoginData;
-                                    bigData   = rs.bigData;
+                                if (rs.inflogin){
+                                    LoginData = rs.inflogin;
                                     Cookies.set('loginoauth', LoginData, { expires: 365 });
                                     $('#email_token , #pass_token').val('');
-                                    app.setAvatar(LoginData);
-                                    app.addEquip(bigData.team);
+                                    /// app.setAvatar(LoginData);
+                                    // app.addEquip(bigData.team);
                                     app.animatePage('home','in-right');
                                 }
                                 
@@ -142,7 +179,7 @@ app = {
             
                 if (oauth){
                         LoginData = oauth;
-                        this.login(LoginData.user , LoginData.pass);
+                        this.login(LoginData.gc_username , LoginData.gc_password);
                 }
             
         },
@@ -246,7 +283,34 @@ app = {
             this.zIndex += 10;
             return this.zIndex
         },
-        animatePage : function (pageName , ANIMATION ){
+
+        closePage  :  function (pageName , ANIMATION , velocity = 500 ){
+                
+                ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
+                var propagation = true;
+                var page = $('.page[data-page="'+pageName+'"]');
+                if(!page.length) {
+                    page = $('section[data-sidebar="'+pageName+'"]');
+                    velocity = 100;
+                }
+
+                if(!page.length)  return false;
+                var wDivice = this.wDivice;
+                
+                $('*').removeClass('currentPageActive');
+                page.addClass('currentPageActive')
+                  
+                switch(ANIMATION){
+                    case 'hide':{
+                        page.css({'display':'none'});
+                        page.stop().css({top: this.hDivice+'px' , left : 0 });
+                        page.css({'display':'block'});
+                        $('*').removeClass('currentPageActive');
+                    }
+                } 
+        }, 
+
+        animatePage : function (pageName , ANIMATION , velocity = 500 ){
                 
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
                 
@@ -254,8 +318,6 @@ app = {
             
                 var page = $('.page[data-page="'+pageName+'"]');
                 
-                var velocity = 500;
-            
                 if(!page.length) {
                     page = $('section[data-sidebar="'+pageName+'"]');
                     velocity = 100;
@@ -266,7 +328,7 @@ app = {
             
                 page.addClass('animated-page');
                 
-            if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
+                if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
                 if (!this.debug) StatusBar.backgroundColorByHexString("#E18560");
             
@@ -282,8 +344,6 @@ app = {
                         page.stop().animate({'top':0,
                                       'left':(this.wDivice)+'px', 
                                       'position':'absolute'},velocity,function(){
-                                    
-                                    
                                     page.attr('style', '').removeClass('animated-page');
                            
                             
@@ -306,7 +366,11 @@ app = {
                         this.unsetNavigator(pageName);
                         
                     break; 
-                    
+                    case 'hide':{
+                        // page.css({'display':'none'});
+                        page.stop().css({top: this.hDivice+'px' , left : 0 });
+                        page.css({'display':'block'});
+                    }
                     case 'show':
                         
                         page.animate({'z-index': this.getzIndex(),
@@ -352,7 +416,10 @@ app = {
                         this.lastEvent = 'in';
                         window.location.href = "#"+pageName;
                     break; 
-                        
+                    case 'in-bottom':
+                         page.stop().css({top: this.hDivice+'px' , left : 0 });
+                         page.animate({top:0,left:0 },velocity);   
+                    break;    
                         
                     default:
                          
@@ -384,15 +451,15 @@ app = {
         ajax : function (opciones){
              
                 
-              errorMSGTITLE =  (opciones.errorMSGTITLE) ?  opciones.errorMSG : 'Error';
-              errorMSG      =  (opciones.errorMSGTITLE) ?  opciones.errorMSG : 'S\'ha produït un error en la càrrega de la informació. El servidor respondio:';
+              errorMSGTITLE =  this.language['Error'];
+              errorMSG      =  this.language['ErrorAjax'];
             
               $.ajax({ 
 						 beforeSend :  opciones.beforeSend,
                 		 type   : "POST",
                          crossDomain: true,
                          dataType : 'json',      
-						 url    : 'https://socialpartners.org/app/app.php',
+						 url    : 'https://app.socialpartners.org/app/app.php',
 						 data   : opciones.datos,
 						 success: opciones.success,
                          complete: opciones.complete,
@@ -446,6 +513,10 @@ app = {
                 })
             
             
+        },
+
+        activeCarrucel : function(){
+             
         }
         
     

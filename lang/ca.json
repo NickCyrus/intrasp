@@ -1,9 +1,19 @@
 {
-     
         "email": "Email",
         "usuario": "Usuari",
         "password": "Contrasenya",
         "btnEntrar": "Entrar",
-        "rememberpass": "Has oblidat la teva contrasenta?",
-        "notAccount" : "No tens compte?"
+        "rememberpass": "Has oblidat la teva contrasenya?",
+        "notAccount" : "No tens compte?",
+        "textrecoverypass": "Introduir l'usuari o email associat al compte i rebràs un enllaç per a la seva recuperació.",
+        "enviar": "Enviar",
+        "valiLogin" : "Validant accés, per favor esperi",
+        "pleacewait" : "Per favor esperi",
+        "valiLoginError" : "Acceso denegado",
+        "valiLoginErrorMsg" : "Nom d'usuari incorrecte",
+        "Error": "Error",
+        "ErrorAjax": "S'ha produït un error en la càrrega de la informació. El servidor respondio:",
+        "ErrorRememberPass": "Ho sentim no tenim associada aquest compte de correu",
+        "SuccessRememberPass": "<img src=svg/check.svg style=display:block; margin-top: 20px;margin-bottom: 30px; /> <br /> Només hi ha un pas més. <br /><br />Us hem enviat un correu electrònic amb un enllaç per activar la nova contrasenya.<br /><br />Reviseu el vostre correu electrònic i feu clic a l'enllaç. <br /><br />En cas de no rebre el correu, si us plau reviseu la vostra safata de correu brossa."
+        
 }
