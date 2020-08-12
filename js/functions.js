@@ -71,7 +71,7 @@ app = {
             this.loadPages();
             this.setSizeMobil();
             this.hastControl();
-            this.oauth();
+            this.oauth(); 
         },
 
         loadPages : function(){
@@ -177,7 +177,7 @@ app = {
         oauth : function(){
             
                 var oauth = Cookies.getJSON('loginoauth');
-            
+                alert("A");
                 if (oauth){
                         LoginData = oauth;
                         this.login(LoginData.gc_username , LoginData.gc_password);
@@ -329,13 +329,13 @@ app = {
                 }        
                 
                 if(!page.length)  return false;
-                
+
                 page.css({'display':'block'});
                 page.addClass('animated-page');
                 
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
-                if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
+                // if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
             
                 
                 var wDivice = this.wDivice;
