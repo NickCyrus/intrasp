@@ -177,7 +177,7 @@ app = {
         oauth : function(){
             
                 var oauth = Cookies.getJSON('loginoauth');
-                alert("A");
+                alert(oauth);
                 if (oauth){
                         LoginData = oauth;
                         this.login(LoginData.gc_username , LoginData.gc_password);
@@ -332,10 +332,10 @@ app = {
 
                 page.css({'display':'block'});
                 page.addClass('animated-page');
-                
+                 
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
-                // if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
+                if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
             
                 
                 var wDivice = this.wDivice;
