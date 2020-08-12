@@ -305,7 +305,6 @@ app = {
                     case 'hide':{
                         page.css({'display':'none'});
                         page.stop().css({top: this.hDivice+'px' , left : 0 });
-                        page.css({'display':'block'});
                         $('*').removeClass('currentPageActive');
                     }
                 } 
@@ -322,7 +321,6 @@ app = {
                 var propagation = true;
             
                 var page = $('.page[data-page="'+pageName+'"]');
-                
                 var StatusBarColor = page.attr("data-StatusBar");
 
                 if(!page.length) {
@@ -331,7 +329,8 @@ app = {
                 }        
                 
                 if(!page.length)  return false;
-            
+                
+                page.css({'display':'block'});
                 page.addClass('animated-page');
                 
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
