@@ -4,6 +4,7 @@ var bigData = {}
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
+      StatusBar.backgroundColorByHexString('#FFFFFF');  
       navigator.splashscreen.hide();
 }
 
@@ -70,7 +71,7 @@ app = {
             this.loadPages();
             this.setSizeMobil();
             this.hastControl();
-            this.oauth();
+            // this.oauth();
         },
 
         loadPages : function(){
