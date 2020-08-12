@@ -311,6 +311,10 @@ app = {
                 } 
         }, 
 
+        setColorStatusBar : function(StatusBarColor){
+            StatusBar.backgroundColorByHexString(StatusBarColor);   
+        },
+        
         animatePage : function (pageName , ANIMATION , velocity = 500 ){
                 
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
