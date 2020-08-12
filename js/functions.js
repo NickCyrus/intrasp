@@ -314,7 +314,7 @@ app = {
         setColorStatusBar : function(StatusBarColor){
             StatusBar.backgroundColorByHexString(StatusBarColor);   
         },
-
+        
         animatePage : function (pageName , ANIMATION , velocity = 500 ){
                 
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
@@ -336,7 +336,7 @@ app = {
                 
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
-                // if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
+                if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
             
                 
                 var wDivice = this.wDivice;
