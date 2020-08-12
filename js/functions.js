@@ -71,7 +71,7 @@ app = {
             this.loadPages();
             this.setSizeMobil();
             this.hastControl();
-            // this.oauth();
+            this.oauth();
         },
 
         loadPages : function(){
