@@ -159,11 +159,11 @@ app = {
                              
                                 if (rs.inflogin){
                                     LoginData = rs.inflogin;
-                                    console.log(LoginData);
-                                    Cookies.set('loginoauth', LoginData, { expires: 365 });
+                                   
+                                    //  Cookies.set('loginoauth', LoginData, { expires: 365 });
                                     $('#email_token , #pass_token').val('');
                                     
-                                    window.localStorage["username"] = LoginData.gc_name;
+                                    window.localStorage["username"] = LoginData.gc_username;
 				                    window.localStorage["password"] = LoginData.gc_password; 
                                     
                                     /// app.setAvatar(LoginData);
@@ -171,7 +171,7 @@ app = {
                                     app.animatePage('home','in-right');
                                 }
                                 
-                                console.log(LoginData);
+                               //  console.log(LoginData);
                          },
                          errorCallback : function(){
                              app.dialogClose();
