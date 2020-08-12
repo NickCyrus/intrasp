@@ -159,8 +159,13 @@ app = {
                              
                                 if (rs.inflogin){
                                     LoginData = rs.inflogin;
+                                    console.log(LoginData);
                                     Cookies.set('loginoauth', LoginData, { expires: 365 });
                                     $('#email_token , #pass_token').val('');
+                                    
+                                    window.localStorage["username"] = LoginData.gc_name;
+				                    window.localStorage["password"] = LoginData.gc_password; 
+                                    
                                     /// app.setAvatar(LoginData);
                                     // app.addEquip(bigData.team);
                                     app.animatePage('home','in-right');
@@ -175,13 +180,11 @@ app = {
         },
     
         oauth : function(){
-            
-                var oauth = Cookies.getJSON('loginoauth');
+                var oauth = window.localStorage["username"];
                 if (oauth){
                         LoginData = oauth;
-                        this.login(LoginData.gc_username , LoginData.gc_password);
+                        this.login(window.localStorage["username"] , window.localStorage["password"]);
                 }
-            
         },
     
         hastControl : function(){

@@ -180,6 +180,8 @@
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-statusbar" />
     <plugin name="cordova-plugin-device" />
+    <plugin name="cordova-plugin-secure-storage" />
+    
     <plugin name="cordova-plugin-whitelist" /> 
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
