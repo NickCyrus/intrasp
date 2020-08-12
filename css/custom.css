@@ -34,8 +34,9 @@ body{
     z-index: 99999999;
 }
 
+/*linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), */
 .bg-login{
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../images/login-background.png") no-repeat center 10px fixed;
+  background: url("../images/login-background.png") no-repeat center 10px fixed;
   -webkit-background-size: cover;
   background-size: cover;
  

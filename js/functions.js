@@ -318,6 +318,8 @@ app = {
             
                 var page = $('.page[data-page="'+pageName+'"]');
                 
+                var StatusBarColor = page.data('StatusBar');
+
                 if(!page.length) {
                     page = $('section[data-sidebar="'+pageName+'"]');
                     velocity = 100;
@@ -330,7 +332,7 @@ app = {
                 
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
-                if (!this.debug) StatusBar.backgroundColorByHexString("#E18560");
+                if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
             
                 
                 var wDivice = this.wDivice;
