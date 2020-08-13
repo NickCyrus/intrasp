@@ -14,6 +14,15 @@
         "Error": "Error",
         "ErrorAjax": "S'ha produït un error en la càrrega de la informació. El servidor respondio:",
         "ErrorRememberPass": "Ho sentim no tenim associada aquest compte de correu",
-        "SuccessRememberPass": "<img src=svg/check.svg style=display:block; margin-top: 20px;margin-bottom: 30px; /> <br /> Només hi ha un pas més. <br /><br />Us hem enviat un correu electrònic amb un enllaç per activar la nova contrasenya.<br /><br />Reviseu el vostre correu electrònic i feu clic a l'enllaç. <br /><br />En cas de no rebre el correu, si us plau reviseu la vostra safata de correu brossa."
-        
+        "SuccessRememberPass": "<img src=svg/check.svg style=display:block; margin-top: 20px;margin-bottom: 30px; /> <br /> Només hi ha un pas més. <br /><br />Us hem enviat un correu electrònic amb un enllaç per activar la nova contrasenya.<br /><br />Reviseu el vostre correu electrònic i feu clic a l'enllaç. <br /><br />En cas de no rebre el correu, si us plau reviseu la vostra safata de correu brossa.",
+        "changeLanguage": "",
+        "opc-intranet":"Intranet",
+        "opc-gestor":"Parlar amb el gestor",
+        "opc-Serveis24":"Serveis 24h",
+        "opc-sinistre":"Comunicar sinistre",
+        "opc-actualitat":"Actualitat",
+        "opc-formacio":"Formació",
+        "opc-Configuracio":"Configuració",
+        "info1":"Aquesta es una aplicació pels clients de Social Partners.<br/>Contacta amb nosaltres:",
+        "info2":"Passeig Verdaguer 171,<br />Igualada 08700<br />Barcelona<br />" 
 }

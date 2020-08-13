@@ -4,7 +4,7 @@ var bigData = {}
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
-      StatusBar.backgroundColorByHexString('#FFFFFF');  
+      StatusBar.backgroundColorByHexString('#999999');  
       navigator.splashscreen.hide();
 }
 
@@ -63,8 +63,10 @@ app = {
         lastEvent : '',
         navApp : [],
         zIndex : 1000,
-        currentLang : 'ca',
+        LoginData : '',
+        currentLang : (window.localStorage["ISO_LANG"]) ?  window.localStorage["ISO_LANG"] : 'ca',
         language : '',
+        currentEntidad : (window.localStorage["EntidadID"]) ? { id: window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"], rolcon : window.localStorage["rolCon"]}  : { id: '', name : '' , rolcon : ''},
     
         main : function(){
             this.setLang();
@@ -78,7 +80,7 @@ app = {
             var self = this
                 if (pages){
                     $(pages.pages).each(function(index, item){
-                        $("#pageInsert").after('<div id="page-'+item.name+'" />')
+                        $("#pageInsert").html('<div id="page-'+item.name+'" />')
                         $("#pageInsert").load(item.path , function() {
                             // Obtenemos el contenido
                             var html = $("#pageInsert").html();
@@ -94,10 +96,10 @@ app = {
         traslate : function(html){
             var self = this    
             let path = String(html);
-            const paramsPattern = /[^{\}]+(?=})/g;
+            const paramsPattern = /[^{{\}}]+(?=}})/g;
             let extractParams = path.match(paramsPattern);
             $(extractParams).each(function(index, item){
-               path = self.replaceAll(path,'{'+item+'}',self.language[item]);
+               path = self.replaceAll(path,'{{'+item+'}}',self.language[item]);
             })
            
             return path;
@@ -143,31 +145,35 @@ app = {
                          }
                       })
         },
-        login : function( email , pass){
+        
+        logout : function(){
+            window.localStorage.clear();
+        },
+
+        login  : function( email , pass, token){
             var self = this
             this.ajax({
                          beforeSend : function(){
                                 app.dialogWait( self.language['valiLogin']);
                          },
-                         datos : { opc : 'login', user: email , pass : pass },
+                         datos : { opc : 'login', user: email , pass : pass , token : token },
                          success: function( rs){
                                 app.dialogClose();
                                 if (rs.error){
                                     $('#email_token').focus();
                                     app.alertConfirm( self.language['valiLoginError'], self.language['valiLoginErrorMsg']);
                                 }
-                             
+                                
                                 if (rs.inflogin){
-                                    LoginData = rs.inflogin;
-                                   
-                                    //  Cookies.set('loginoauth', LoginData, { expires: 365 });
+                                    self.LoginData = rs.inflogin;
                                     $('#email_token , #pass_token').val('');
-                                    
-                                    window.localStorage["username"] = LoginData.gc_username;
-				                    window.localStorage["password"] = LoginData.gc_password; 
-                                    
-                                    /// app.setAvatar(LoginData);
-                                    // app.addEquip(bigData.team);
+                                    window.localStorage["username"] = self.LoginData.user.email;
+                                    window.localStorage["password"] = self.LoginData.user.pass;
+                                    window.localStorage["ISO_LANG"] = self.LoginData.user.ISO_LANG;
+                                    self.setDataUser(self.LoginData);
+                                    if (self.LoginData.user.ISO_LANG != self.currentLang){
+                                            window.location.reload();
+                                    }  
                                     app.animatePage('home','in-right');
                                 }
                                 
@@ -178,12 +184,64 @@ app = {
                          }
                       })
         },
-    
+        
+        setEntidad  : function(id , gc_name, rolcon){
+            window.localStorage["EntidadID"]   = id;
+            window.localStorage["EntidadName"] = gc_name
+            window.localStorage["rolCon"]      = rolcon  
+            this.currentEntidad                =  { id: window.localStorage["EntidadID"], name : window.localStorage["EntidadName"], rolcon : window.localStorage["rolCon"] } 
+            $('#entidad-select span').html(gc_name);
+             
+        },
+        loadHome    : function(event = 'home' ){
+            var self = this;
+            this.dialogClose();
+            this.ajax({
+                        beforeSend : function(){
+                            self.dialogWait(self.language['pleacewait']);     
+                        },
+                       datos : {opc : event , entidad : self.currentEntidad , lang : self.currentLang , currentUser : self.LoginData.user.id },
+                       success : function(rs){
+                            self.dialogClose();
+                            $('[data-page="home"] #content').html(rs.html);
+                       }   
+            })
+            
+        },
+        loadEntidad : function(ent){
+              this.setEntidad(ent.id , ent.name , ent.rolcon);  
+              $('.list-entidad li').removeClass('firts');
+              $('[data-entidad="'+ent.id+'"]').addClass('firts');
+              this.animatePage('profile','out-right');
+              $('.list-entidad').toggle();
+              this.loadHome();
+        }, 
+        setDataUser : function(data){
+                self = this
+                $('.name-user-login').html(data.user.displayName);
+
+                if (data.entidades.length > 1){
+                        i = 0;
+                        $(data.entidades).each(function(index , item ){
+                                if ((i == 0 && !self.currentEntidad.id) || self.currentEntidad.id == item.ID){ 
+                                    $('.list-entidad').append('<li class="firts" data-entidad="'+item.ID+'" onclick="app.loadEntidad({ id : '+item.ID+' , name : \''+item.gc_name+'\' , rolcon : '+item.rolcon+' })">'+item.gc_name+'</li>');
+                                    self.setEntidad(item.ID, item.gc_name , item.rolcon);
+                                }else{
+                                    $('.list-entidad').append('<li data-entidad="'+item.ID+'" onclick="app.loadEntidad({ id : '+item.ID+' , name : \''+item.gc_name+'\' , rolcon : '+item.rolcon+' })">'+item.gc_name+'</li>')
+                                }
+                            i++;
+                         })
+                }else{
+                        $('.list-entidad').append('<li class="active" data-entidad="'+data.entidades[0].ID+'">'+data.entidades[0].gc_name+'</li>');
+                        self.setEntidad(item.ID, item.gc_name , item.rolcon);
+                }
+        },
+
         oauth : function(){
                 var oauth = window.localStorage["username"];
                 if (oauth){
                         LoginData = oauth;
-                        this.login(window.localStorage["username"] , window.localStorage["password"]);
+                        this.login(window.localStorage["username"] , window.localStorage["password"], true);
                 }
         },
     
@@ -192,10 +250,7 @@ app = {
             if (window.history && window.history.pushState) {
                 $(window).on('hashchange', function(e) {
                     
-                    
-                    
                     var hash = app.getLastNav();
-                    
                     
                     var hashLocation = location.hash.replace('#','');
                 
@@ -270,7 +325,11 @@ app = {
                 this.loading = $.dialog({
                     title: '',
                     content: '<div class="ajax-loading-medium"><img src="images/loading.svg" /><p>'+msg+'</p></div>',
-                    closeIcon: false
+                    closeIcon: false,
+                    onClose: function () {
+                        
+                    }
+
                 });
             
         },
@@ -313,9 +372,22 @@ app = {
         }, 
 
         setColorStatusBar : function(StatusBarColor){
-            StatusBar.backgroundColorByHexString(StatusBarColor);   
+            if (this.is_movil()) StatusBar.backgroundColorByHexString(StatusBarColor);   
         },
         
+        ToggleAnimatePage: function(pageName , ANIMATIONIN , ANIMATIONOUT){
+                
+            var page = $('.page[data-page="'+pageName+'"]');
+            if(!page.length)  page = $('section[data-sidebar="'+pageName+'"]');
+             
+            if (page.is('.currentPageActive')){
+                    this.animatePage(pageName , ANIMATIONOUT);
+            }else{
+                    this.animatePage(pageName , ANIMATIONIN);
+            }
+            
+        },
+
         animatePage : function (pageName , ANIMATION , velocity = 500 ){
                 
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
@@ -337,7 +409,7 @@ app = {
                  
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
-                if (StatusBarColor) StatusBar.backgroundColorByHexString(StatusBarColor);
+                if (StatusBarColor && this.is_movil()) StatusBar.backgroundColorByHexString(StatusBarColor);
             
                 
                 var wDivice = this.wDivice;
@@ -357,7 +429,7 @@ app = {
                         });
                         this.lastEvent = 'out';
                         this.unsetNavigator(pageName);
-                        
+                        $('*').removeClass('currentPageActive');
                     break;
                     case 'out-left':
                         page.stop().animate({'top':0,
@@ -371,7 +443,7 @@ app = {
                         
                         this.lastEvent = 'out';
                         this.unsetNavigator(pageName);
-                        
+                        $('*').removeClass('currentPageActive');
                     break; 
                     case 'hide':{
                         // page.css({'display':'none'});
@@ -524,6 +596,14 @@ app = {
 
         activeCarrucel : function(){
              
+        },
+
+        is_movil : function(){
+            var isMobile = false; 
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
+            isMobile = true;
+            } 
+             return isMobile;
         }
         
     

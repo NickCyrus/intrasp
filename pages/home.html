@@ -2,10 +2,10 @@
 <div class="page" data-page="home" data-start="right" data-StatusBar="#E18560">
     <header>
         <nav>
-            <a class="btn right" onclick="app.animatePage('profile','in-right');">
-                <img src="svg/burguer.svg" />
+            <a class="btn right ripple noselect" >
+                <img src="svg/burguer.svg" onclick="app.ToggleAnimatePage('profile','in-right','out-right');" />
             </a>
-            <a class="btn left">
+            <a class="btn left ripple noselect">
                 <img src="svg/lupa.svg" />
             </a>
             <div class="title">
@@ -13,40 +13,35 @@
             </div>
         </nav>
     </header> 
-    <section class="sidebar" data-sidebar="profile" data-start="right">
-            <div class="sibar-content">
-                
-                 <a class="close" onclick="app.backNavigator();"></a>
-                 
+    <section class="sidebar " data-sidebar="profile" data-start="right" >
+            <div class="sibar-content sidebar-right">
                  <div class="avatar">
-                        <img src="images/avatar.jpg" />
+                        <img src="images/avatar.jpg" id="avatar-user" />
                  </div>
-                 <div class="nice-name">
+                 <div class="nice-name name-user-login" id="name-user"></div>
+                 
+                 <div id="entidad-select" onclick="$('.list-entidad').toggle()">
+                        <i></i><span></span>
                  </div>
-                
-                 <div class="bottom-area">
-                        <ul>
-                            <li><a class="icon-config">Configuració</a></li>
-                            <li><a class="icon-equip" onclick="app.animatePage('equip','bottom-top');">Equip</a></li>
-                            <div class="separador"></div>
-                            <li>
-                                <a class="icon-notification">Notifications
-                                    <div style="float:right; margin-right: 20px;">
-                                            <input type="checkbox" class="js-switch" checked /> 
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                 </div>
+                 <ul class="list-entidad">
+                 </ul>
+                 <ul class="options-menu">
+                    <li class="ripple"><i><img src="svg/packet.svg" /></i><span>{{opc-intranet}}</span></li>
+                    <li class="ripple"><i><img src="svg/gestor.svg" /></i><span>{{opc-gestor}}</span></li>
+                    <li class="ripple"><i><img src="svg/book.svg" /></i><span>{{opc-Serveis24}}</span></li>
+                    <li class="ripple"><i><img src="svg/tel-sinientre.svg" /></i><span>{{opc-sinistre}}</span></li>
+                    <li class="ripple"><i><img src="svg/packet.svg" /></i><span>{{opc-actualitat}}</span></li>
+                    <li class="ripple"><i><img src="svg/formacio.svg" /></i><span>{{opc-formacio}}</span></li>
+                    <li class="ripple"><i><img src="svg/conf.svg" /></i><span>{{opc-Configuracio}}</span></li> 
+                 </ul>
                   
             </div>
     </section>
-    <div class="content">
-         
-    </div>
-            
-        
-            <script>app.activeCarrucel();</script>
+        <div class="content" id="content"></div>
+        <script>
+            setTimeout(function(){ app.loadHome();}, 1000);
+        </script>
+     
     </div>
       
 </div>

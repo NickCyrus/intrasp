@@ -1,8 +1,17 @@
 
-*{
-    outline: none !important;
+*{ outline: none !important; }
+
+:focus,
+:focus-within,
+:active,
+:hover,
+:visited {
+    outline: 0 !important;
 }
 
+::-moz-selection { backgroun: transparent }
+::selection { background: transparent; }
+    
 body, html{
     overflow: hidden;
     width: 100%;
@@ -40,9 +49,9 @@ body{
     z-index: 99999999;
 }
 
-/*linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), */
+ 
 .bg-login{
-  background: url("../images/login-background.png") no-repeat center 10px fixed;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../images/login-background.png") no-repeat center 10px fixed;
   -webkit-background-size: cover;
   background-size: cover;
  
@@ -191,7 +200,7 @@ input.ico-pass{
 
 /****************************** HEADERS **************************/
 
-header nav{
+header nav, .algo{
     position: absolute;
     top:0px;
     left: 0px;
@@ -216,12 +225,14 @@ header nav .btn , footer nav .btn{
     width: 50px;
     height: 50px;
     text-align: center;
-    cursor: pointer;
+     
 }
 
 header nav .btn img , footer nav .btn img{
     margin:auto;
 }
+
+.sidebar{ margin-top: 50px; } 
 
 ul , li {
     padding: 0px;
@@ -301,8 +312,11 @@ header nav .title img{
     font-size: 12px;
 }
 
+.sidebar-right{
+    padding: 20px 0px 0px  30px;
+}
+
 .sidebar{
-    background: rgba(0,0,0,0.5);
     display: block;
     height: 100%;
     position: absolute;
@@ -317,7 +331,7 @@ header nav .title img{
     overflow: auto;
     position: absolute;
     right: 0;
-    width: 80%;
+    width: 70%;
 }
 
 .sidebar .sibar-content .close{
@@ -344,16 +358,12 @@ header nav .title img{
                                   supported by Chrome and Opera */
 }
 
-.avatar{
-    text-align: center;
-    display: block;
-    
-}
+.avatar{ display: block; }
 
 .avatar img{
     border-radius: 50%;
-    margin: 60px 0 10px 0;
-    width: 130px;
+    width: 60px;
+    height: 60px;
 }
 
 #detailsAvatar img{
@@ -410,9 +420,13 @@ header nav .title img{
 .icon-rg{ background: url('../images/home-regularitzacions.png') no-repeat center center ; background-size: 60%; }
 
 .nice-name{
-    text-align: center;
-    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
     color:#FFF;
+    display: block;
+    margin: 10px 0px;
 }
 
 .bottom-area{
@@ -470,7 +484,7 @@ ul.box{
 }
 
 a{
-    cursor: pointer;
+    cursor: none;
 }
 
 /********************* TEAM */
@@ -546,4 +560,90 @@ a{
 .remember-email{
     border-bottom: 1px solid #E18560;
     margin-top: 15px; 
+}
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform .5s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: .3;
+  transition: 0s;
+}
+
+.list-entidad{
+    padding-left: 30px;
+    display:none;
+}
+
+.list-entidad li {
+    padding: 10px 0px 10px 20px;
+    margin-bottom: 5px;
+    border-left: 4px solid #FFF;
+    color: #FFF;
+    font-weight: 600;
+}
+
+.list-entidad li.firts{
+    display: none;
+}
+
+
+#entidad-select{
+    color: #FFF;
+    font-size: 18px;
+    padding: 0px 0px 10px 0px;
+    font-weight: bold;
+}
+ 
+#entidad-select i{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url(../svg/arrow-down.svg) center center no-repeat;
+    margin-right: 16px; 
+}
+
+#entidad-select span{}
+
+.options-menu{
+    margin-left: -6px;
+}
+
+.options-menu li {}
+.options-menu li i{
+    display: block;
+    width: 22px;
+    height: 19px;
+    float: left;
+    margin-top: 17px;
+    text-align: center;
+    margin-right: 12px;
+}
+.options-menu li span{
+    display: block;
+    margin-left: 29px;
+    padding: 17px 0px;
+    color: #FFF;
+    border-top: 1px solid #FFF;
 }
