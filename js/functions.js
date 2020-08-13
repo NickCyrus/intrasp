@@ -599,6 +599,7 @@ app = {
         },
 
         is_movil : function(){
+            return true;
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
