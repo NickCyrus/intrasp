@@ -76,6 +76,7 @@ app = {
                 this.loadPagesCount +=1;
                 if (pages.pages.length == this.loadPagesCount){
                     console.log('load all pages')
+                    this.traslate();
                     this.setSizeMobil();
                     this.hastControl();
                     this.oauth();
@@ -93,7 +94,7 @@ app = {
                             url: item.path,
                             dataType: 'html',
                             success: function(data) {
-                                $('body').append(self.traslate(data));
+                                $('body').append(data);
                             },
                             complete : function(){
                                  self.checkNextStep();
@@ -118,6 +119,17 @@ app = {
 
         traslate : function(html){
             var self = this    
+            // placeholder
+            $('[translate-placeholder]').each(function(){ $(this).attr("placeholder", self.language[ $(this).attr('translate-placeholder') ]) }) 
+            // Text
+            $('[translate-text]').each(function(){ $(this).text(self.language[ $(this).attr('translate-text') ]) })
+            // Value
+            $('[translate-value]').each(function(){ $(this).text(self.language[ $(this).attr('translate-value') ]) }) 
+            // Html
+            $('[translate-html]').each(function(){ $(this).html(self.language[ $(this).attr('translate-html') ]) }) 
+            
+
+           /*
             let path = String(html);
             const paramsPattern = /[^{{\}}]+(?=}})/g;
             let extractParams = path.match(paramsPattern);
@@ -126,7 +138,7 @@ app = {
             })
            
             return path;
- 
+            */
         },    
 
         replaceAll : function (string, search, replace) {
@@ -172,7 +184,9 @@ app = {
         logout : function(){
             fn.confirm({msg :'Realmente desea salir', title : 'Salir', buttonName : ["SI","NO"] , Callback : 'app.closeSession()'}) 
         },
-
+        logoutAll : function(){
+            window.localStorage.clear();
+        },
         closeSession : function(){
             window.localStorage['username'] = '';
             window.localStorage['username'] = '';
@@ -298,7 +312,7 @@ app = {
                             i++;
                          })
                 }else{
-                         if (!data.entidades[0].gc_alias) data.entidades[0].gc_alias =  data.entidades[0].gc_name;
+                        if (!data.entidades[0].gc_alias) data.entidades[0].gc_alias =  data.entidades[0].gc_name;
                         $('.list-entidad').append('<li class="active" data-entidad="'+data.entidades[0].ID+'">'+data.entidades[0].gc_alias+'</li>');
                         self.setEntidad(data.entidades[0].ID, data.entidades[0].gc_alias , data.entidades[0].rolcon);
                 }
@@ -710,7 +724,7 @@ app = {
         },
 
         is_movil : function(){
-            return true;
+           // return true;
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;

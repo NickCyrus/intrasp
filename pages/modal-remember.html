@@ -14,18 +14,18 @@
         </nav>
     </header>
     <div class="modal-info">
-            <a class="closex closex-left-top" onclick="app.setColorStatusBar('#FFF');app.closePage('modal-mremember','hide')"> </a>
+            <a class="closex closex-left-top ripple" onclick="app.setColorStatusBar('#FFF');app.closePage('modal-mremember','hide')"> </a>
             <div class="modal-logo">
                     <img src="svg/logo.svg" />
             </div>
             <div class="modal-content" style="padding-top:190px;">
               
                 <img src="svg/email-line.svg" style="display: block; margin-top: 20px;margin-bottom: 20px;"  />
-                {{textrecoverypass}}
+                <span translate-html="textrecoverypass">{{textrecoverypass}}</span>
 
                 <form class="" id="rememberPass" autocomplete="off" action="" onsubmit="return false;" align="center">
-                    <input type="email" name="email_remember" id="email_remember" autofocus placeholder="{{email}}" required class="login-input remember-email">   
-                    <button type="submit" id="btn-login-remember" class="btnlogin">{{enviar}}</button>
+                    <input type="email" name="email_remember" id="email_remember" autofocus  translate-placeholder="email" placeholder="{{email}}" required class="login-input remember-email">   
+                    <button type="submit" id="btn-login-remember" class="btnlogin" translate-text="enviar" >{{enviar}}</button>
                 </form>
 
             </form>
