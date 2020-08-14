@@ -28,8 +28,8 @@
         </application>
     </gap:config-file>
 
-    <preference name="Fullscreen" value="false" />
- 
+    <preference name="Fullscreen" value="true" />
+    
     <!-- Define app icon for each platform. -->
     <platform name="android">
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -155,8 +155,6 @@
     <preference name="HideKeyboardFormAccessoryBar" value="true"/>
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
-    <preference name="BackgroundColor" value="#999999" />
-      
     <preference name="StatusBarBackgroundColor" value="#FFF" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
