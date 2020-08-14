@@ -5,9 +5,9 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.socialpartnetorg.roc"
-        version   = "1.1.20">
+        version   = "1.1.21">
 
-    <name>Intranet 1.8.7</name>
+    <name>Intranet SocialPartners</name>
  
     <description>
         SocialPartners.org - Intranet de Clientes 
