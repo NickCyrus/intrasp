@@ -292,12 +292,17 @@ header nav .title img{
     margin-top: -8px;
 }
 
+.content-padding{
+    padding: 37px;
+}
+
 .content{
     padding-top: 50px;
     padding-bottom: 50px;
-    height: 100%;
+    height: 92%;
     display: block;
     overflow: auto;
+    background: #FFF;
 }
 
 .numberCount{
@@ -582,7 +587,7 @@ a{
   background-position: 50%;
   transform: scale(10, 10);
   opacity: 0;
-  transition: transform .5s, opacity 1s;
+  transition: transform .3s, opacity .3s;
 }
 
 .ripple:active:after {
@@ -592,14 +597,13 @@ a{
 }
 
 .list-entidad{
-    padding-left: 30px;
+    padding-left: 28px;
     display:none;
 }
 
 .list-entidad li {
-    padding: 10px 0px 10px 20px;
+    padding: 10px 0px 10px 0px;
     margin-bottom: 5px;
-    border-left: 4px solid #FFF;
     color: #FFF;
     font-weight: 600;
 }
@@ -612,8 +616,9 @@ a{
 #entidad-select{
     color: #FFF;
     font-size: 18px;
-    padding: 0px 0px 10px 0px;
+    padding: 0px 0px 10px 28px;
     font-weight: bold;
+    display: block;
 }
  
 #entidad-select i{
@@ -621,13 +626,18 @@ a{
     width: 12px;
     height: 12px;
     background: url(../svg/arrow-down.svg) center center no-repeat;
-    margin-right: 16px; 
+    margin-right: 16px;
+    position: relative;
+    margin-left: -30px; 
 }
 
 #entidad-select span{}
 
 .options-menu{
     margin-left: -6px;
+    overflow: auto;
+    height: 58%;
+   
 }
 
 .options-menu li {}
@@ -646,4 +656,97 @@ a{
     padding: 17px 0px;
     color: #FFF;
     border-top: 1px solid #FFF;
+}
+
+#lopd-title{
+    padding-top: 30px;
+    font-size: 24px;
+    display: block;
+    margin-bottom: 30px;
+}
+
+#lopd-body{
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    overflow: auto;  
+    
+}
+
+.logo-cia{
+    display: block;
+    margin: 17px 0px;
+    text-align: center;
+}
+.logo-cia img{
+    margin: auto auto;
+    max-width: 172px;
+    max-height: 88px;
+    color: #FFF;
+     
+}
+
+.preloadimg{
+    margin-bottom: 20px;
+   /*
+    background: url(../images/loading.svg) center center no-repeat;
+    background-size: 30px;
+    min-height: 60px;
+   */
+}
+
+header{
+    position: relative;
+}
+
+.productos{
+  padding: 0px 40px;
+}
+
+.productos .boxProduc{
+    padding: 10px 40px;
+    margin-bottom: 10px;
+    color: #FFF;
+    font-size: 15px;
+    line-height: 28px;
+    border-radius: 10px;
+    position: relative;
+}
+.productos .boxProduc:after{
+    content: ' ';
+    background: url(../svg/arrow-right.svg) center center no-repeat;
+    width: 12px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 29%;
+    right: 13px;
+}
+
+
+.productos .boxProduc:before{
+    content: ' ';
+    width: 22px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 14px;
+    left: 10px;
+}
+
+.productos .boxProduc.lotiene:before{
+    background: url(../svg/circle-check.svg) center center no-repeat;
+}
+
+.productos .boxProduc.nolotiene:before{
+    background: url(../svg/circle-orange.svg) center center no-repeat;
+}
+
+
+
+.productos .boxProduc.lotiene{
+    background: #E18560;
+}
+.productos .boxProduc.nolotiene{
+    background: #777778;
 }

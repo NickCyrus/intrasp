@@ -1,10 +1,11 @@
-<div class="page active" data-page="login">
+<!-- PAGE LOGIN !-->
+<div class="page" data-page="login">
     <div class="logo">
             <img src="svg/logo.svg" /> 
     </div>
     <div class="loginData">
         <form class="" id="loginAccess" autocomplete="off" action="" onsubmit="return false;" align="center">
-                <input type="email" name="email_token" id="email_token" placeholder="{{email}}" required class="login-input">   
+                <input type="email" autofocus name="email_token" id="email_token" placeholder="{{email}}" required class="login-input">   
                 <input type="password" name="pass_token" id="pass_token" placeholder="{{password}}" required class="login-input"> 
                 <div class="remember" onclick="app.animatePage('modal-mremember','in-bottom',50);">{{rememberpass}}</div> 
                 <button type="submit" id="btn-login" class="btnlogin ripple">{{btnEntrar}}</button>
@@ -12,3 +13,4 @@
         </form>
     </div>        
 </div>
+<!-- END PAGE LOGIN !-->

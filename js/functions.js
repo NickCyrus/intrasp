@@ -1,11 +1,15 @@
+/* 
+    Developer By Nick Cyrus Lemus Duque 
+    Small FrameWork Movile HTML5 + jQuery + CSS3
+*/ 
 var LoginData = {}
 var bigData = {}
 
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
-      StatusBar.backgroundColorByHexString('#999999');  
-      navigator.splashscreen.hide();
+    StatusBar.backgroundColorByHexString('#999999');  
+    navigator.splashscreen.hide();
 }
 
 
@@ -31,24 +35,16 @@ jQuery(function($){
     $(document).on('submit','#rememberPass', {} , function(e){        
            
         var email = $('#email_remember').val();
-       
         if (!email){ $('#email_remember').focus(); return false; }
-       
         if (email){
             app.rememberPass(email);
         }
-
         e.preventDefault();
   })
-
-    
-
-
 })
 
  $(document).ready(function(){
         app.main(); 
-   
  })
 
  
@@ -64,6 +60,7 @@ app = {
         navApp : [],
         zIndex : 1000,
         LoginData : '',
+        showLopd : false,
         currentLang : (window.localStorage["ISO_LANG"]) ?  window.localStorage["ISO_LANG"] : 'ca',
         language : '',
         currentEntidad : (window.localStorage["EntidadID"]) ? { id: window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"], rolcon : window.localStorage["rolCon"]}  : { id: '', name : '' , rolcon : ''},
@@ -73,7 +70,7 @@ app = {
             this.loadPages();
             this.setSizeMobil();
             this.hastControl();
-            this.oauth(); 
+            this.oauth();
         },
 
         loadPages : function(){
@@ -81,16 +78,30 @@ app = {
                 if (pages){
                     $(pages.pages).each(function(index, item){
                         $("#pageInsert").html('<div id="page-'+item.name+'" />')
-                        $("#pageInsert").load(item.path , function() {
-                            // Obtenemos el contenido
-                            var html = $("#pageInsert").html();
-                            $("#pageInsert").html('');
-                            $('body').append(self.traslate(html));
+
+                         
+                        $.ajax({
+                            url: item.path,
+                            dataType: 'html',
+                            success: function(data) {
+                                $('body').append(self.traslate(data));
+                            }
                         });
-                       // 
+
+                       /*
+                            $("#pageInsert").load(item.path , function() {
+                                // Obtenemos el contenido
+                                var html = $("#pageInsert").html();
+                                $("#pageInsert").html('');
+                                $('body').append(self.traslate(html));
+                            });
+                       */
                     })
+                
+                   
+
                 }
-               
+         
         },
 
         traslate : function(html){
@@ -147,7 +158,13 @@ app = {
         },
         
         logout : function(){
-            window.localStorage.clear();
+
+            if (confirm('Realmente desea salir')){
+                window.localStorage['username'] = '';
+                window.localStorage['username'] = '';
+                this.animatePage('profile','out-right');
+                window.location.reload();
+            }
         },
 
         login  : function( email , pass, token){
@@ -167,24 +184,43 @@ app = {
                                 if (rs.inflogin){
                                     self.LoginData = rs.inflogin;
                                     $('#email_token , #pass_token').val('');
-                                    window.localStorage["username"] = self.LoginData.user.email;
-                                    window.localStorage["password"] = self.LoginData.user.pass;
-                                    window.localStorage["ISO_LANG"] = self.LoginData.user.ISO_LANG;
+                                    window.localStorage["username"]   = self.LoginData.user.email;
+                                    window.localStorage["password"]   = self.LoginData.user.pass;
+                                    window.localStorage["ISO_LANG"]   = self.LoginData.user.ISO_LANG;
+                                    // Definimos la versión de LOPD
+                                    if (!window.localStorage["lopdverion"+self.LoginData.user.id]) {
+                                        self.showLopd = true;    
+                                    }
+                                    // Si la version de LOPD es diferente
+                                    if (!self.showLopd && window.localStorage["lopdverion"+self.LoginData.user.id] != self.LoginData.user.lopdverion){
+                                        self.showLopd = true;
+                                    }
+                                    
                                     self.setDataUser(self.LoginData);
                                     if (self.LoginData.user.ISO_LANG != self.currentLang){
                                             window.location.reload();
-                                    }  
-                                    app.animatePage('home','in-right');
+                                    } 
+                                    
+                                    $('[data-page="modal-lopd"] #lopd-title').html(self.LoginData.lopd.title);
+                                    $('[data-page="modal-lopd"] #lopd-body').html(self.LoginData.lopd.body);
+
+                                    if (self.showLopd){
+                                        app.animatePage('home','in-right', { preload : true, showEnd : true });
+                                        app.animatePage('modal-lopd','in-bottom');
+                                    }else{
+                                        app.animatePage('home','in-right');
+                                    }
                                 }
-                                
-                               //  console.log(LoginData);
                          },
                          errorCallback : function(){
                              app.dialogClose();
                          }
                       })
         },
-        
+        setViewLopd : function(){
+            window.localStorage["lopdverion"+this.LoginData.user.id] = this.LoginData.user.lopdverion;
+            this.animatePage('home','show');
+        },
         setEntidad  : function(id , gc_name, rolcon){
             window.localStorage["EntidadID"]   = id;
             window.localStorage["EntidadName"] = gc_name
@@ -193,20 +229,36 @@ app = {
             $('#entidad-select span').html(gc_name);
              
         },
+
         loadHome    : function(event = 'home' ){
+            if (!this.isLogin()) return;
             var self = this;
             this.dialogClose();
             this.ajax({
                         beforeSend : function(){
                             self.dialogWait(self.language['pleacewait']);     
                         },
-                       datos : {opc : event , entidad : self.currentEntidad , lang : self.currentLang , currentUser : self.LoginData.user.id },
+                       datos : {opc : event , entidad : self.currentEntidad , lang : self.currentLang , currentUser : self.LoginData.user.id }, 
                        success : function(rs){
                             self.dialogClose();
-                            $('[data-page="home"] #content').html(rs.html);
+                            if (rs.info.entidad.logo){
+                                $('[data-page="home"] #content .logo-cia').html( fn.createImg( {src : rs.info.entidad.logo }));
+                            }else{
+                                $('[data-page="home"] #content .logo-cia').html( fn.createH1( {text : rs.info.entidad.gc_alias })); 
+                            }
+                            if (rs.info.productos){
+                                $('[data-page="home"] #content .productos').html('');
+                                $(rs.info.productos).each(function(index , item){
+                                    $('[data-page="home"] #content .productos').append(fn.createBoxProduct(item));
+                                })
+                                
+                            }
                        }   
             })
             
+        },
+        page : function(opc = {}){
+            this.loadEntidad({ id : window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"] , rolcon :  window.localStorage["rolCon"] })
         },
         loadEntidad : function(ent){
               this.setEntidad(ent.id , ent.name , ent.rolcon);  
@@ -223,25 +275,37 @@ app = {
                 if (data.entidades.length > 1){
                         i = 0;
                         $(data.entidades).each(function(index , item ){
+                                if (!item.gc_alias) item.gc_alias =  item.gc_name;
                                 if ((i == 0 && !self.currentEntidad.id) || self.currentEntidad.id == item.ID){ 
-                                    $('.list-entidad').append('<li class="firts" data-entidad="'+item.ID+'" onclick="app.loadEntidad({ id : '+item.ID+' , name : \''+item.gc_name+'\' , rolcon : '+item.rolcon+' })">'+item.gc_name+'</li>');
-                                    self.setEntidad(item.ID, item.gc_name , item.rolcon);
+                                    $('.list-entidad').append('<li class="firts" data-entidad="'+item.ID+'" onclick="app.loadEntidad({ id : '+item.ID+' , name : \''+item.gc_alias+'\' , rolcon : '+item.rolcon+' })">'+item.gc_alias+'</li>');
+                                    self.setEntidad(item.ID, item.gc_alias , item.rolcon);
                                 }else{
-                                    $('.list-entidad').append('<li data-entidad="'+item.ID+'" onclick="app.loadEntidad({ id : '+item.ID+' , name : \''+item.gc_name+'\' , rolcon : '+item.rolcon+' })">'+item.gc_name+'</li>')
+                                    $('.list-entidad').append('<li data-entidad="'+item.ID+'" onclick="app.loadEntidad({ id : '+item.ID+' , name : \''+item.gc_alias+'\' , rolcon : '+item.rolcon+' })">'+item.gc_alias+'</li>')
                                 }
                             i++;
                          })
                 }else{
-                        $('.list-entidad').append('<li class="active" data-entidad="'+data.entidades[0].ID+'">'+data.entidades[0].gc_name+'</li>');
-                        self.setEntidad(item.ID, item.gc_name , item.rolcon);
+                         if (!data.entidades[0].gc_alias) data.entidades[0].gc_alias =  data.entidades[0].gc_name;
+                        $('.list-entidad').append('<li class="active" data-entidad="'+data.entidades[0].ID+'">'+data.entidades[0].gc_alias+'</li>');
+                        self.setEntidad(item.ID, item.gc_alias , item.rolcon);
                 }
         },
 
+        isLogin : function(){
+               return (window.localStorage["username"] && window.localStorage["password"]) ? true : false;
+        },
         oauth : function(){
                 var oauth = window.localStorage["username"];
                 if (oauth){
                         LoginData = oauth;
                         this.login(window.localStorage["username"] , window.localStorage["password"], true);
+                }else{
+                    var pageActive = this.getCurrentPage('.active');
+                        setTimeout(function(){ $('[data-page="login"]').fadeIn().addClass('active');
+                        pageActive.removeClass('active');
+                    }, 500);
+                    // 
+                   
                 }
         },
     
@@ -280,13 +344,11 @@ app = {
         },
         setSizeMobil : function(){
                 
-               
-                
-
                this.hDivice = $(window).height() ;   
                this.wDivice = $(window).width() ;
                this.baseULR = window.location.href;
-            
+
+
                 var addCss = '<style type="text/css">'+
                              '.page { overflow: hidden; '+
                                 'height :'+$(window).height()+'px'+
@@ -346,6 +408,10 @@ app = {
             return this.zIndex
         },
 
+        getCurrentPage : function(search='.currentPageActive'){
+            return $('.page'+search);     
+        },
+
         closePage  :  function (pageName , ANIMATION , velocity = 500 ){
                 
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
@@ -388,7 +454,7 @@ app = {
             
         },
 
-        animatePage : function (pageName , ANIMATION , velocity = 500 ){
+        animatePage : function (pageName , ANIMATION , opc = {} ,  velocity = 500 , ){
                 
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
                 
@@ -404,7 +470,11 @@ app = {
                  
                 if(!page.length)  return false;
 
-                page.css({'display':'block'});
+                if (!opc.preload)
+                   page.css({'display':'block'});
+                else
+                   page.css({'display':'none'});
+
                 page.addClass('animated-page');
                  
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
@@ -586,7 +656,7 @@ app = {
                                 if (rs.htmlContent){
                                     $(pageSelect).find(rs.obj).html(rs.htmlContent);
                                 }
-                                app.dialogClose();   
+                                // app.dialogClose();   
                                 app.animatePage(page,'show');
                             }
                 })
@@ -599,7 +669,7 @@ app = {
         },
 
         is_movil : function(){
-            return true;
+            // return true;
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;

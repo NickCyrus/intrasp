@@ -1,6 +1,6 @@
 <!-- PAGE HOME !-->
 <div class="page" data-page="home" data-start="right" data-StatusBar="#E18560">
-    <header>
+    <header style="z-index: 999999999999999999999;">
         <nav>
             <a class="btn right ripple noselect" >
                 <img src="svg/burguer.svg" onclick="app.ToggleAnimatePage('profile','in-right','out-right');" />
@@ -26,20 +26,29 @@
                  <ul class="list-entidad">
                  </ul>
                  <ul class="options-menu">
-                    <li class="ripple"><i><img src="svg/packet.svg" /></i><span>{{opc-intranet}}</span></li>
+                    <li class="ripple" onclick="app.page('intranet')"><i><img src="svg/packet.svg" /></i><span>{{opc-intranet}}</span></li>
                     <li class="ripple"><i><img src="svg/gestor.svg" /></i><span>{{opc-gestor}}</span></li>
                     <li class="ripple"><i><img src="svg/book.svg" /></i><span>{{opc-Serveis24}}</span></li>
                     <li class="ripple"><i><img src="svg/tel-sinientre.svg" /></i><span>{{opc-sinistre}}</span></li>
                     <li class="ripple"><i><img src="svg/packet.svg" /></i><span>{{opc-actualitat}}</span></li>
                     <li class="ripple"><i><img src="svg/formacio.svg" /></i><span>{{opc-formacio}}</span></li>
-                    <li class="ripple"><i><img src="svg/conf.svg" /></i><span>{{opc-Configuracio}}</span></li> 
+                    <li class="ripple" onclick="app.logout()"><i><img src="svg/conf.svg" /></i><span>{{opc-Configuracio}}</span></li> 
                  </ul>
                   
             </div>
     </section>
-        <div class="content" id="content"></div>
+        <div class="content" id="content">
+                    <div class="logo-cia">
+
+                    </div>
+                    <div class="productos">
+
+                    </div>
+
+        </div>
         <script>
-            setTimeout(function(){ app.loadHome();}, 1000);
+             
+            setTimeout(function(){ app.loadHome();}, 2000);
         </script>
      
     </div>
