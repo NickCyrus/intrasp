@@ -38,7 +38,7 @@ fn = {
         confirm : function(opc = { msg : '', title : '', buttonName:'', Callback: '' } ){
             var msg = (opc.msg) ? opc.msg : opc;
             if (navigator.notification){
-                navigator.notification.confirm(opc.msg, eval(opc.Callback), opc.title, opc.buttonName);
+                navigator.notification.confirm(opc.msg, function(){ eval(opc.Callback) }, opc.title, opc.buttonName);
             }else{
                 if (confirm(opc.msg)){
                     if (opc.Callback) eval(opc.Callback);
