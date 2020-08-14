@@ -232,7 +232,7 @@ app = {
                                     $('[data-page="modal-lopd"] #lopd-body').html(self.LoginData.lopd.body);
 
                                     if (self.showLopd){
-                                        app.animatePage('home','in-right', { preload : true, showEnd : true });
+                                        app.animatePage('home','in-right', { preload : true, showEnd : true , endAnimation :  'app.loadHome()'});
                                         app.animatePage('modal-lopd','in-bottom');
                                     }else{
                                         app.animatePage('home','in-right',  { endAnimation :  'app.loadHome()'});
@@ -724,7 +724,7 @@ app = {
         },
 
         is_movil : function(){
-           // return true;
+            return true;
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
