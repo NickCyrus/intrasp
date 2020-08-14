@@ -337,6 +337,7 @@ header nav .title img{
     position: absolute;
     right: 0;
     width: 70%;
+    padding-bottom: 40px;
 }
 
 .sidebar .sibar-content .close{
@@ -533,10 +534,11 @@ a{
 }
 
 .closex{
-   width: 14px;
-   height: 14px;
-   background: url('../svg/close_x.svg') no-repeat;
-   display: block; 
+    width: 30px;
+    height: 30px;
+    background: url(../svg/close_x.svg) no-repeat center;
+    display: block;
+    border-radius: 50px;
 }
 
 .closex-left-top{
@@ -699,9 +701,7 @@ header{
     position: relative;
 }
 
-.productos{
-  padding: 0px 40px;
-}
+.productos{ padding: 0px 10px; }
 
 .productos .boxProduc{
     padding: 10px 40px;

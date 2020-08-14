@@ -61,6 +61,7 @@ app = {
         zIndex : 1000,
         LoginData : '',
         showLopd : false,
+        loadPagesCount : 0,
         currentLang : (window.localStorage["ISO_LANG"]) ?  window.localStorage["ISO_LANG"] : 'ca',
         language : '',
         currentEntidad : (window.localStorage["EntidadID"]) ? { id: window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"], rolcon : window.localStorage["rolCon"]}  : { id: '', name : '' , rolcon : ''},
@@ -68,9 +69,17 @@ app = {
         main : function(){
             this.setLang();
             this.loadPages();
-            this.setSizeMobil();
-            this.hastControl();
-            this.oauth();
+           
+        },
+
+        checkNextStep : function(){
+                this.loadPagesCount +=1;
+                if (pages.pages.length == this.loadPagesCount){
+                    console.log('load all pages')
+                    this.setSizeMobil();
+                    this.hastControl();
+                    this.oauth();
+                }
         },
 
         loadPages : function(){
@@ -85,6 +94,9 @@ app = {
                             dataType: 'html',
                             success: function(data) {
                                 $('body').append(self.traslate(data));
+                            },
+                            complete : function(){
+                                 self.checkNextStep();
                             }
                         });
 
@@ -158,13 +170,14 @@ app = {
         },
         
         logout : function(){
+            fn.confirm({msg :'Realmente desea salir', title : 'Salir', buttonName : ["SI","NO"] , Callback : 'app.closeSession()'}) 
+        },
 
-            if (confirm('Realmente desea salir')){
-                window.localStorage['username'] = '';
-                window.localStorage['username'] = '';
-                this.animatePage('profile','out-right');
-                window.location.reload();
-            }
+        closeSession : function(){
+            window.localStorage['username'] = '';
+            window.localStorage['username'] = '';
+            this.animatePage('profile','out-right');
+            window.location.reload();
         },
 
         login  : function( email , pass, token){
@@ -208,7 +221,7 @@ app = {
                                         app.animatePage('home','in-right', { preload : true, showEnd : true });
                                         app.animatePage('modal-lopd','in-bottom');
                                     }else{
-                                        app.animatePage('home','in-right');
+                                        app.animatePage('home','in-right',  { endAnimation :  'app.loadHome()'});
                                     }
                                 }
                          },
@@ -221,13 +234,13 @@ app = {
             window.localStorage["lopdverion"+this.LoginData.user.id] = this.LoginData.user.lopdverion;
             this.animatePage('home','show');
         },
+
         setEntidad  : function(id , gc_name, rolcon){
             window.localStorage["EntidadID"]   = id;
             window.localStorage["EntidadName"] = gc_name
             window.localStorage["rolCon"]      = rolcon  
             this.currentEntidad                =  { id: window.localStorage["EntidadID"], name : window.localStorage["EntidadName"], rolcon : window.localStorage["rolCon"] } 
             $('#entidad-select span').html(gc_name);
-             
         },
 
         loadHome    : function(event = 'home' ){
@@ -287,7 +300,7 @@ app = {
                 }else{
                          if (!data.entidades[0].gc_alias) data.entidades[0].gc_alias =  data.entidades[0].gc_name;
                         $('.list-entidad').append('<li class="active" data-entidad="'+data.entidades[0].ID+'">'+data.entidades[0].gc_alias+'</li>');
-                        self.setEntidad(item.ID, item.gc_alias , item.rolcon);
+                        self.setEntidad(data.entidades[0].ID, data.entidades[0].gc_alias , data.entidades[0].rolcon);
                 }
         },
 
@@ -352,6 +365,9 @@ app = {
                 var addCss = '<style type="text/css">'+
                              '.page { overflow: hidden; '+
                                 'height :'+$(window).height()+'px'+
+                             '}'+
+                             '.sibar-content {'+
+                                'height :'+( $(window).height() - ($('header nav').height() + 40 )  )+'px !important'+
                              '}'+
                              '.content {'+
                                 'height :'+( $(window).height() - ($('header nav').height() + $('footer nav').height() )  )+'px'+
@@ -494,10 +510,9 @@ app = {
                                       'left':(this.wDivice)+'px', 
                                       'position':'absolute'},velocity,function(){
                                     page.attr('style', '').removeClass('animated-page');
-                           
-                            
+                                    if (opc.endAnimation) eval(opc.endAnimation);
                         });
-                        this.lastEvent = 'out';
+                        this.lastEvent = 'out'; 
                         this.unsetNavigator(pageName);
                         $('*').removeClass('currentPageActive');
                     break;
@@ -508,7 +523,8 @@ app = {
                                       
                                       page.attr('style', '').removeClass('animated-page');
                                       page.attr('style', '');              
-                                      page.css({'left':'-'+(wDivice)+'px' });      
+                                      page.css({'left':'-'+(wDivice)+'px' });  
+                                      if (opc.endAnimation) eval(opc.endAnimation);    
                         });
                         
                         this.lastEvent = 'out';
@@ -525,7 +541,11 @@ app = {
                         page.animate({'z-index': this.getzIndex(),
                                       top:'0px', 
                                       left : 0,
-                                      'position':'absolute'},velocity);
+                                      'position':'absolute'},velocity,function(){
+
+                                        if (opc.endAnimation) eval(opc.endAnimation);
+
+                                      });
                         
                         this.setNavigator(pageName);
                         this.lastEvent = 'in';
@@ -537,18 +557,27 @@ app = {
                     case 'in-right':
                         page.stop().css({'right':'-'+(this.wDivice)+'px'});
                         page.animate({'z-index': this.getzIndex(),right:'0px', 
-                                      'position':'absolute'},velocity);
+                                      'position':'absolute'},velocity ,function(){
+
+                                        if (opc.endAnimation) eval(opc.endAnimation);
+
+                                      });
                         
                         this.setNavigator(pageName);
                         this.lastEvent = 'in';
                         window.location.href = "#"+pageName;
+
                     break;
                         
                     case 'in-left':
                         
                         page.stop().css({'left':'-'+(this.wDivice)+'px'});
                         page.animate({'z-index': this.getzIndex(),'top':0,'left':'0px', 
-                                       'position':'absolute'},velocity); 
+                                       'position':'absolute'},velocity,function(){
+
+                                        if (opc.endAnimation) eval(opc.endAnimation);
+
+                                      }); 
                          
                         this.setNavigator(pageName);
                         this.lastEvent = 'in';
@@ -559,7 +588,11 @@ app = {
                         
                         page.stop().css({top: this.hDivice+'px'});
                         page.animate({'z-index': this.getzIndex(),'top':0,'left':'0px', 
-                                       'position':'absolute'},velocity); 
+                                       'position':'absolute'},velocity,function(){
+
+                                        if (opc.endAnimation) eval(opc.endAnimation);
+
+                                      }); 
                          
                         this.setNavigator(pageName);
                         this.lastEvent = 'in';
@@ -567,13 +600,21 @@ app = {
                     break; 
                     case 'in-bottom':
                          page.stop().css({top: this.hDivice+'px' , left : 0 });
-                         page.animate({top:0,left:0 },velocity);   
+                         page.animate({top:0,left:0 },velocity,function(){
+
+                            if (opc.endAnimation) eval(opc.endAnimation);
+
+                          });   
                     break;    
                         
                     default:
                          
                          page.stop().animate({'top':0,'left':'-'+(this.wDivice + 150)+'px', 
-                                       'position':'absolute'},velocity);   
+                                       'position':'absolute'},velocity,function(){
+
+                                        if (opc.endAnimation) eval(opc.endAnimation);
+
+                                      });   
                     break;
                         
                 } 
