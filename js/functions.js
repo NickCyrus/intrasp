@@ -494,22 +494,25 @@ app = {
                this.wDivice = $(window).width() ;
                this.baseULR = window.location.href;
                
-               $('html , body').css({ width : this.wDivice+'px',
+               /* $('html , body').css({ width : this.wDivice+'px',
                                       height : this.hDivice+'px'
                                     })
+                                    */
+                var header = ($('header nav')) ? $('header nav').height() : 0;
+                var footer =  0;
 
                 var addCss = '<style type="text/css">'+
                              '.page { overflow: hidden; '+
                                 'height :'+$(window).height()+'px'+
                              '}'+
                              '.sibar-content {'+
-                                'height :'+( $(window).height() - ($('header nav').height() + 40 )  )+'px !important'+
+                                'height :'+( $(window).height() - (header + 40 )  )+'px !important'+
                              '}'+
                              '.content {'+
-                                'height :'+( $(window).height() - ($('header nav').height() + $('footer nav').height() )  )+'px'+
+                                'height :'+( $(window).height() - (header + footer )  )+'px'+
                              '}'+
                              '.content-header {'+
-                                'height :'+( $(window).height() - $('header nav').height() )+'px'+
+                                'height :'+( $(window).height() - header)+'px'+
                              '}'+
                              '.content-full {'+
                                 'height :'+( $(window).height() )+'px'+
@@ -857,7 +860,7 @@ app = {
         },
 
         is_movil : function(){
-            return true;
+            return false;
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
