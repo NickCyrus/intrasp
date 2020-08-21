@@ -493,7 +493,10 @@ app = {
                this.hDivice = $(window).height() ;   
                this.wDivice = $(window).width() ;
                this.baseULR = window.location.href;
-
+               
+               $('html , body').css({ width : this.wDivice+'px',
+                                      height : this.hDivice+'px'
+                                    })
 
                 var addCss = '<style type="text/css">'+
                              '.page { overflow: hidden; '+
