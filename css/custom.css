@@ -30,6 +30,26 @@ body{
   font-family: 'Montserrat Regular';
 }
 
+[rol="main"]{
+    position: absolute;
+    top:0px;
+    display:none;
+}
+
+[rol="main"] #main-view{
+    background: #FFF;
+    display: block;
+    overflow-x: hidden;
+    padding-top:49px;
+    position: relative;
+}
+
+header{
+    position: relative;
+    z-index: 999999999999999999999999999999999999999999;
+}
+
+
 .page{
     display: none;
     width: 100%;
@@ -191,7 +211,6 @@ input.ico-pass{
 
 [data-start="right"]{
     position: absolute;
-    right: -360px;
     top: 0px; 
 }
 
@@ -276,7 +295,7 @@ footer nav .btn .ico-top { background: url('../images/bottom-nav-oportunitats.pn
 
 header nav .title {
     text-align: center;
-    height: 50px;
+    height: 38px;
     display: block;
     vertical-align: middle;
     color:#FFF;
@@ -309,7 +328,6 @@ header nav .title img{
 
 .content{
     padding-top: 50px;
-    padding-bottom: 50px;
     height: 92%;
     display: block;
     overflow: auto;
@@ -335,9 +353,10 @@ header nav .title img{
 .sidebar{
     display: block;
     height: 100%;
-    position: absolute;
+    position: fixed;
     width: 100%;
     z-index: 5000;
+    top:50px;
 }
 
 .sidebar .sibar-content{
@@ -699,16 +718,8 @@ a{
 
 .preloadimg{
     margin-bottom: 20px;
-   /*
-    background: url(../images/loading.svg) center center no-repeat;
-    background-size: 30px;
-    min-height: 60px;
-   */
 }
 
-header{
-    position: relative;
-}
 
 .productos{ padding: 0px 10px; }
 
@@ -984,6 +995,16 @@ Wave Effects
         margin-bottom: 10px;
   }
 
+  #act-title{ font-size: 25px;}
+  #act-contenido{ font-size: 16px;}
+  #act-categoria span , .categoria span {
+    padding: 2px 4px;
+    background: #e18560;
+    border-radius: 8px;
+    color: #FFF;
+    font-size: 10px;
+  }
+
   .grid > article .text .info{
     background: #FFF;
     width: 80%;
@@ -1014,8 +1035,7 @@ Wave Effects
     display: inline-block;
     width: 31px;
     height: 31px;
-    background: url(../svg/arrow-white-left.svg) center center no-repeat #E18560;
-    border-radius: 50%;
+    background: url(../svg/arrow-back.svg) center center ;
     position: absolute;
     top: 16px;
     left: 10px;

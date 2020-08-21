@@ -87,28 +87,24 @@ app = {
             var self = this
                 if (pages){
                     $(pages.pages).each(function(index, item){
-                        $("#pageInsert").html('<div id="page-'+item.name+'" />')
+                        // $("#pageInsert").html('<div id="page-'+item.name+'" />')
 
                          
                         $.ajax({
                             url: item.path,
                             dataType: 'html',
                             success: function(data) {
-                                $('body').append(data);
+                                if (item.target){
+                                    $('#'+item.target).append(data);     
+                                }else
+                                    $('body').append(data);
                             },
                             complete : function(){
                                  self.checkNextStep();
                             }
                         });
 
-                       /*
-                            $("#pageInsert").load(item.path , function() {
-                                // Obtenemos el contenido
-                                var html = $("#pageInsert").html();
-                                $("#pageInsert").html('');
-                                $('body').append(self.traslate(html));
-                            });
-                       */
+                       
                     })
                 
                    
@@ -236,10 +232,11 @@ app = {
                                     $('[data-page="modal-lopd"] #lopd-body').html(self.LoginData.lopd.body);
 
                                     if (self.showLopd){
-                                        app.animatePage('home','in-right', { preload : true, showEnd : true , endAnimation :  'app.loadHome()'});
+                                        app.animatePage('home','show', { preload : true, showEnd : true , endAnimation :  'app.loadHome()'});
                                         app.animatePage('modal-lopd','in-bottom');
                                     }else{
-                                        app.animatePage('home','in-right',  { endAnimation :  'app.loadHome()'});
+                                        app.startMain();
+                                        app.animatePage('home','show',  { endAnimation :  'app.loadHome()'});
                                     }
                                 }
                          },
@@ -248,8 +245,13 @@ app = {
                          }
                       })
         },
+        startMain : function(){
+            $('[data-page="main"]').show();  
+        },
         setViewLopd : function(){
             window.localStorage["lopdverion"+this.LoginData.user.id] = this.LoginData.user.lopdverion;
+            this.startMain();
+            $('[data-page="modal-lopd"]').remove();
             this.animatePage('home','show');
         },
 
@@ -371,7 +373,7 @@ app = {
                                 })
                             }
                             self.preloadImg();
-                            app.animatePage('listactualidad','in-right');
+                            app.animatePage('listactualidad','show');
                        }   
             })
             
@@ -494,19 +496,39 @@ app = {
                this.wDivice = $(window).width() ;
                this.baseULR = window.location.href;
                
+               // Definimos el tamaño de la pantalla
+               $('[rol="main"]').css({
+                      width  : this.wDivice,
+                      height : this.hDivice  
+               }) 
+               $('[rol="main"] #main-view , .sidebar').css({
+                    width  : this.wDivice,
+                    height : (this.hDivice - 49)
+               }) 
+                $('.sidebar').css({
+                    height : (this.hDivice - 50)
+                })
+                $('.sibar-content').css({
+                    height : ($('.sidebar').height() - 61)
+                })
+                
+                
+               $('[data-start="right"]').css({ left : this.wDivice })
+               
+
                /* $('html , body').css({ width : this.wDivice+'px',
                                       height : this.hDivice+'px'
                                     })
                                     */
                 var header = ($('header nav')) ? $('header nav').height() : 0;
-                var footer =  0;
+                var footer =  5;
 
                 var addCss = '<style type="text/css">'+
                              '.page { overflow: hidden; '+
                                 'height :'+($(window).height()-3)+'px'+
                              '}'+
                              '.sidebar  , .sibar-content {'+
-                                'height :'+( $(window).height() - (header + 63)  )+'px !important'+
+                                'height :'+( $(window).height() - (header + 61)  )+'px !important'+
                              '}'+
                              '.content {'+
                                 'height :'+( $(window).height() - (header + footer )  )+'px'+
@@ -530,7 +552,7 @@ app = {
             
             
             
-                $('body').append(addCss);
+               // $('body').append(addCss);
             
             
         },
@@ -635,12 +657,21 @@ app = {
                 page.addClass('animated-page');
                  
                 modePage = page.data('mode');
+                position = (page.data('position')) ? page.data('position') : 'absolute';
+                Scroll   = page.data('scroll');
 
+                
                 switch(modePage){
                     case 'content-header':
                         cssTop = 50;    
                     break;
                 }
+
+                if (Scroll){
+                       var cssTop =  $('#main-view').scrollTop();
+                       // $('#main-view').scrollTop(0);
+                }
+                 
 
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
@@ -653,14 +684,43 @@ app = {
                 page.addClass('currentPageActive')
                   
                 switch(ANIMATION){
-                    
+                     case 'show':
+                        page.animate({'z-index': this.getzIndex(),
+                                      top:cssTop, 
+                                      left : 0,
+                                     'position':position},velocity,
+                                     function(){
+                                        page.show()
+                                       if (opc.endAnimation) eval(opc.endAnimation);
+                        });
+                        
+                        this.setNavigator(pageName);
+                        
+                        this.lastEvent = 'show';
+                        window.location.href = "#"+pageName;
+                    break;
+                    case 'in-right':
+                        page.stop().css({'left':(this.wDivice)+'px', 'top':cssTop,'position':position});
+                        page.animate({'z-index': this.getzIndex(),left:'0px'},velocity ,function(){
+
+                                        if (opc.endAnimation) eval(opc.endAnimation);
+
+                                      });
+                        
+                        this.setNavigator(pageName);
+                        this.lastEvent = 'in';
+                        window.location.href = "#"+pageName;
+                    break;
                     case 'out-right':
                         page.stop().animate({'top':cssTop,
                                       'left':(this.wDivice)+'px', 
-                                      'position':'absolute'},velocity,function(){
-                                    page.attr('style', '').removeClass('animated-page');
-                                    if (opc.endAnimation) eval(opc.endAnimation);
-                        });
+                                      'position':position},
+                                      velocity,
+                                      function(){
+                                            page.removeClass('animated-page').hide();
+                                            if (opc.endAnimation) eval(opc.endAnimation);
+                                                }
+                                         );
                         this.lastEvent = 'out'; 
                         this.unsetNavigator(pageName);
                         $('*').removeClass('currentPageActive');
@@ -668,7 +728,7 @@ app = {
                     case 'out-left':
                         page.stop().animate({'top':cssTop,
                                       'left':'-'+(this.wDivice)+'px', 
-                                      'position':'absolute'},velocity,function(){
+                                      'position':position},velocity,function(){
                                       
                                       page.attr('style', '').removeClass('animated-page');
                                       page.attr('style', '');              
@@ -685,45 +745,13 @@ app = {
                         page.stop().css({top: this.hDivice+'px' , left : 0 });
                         page.css({'display':'block'});
                     }
-                    case 'show':
-                        
-                        page.animate({'z-index': this.getzIndex(),
-                                      top:cssTop, 
-                                      left : 0,
-                                      'position':'absolute'},velocity,function(){
-                                        page.show()
-                                        if (opc.endAnimation) eval(opc.endAnimation);
-
-                                      });
-                        
-                        this.setNavigator(pageName);
-                        
-                        this.lastEvent = 'in';
-                        window.location.href = "#"+pageName;
-                        
-                        
-                        
-                    break;
-                    case 'in-right':
-                        page.stop().css({'right':'-'+(this.wDivice)+'px', 'top':cssTop});
-                        page.animate({'z-index': this.getzIndex(),right:'0px', 
-                                      'position':'absolute'},velocity ,function(){
-
-                                        if (opc.endAnimation) eval(opc.endAnimation);
-
-                                      });
-                        
-                        this.setNavigator(pageName);
-                        this.lastEvent = 'in';
-                        window.location.href = "#"+pageName;
-
-                    break;
+                    
+                    
                         
                     case 'in-left':
                         
-                        page.stop().css({'left':'-'+(this.wDivice)+'px', 'top':cssTop});
-                        page.animate({'z-index': this.getzIndex(),'top':cssTop,'left':'0px', 
-                                       'position':'absolute'},velocity,function(){
+                        page.stop().css({'left':'-'+(this.wDivice)+'px', 'top':cssTop, 'position':position});
+                        page.animate({'z-index': this.getzIndex(),'top':cssTop,'left':'0px'},velocity,function(){
 
                                         if (opc.endAnimation) eval(opc.endAnimation);
 
@@ -738,7 +766,7 @@ app = {
                         
                         page.stop().css({top: this.hDivice+'px'});
                         page.animate({'z-index': this.getzIndex(),'top':cssTop,'left':'0px', 
-                                       'position':'absolute'},velocity,function(){
+                                       'position':position},velocity,function(){
 
                                         if (opc.endAnimation) eval(opc.endAnimation);
 
@@ -760,7 +788,7 @@ app = {
                     default:
                          
                          page.stop().animate({'top':cssTop,'left':'-'+(this.wDivice + 150)+'px', 
-                                       'position':'absolute'},velocity,function(){
+                                       'position':position},velocity,function(){
 
                                         if (opc.endAnimation) eval(opc.endAnimation);
 
@@ -860,7 +888,7 @@ app = {
         },
 
         is_movil : function(){
-            return true;
+            return true; 
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
