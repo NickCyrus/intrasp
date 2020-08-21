@@ -66,6 +66,8 @@ app = {
         language : '',
         currentEntidad : (window.localStorage["EntidadID"]) ? { id: window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"], rolcon : window.localStorage["rolCon"]}  : { id: '', name : '' , rolcon : ''},
         listActualidad : '',
+        controlScrollCheck: false,
+        controlScrollTopMax : 0 ,
         main : function(){
             this.setLang();
             this.loadPages();
@@ -589,6 +591,18 @@ app = {
             return $('.page'+search);     
         },
 
+        controlScroll : function(){
+             if (this.controlScrollCheck){
+                $('#main-view').scroll(function(){ 
+                    var top = $('#main-view').scrollTop();
+                    if (top < app.controlScrollTopMax){
+                        $('#main-view').scrollTop(app.controlScrollTopMax);
+                    }
+                }) 
+             }else{
+                $('#main-view').unbind('scroll'); 
+             }
+        },
         closePage  :  function (pageName , ANIMATION , velocity = 500 ){
                 
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
@@ -667,9 +681,15 @@ app = {
                     break;
                 }
 
-                if (Scroll){
-                       var cssTop =  $('#main-view').scrollTop();
-                       // $('#main-view').scrollTop(0);
+                if (Scroll && ANIMATION !='out-right'){
+                       this.controlScrollCheck = true;
+                       this.controlScrollTopMax = $('#main-view').scrollTop()
+                       cssTop = this.controlScrollTopMax;
+                       this.controlScroll();
+                }else{
+                       this.controlScrollCheck  = false;
+                       this.controlScrollTopMax = 0;
+                       this.controlScroll();
                 }
                  
 
@@ -712,6 +732,7 @@ app = {
                         window.location.href = "#"+pageName;
                     break;
                     case 'out-right':
+                        this.controlScrollCheck = false;
                         page.stop().animate({'top':cssTop,
                                       'left':(this.wDivice)+'px', 
                                       'position':position},
@@ -726,6 +747,7 @@ app = {
                         $('*').removeClass('currentPageActive');
                     break;
                     case 'out-left':
+                        this.controlScrollCheck = false;
                         page.stop().animate({'top':cssTop,
                                       'left':'-'+(this.wDivice)+'px', 
                                       'position':position},velocity,function(){
@@ -741,6 +763,7 @@ app = {
                         $('*').removeClass('currentPageActive');
                     break; 
                     case 'hide':{
+                        this.controlScrollCheck = false;
                         // page.css({'display':'none'});
                         page.stop().css({top: this.hDivice+'px' , left : 0 });
                         page.css({'display':'block'});
@@ -888,7 +911,7 @@ app = {
         },
 
         is_movil : function(){
-            return true; 
+            return false; 
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
