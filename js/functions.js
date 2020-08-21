@@ -503,10 +503,10 @@ app = {
 
                 var addCss = '<style type="text/css">'+
                              '.page { overflow: hidden; '+
-                                'height :'+$(window).height()+'px'+
+                                'height :'+($(window).height()-3)+'px'+
                              '}'+
-                             '.sibar-content {'+
-                                'height :'+( $(window).height() - (header + 40 )  )+'px !important'+
+                             '.sidebar  , .sibar-content {'+
+                                'height :'+( $(window).height() - (header + 63)  )+'px !important'+
                              '}'+
                              '.content {'+
                                 'height :'+( $(window).height() - (header + footer )  )+'px'+
