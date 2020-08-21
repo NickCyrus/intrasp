@@ -18,6 +18,12 @@ body, html{
     height: 100%;
 }
 
+h1,h2,h3,h4,h5,h6{
+    margin: 0px;
+    padding: 0px;
+}
+
+
 body{ 
   margin:0px;
   padding: 0px;
@@ -27,7 +33,12 @@ body{
 .page{
     display: none;
     width: 100%;
+    
 } 
+
+.page.bg-white {
+    background-color:#FFF;
+}
 
 .page.active{
     display: block !important;
@@ -662,7 +673,7 @@ a{
     padding-top: 30px;
     font-size: 24px;
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 30px; 
 }
 
 #lopd-body{
@@ -675,8 +686,8 @@ a{
 
 .logo-cia{
     display: block;
-    margin: 17px 0px;
-    text-align: center;
+    margin: 17px 15px;
+    text-align: left;
 }
 .logo-cia img{
     margin: auto auto;
@@ -747,4 +758,265 @@ header{
 }
 .productos .boxProduc.nolotiene{
     background: #777778;
+}
+
+/*******************
+Wave Effects
+*******************/
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    will-change: opacity, transform;
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+    -ms-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out; }
+    .waves-effect .waves-ripple {
+      position: absolute;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      margin-top: -10px;
+      margin-left: -10px;
+      opacity: 0;
+      background: rgba(0, 0, 0, 0.2);
+      -webkit-transition: all 0.7s ease-out;
+      -moz-transition: all 0.7s ease-out;
+      -o-transition: all 0.7s ease-out;
+      -ms-transition: all 0.7s ease-out;
+      transition: all 0.7s ease-out;
+      -webkit-transition-property: -webkit-transform, opacity;
+      -moz-transition-property: -moz-transform, opacity;
+      -o-transition-property: -o-transform, opacity;
+      -webkit-transition-property: opacity, -webkit-transform;
+      transition-property: opacity, -webkit-transform;
+      -o-transition-property: transform, opacity;
+      transition-property: transform, opacity;
+      transition-property: transform, opacity, -webkit-transform;
+      -webkit-transform: scale(0);
+      -moz-transform: scale(0);
+      -ms-transform: scale(0);
+      -o-transform: scale(0);
+      transform: scale(0);
+      pointer-events: none; }
+  
+  .waves-effect.waves-light .waves-ripple {
+    background-color: rgba(255, 255, 255, 0.45); }
+  
+  .waves-effect.waves-red .waves-ripple {
+    background-color: rgba(244, 67, 54, 0.7); }
+  
+  .waves-effect.waves-yellow .waves-ripple {
+    background-color: rgba(255, 235, 59, 0.7); }
+  
+  .waves-effect.waves-orange .waves-ripple {
+    background-color: rgba(255, 152, 0, 0.7); }
+  
+  .waves-effect.waves-purple .waves-ripple {
+    background-color: rgba(156, 39, 176, 0.7); }
+  
+  .waves-effect.waves-green .waves-ripple {
+    background-color: rgba(76, 175, 80, 0.7); }
+  
+  .waves-effect.waves-teal .waves-ripple {
+    background-color: rgba(0, 150, 136, 0.7); }
+  
+  html body .waves-notransition {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none; }
+  
+  .waves-circle {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    text-align: center;
+    width: 2.5em;
+    height: 2.5em;
+    line-height: 2.5em;
+    border-radius: 50%;
+    -webkit-mask-image: none; }
+  
+  .waves-input-wrapper {
+    border-radius: 0.2em;
+    vertical-align: bottom; }
+    .waves-input-wrapper .waves-button-input {
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 1; }
+  
+  .waves-block { display: block; }
+
+  .contador{
+    position: absolute;
+    bottom: 2px;
+    left: 7px;
+    margin: 0px !important;
+    background: red;
+    border-radius: 66%;
+    display: inline-block !important;
+    width: auto;
+    padding: 5px 8px !important;
+    border: none;
+    text-align: center;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .box-card{
+    width: 100%;
+    min-height: 406px;
+    position: relative;
+  }
+
+.pre-load-bg img{ display: none; width: 0px; height: 0px; }
+
+.box-card-img {
+    background-color: #828282;
+    height: 306px;
+    background-image: url(../images/loading.svg);
+    background-position: center 22%;
+    background-repeat: no-repeat;
+    background-size: 20%;
+}
+
+.box-card-img.bigImage{ background-size:cover !important; }
+.box-card-contents{ 
+    background: #FFF;
+    display: block;
+    width: 100%;
+    height: 100px;
+    position: relative;
+}
+.box-card-contents .box-card-content{
+    margin: auto auto;
+    width: 83%;
+    position: absolute;
+    left: 14px;
+    top: -60px;
+    background: #FFF;
+    padding: 20px 20px 0px 20px;
+}
+
+.box-card-contents .box-card-content h1{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;
+    margin:0px;
+    margin-bottom:15px;
+}
+
+.grid .text .avatar-escritor{
+    position: absolute;
+    right: 18px;
+    top: -35px;
+}
+
+.grid .text .avatar-escritor img{
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+}
+.col-6{
+    float: left;
+    display:block;
+    width: 50%;
+}
+.tc{ text-align: center; }
+.tr{ text-align: right; }
+.tl{ text-align: left; }
+.grid .date,
+.grid .categoria
+{
+    font-size: 12px;
+}
+
+ 
+.box-card-img img{
+    display:none;
+}
+
+.grid { 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    grid-gap: 20px;
+    align-items: start;
+}
+
+  .grid > article {
+    text-align: center;
+  }
+
+  .grid > article img {
+    max-width: 100%;
+    margin: auto auto;
+  }
+  
+
+  .grid > article .text {
+    width: 100%;
+    margin: auto auto;
+    text-align: left;
+    margin-top: -60px;
+    display: block;
+    position: relative;
+    font-size: 14px;
+  }
+
+  .grid > article .text h3{ 
+        margin-bottom: 10px;
+  }
+
+  .grid > article .text .info{
+    background: #FFF;
+    width: 80%;
+    margin: 0px 20px;
+    padding: 20px;
+  } 
+
+  .grid > article .text .info p{
+      clear: both;
+      float: left;
+  }
+
+
+ .text > button {
+    background: gray;
+    border: 0;
+    color: white;
+    padding: 10px;
+    width: 100%;
+ }
+
+    
+[data-mode="content-header"] > .content{
+    padding-top: 0px;
+}
+
+.back-arrow{
+    display: inline-block;
+    width: 31px;
+    height: 31px;
+    background: url(../svg/arrow-white-left.svg) center center no-repeat #E18560;
+    border-radius: 50%;
+    position: absolute;
+    top: 16px;
+    left: 10px;
 }

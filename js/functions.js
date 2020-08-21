@@ -65,7 +65,7 @@ app = {
         currentLang : (window.localStorage["ISO_LANG"]) ?  window.localStorage["ISO_LANG"] : 'ca',
         language : '',
         currentEntidad : (window.localStorage["EntidadID"]) ? { id: window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"], rolcon : window.localStorage["rolCon"]}  : { id: '', name : '' , rolcon : ''},
-    
+        listActualidad : '',
         main : function(){
             this.setLang();
             this.loadPages();
@@ -188,8 +188,12 @@ app = {
             window.localStorage.clear();
         },
         closeSession : function(){
-            window.localStorage['username'] = '';
-            window.localStorage['username'] = '';
+            window.localStorage['username']    = '';
+            window.localStorage['username']    = '';
+            window.localStorage["EntidadID"]   = '';
+            window.localStorage["EntidadName"] = ''
+            window.localStorage["rolCon"]      = '';
+ 
             this.animatePage('profile','out-right');
             window.location.reload();
         },
@@ -257,6 +261,30 @@ app = {
             $('#entidad-select span').html(gc_name);
         },
 
+        preloadImg  : function(){
+
+                    $("img.pre-load:not('.loaded')").each(function(index, item){
+                        $(item).data('origName', $(item).attr('src') );
+                         $(item).one("load", function() {
+                            $(item).addClass("loaded")
+                            $(item).attr('src', $(item).data('origName') );
+                         })
+
+                         $(item).attr('src','images/loading.svg');
+                    })
+                   
+                    $(".pre-load-bg img:not('.loaded')").each(function(index, item){
+                        var self = $(this);
+                        $(item).one("load", function() {
+                            $(item).addClass("loaded")
+                            console.log('Cargo ==>'+ $(item).attr('src') );
+                            $(self).parents('.pre-load-bg').css({'background-image' : 'url('+$(item).attr('src')+')',
+                                                                     'background-size':'cover'});
+                        })
+                    })
+
+        }, 
+
         loadHome    : function(event = 'home' ){
             if (!this.isLogin()) return;
             var self = this;
@@ -267,9 +295,11 @@ app = {
                         },
                        datos : {opc : event , entidad : self.currentEntidad , lang : self.currentLang , currentUser : self.LoginData.user.id }, 
                        success : function(rs){
+                           
                             self.dialogClose();
                             if (rs.info.entidad.logo){
                                 $('[data-page="home"] #content .logo-cia').html( fn.createImg( {src : rs.info.entidad.logo }));
+                                self.preloadImg();
                             }else{
                                 $('[data-page="home"] #content .logo-cia').html( fn.createH1( {text : rs.info.entidad.gc_alias })); 
                             }
@@ -278,19 +308,108 @@ app = {
                                 $(rs.info.productos).each(function(index , item){
                                     $('[data-page="home"] #content .productos').append(fn.createBoxProduct(item));
                                 })
-                                
+                            }
+                            
+                            $('#cont_actualiadad .contador').remove();
+                            if (rs.info.contadores.actualidad.N >=1){
+                                 $('#cont_actualiadad').append(fn.contador(rs.info.contadores.actualidad.N));
                             }
                        }   
             })
             
         },
+        openActualiadd    : function(id){
+               var info  =  fn.getValueInObjectById(app.listActualidad,id);
+               $('[data-page="listactualidad-details"] #act-bg').css({ 'background-image':'url('+info.imgPOST+')', 
+                                                                       'background-size':'cover'
+                                                                    });
+               $('[data-page="listactualidad-details"] #act-title').html(info.title);
+               $('[data-page="listactualidad-details"] #act-fpublic').html(info.fpublic);
+               $('[data-page="listactualidad-details"] #act-categoria').html( fn.articleCategori(info.categoria));
+               $('[data-page="listactualidad-details"] #act-contenido').html(info.content);
+               this.preloadImg();
+               this.animatePage('listactualidad-details','in-right');
+        },
+        loadActualidad    : function(opc = {}  ){
+            if (!this.isLogin()) return;
+
+            if (!opc.filterType) opc.filterType = '';
+            if (!opc.filterValue) opc.filterValue = '';
+             
+            var self = this;
+            this.dialogClose();
+            this.ajax({
+                        beforeSend : function(){
+                            self.dialogWait(self.language['pleacewait']);     
+                        },
+                       datos : {opc : 'actualidad' , 
+                                entidad : self.currentEntidad , 
+                                lang : self.currentLang , 
+                                currentUser : self.LoginData.user.id , 
+                                filterType  : opc.filterType,
+                                filterValue : opc.filterValue,
+                             }, 
+                       success : function(rs){
+                            self.dialogClose();
+                            
+                            if (rs.infoRow){
+                                self.listActualidad = rs.infoRow;
+                                $('[data-page="listactualidad"] #content main').html('');
+                                $(rs.infoRow).each(function(index , item){
+                                    opc = {
+                                        id       : item.id,
+                                        autorpic : item.autorpic,
+                                        imgPOST  : item.imgPOST,
+                                        title    : item.title,
+                                        fpublic  : item.fpublic,
+                                        categoria : item.categoria,
+                                        textinto :  item.textinto,
+                                        autorId  : item.autorId 
+                                    }
+                                    
+                                    $('[data-page="listactualidad"] #content main').append(fn.article(opc));
+                                })
+                            }
+                            self.preloadImg();
+                            app.animatePage('listactualidad','in-right');
+                       }   
+            })
+            
+        },
+
+        filterActualidad : function( filterType , filterValue){
+                this.loadActualidad( {filterType :  filterType, filterValue : filterValue });
+        },
+
+        closeSubpage : function(){
+            $('.subpage').hide();
+        },
         page : function(opc = {}){
-            this.loadEntidad({ id : window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"] , rolcon :  window.localStorage["rolCon"] })
+            
+            var page = '';
+
+            if (!fn.isObject(opc)) 
+                page =  opc;
+            else
+                page =  opc.page;
+            
+            switch(page){
+                    case 'intranet':
+                        this.loadEntidad({ id : window.localStorage["EntidadID"] , name : window.localStorage["EntidadName"] , rolcon :  window.localStorage["rolCon"] })
+                    break;
+                    case 'actualidad':
+                            this.animatePage('profile','out-right');        
+                            this.loadActualidad();
+                            // .animatePage('listactualidad','show', { preload : true, showEnd : true , endAnimation :  'app.preloadImg();'});  
+                    break;    
+            }
+            
         },
         loadEntidad : function(ent){
               this.setEntidad(ent.id , ent.name , ent.rolcon);  
               $('.list-entidad li').removeClass('firts');
               $('[data-entidad="'+ent.id+'"]').addClass('firts');
+              this.closeSubpage();
               this.animatePage('profile','out-right');
               $('.list-entidad').toggle();
               this.loadHome();
@@ -489,7 +608,9 @@ app = {
                 ANIMATION = (ANIMATION) ? ANIMATION : 'basic';
                 
                 var propagation = true;
-            
+                var cssTop  = 0;
+                var modePage = '';
+
                 var page = $('.page[data-page="'+pageName+'"]');
                 var StatusBarColor = page.attr("data-StatusBar");
 
@@ -507,6 +628,14 @@ app = {
 
                 page.addClass('animated-page');
                  
+                modePage = page.data('mode');
+
+                switch(modePage){
+                    case 'content-header':
+                        cssTop = 50;    
+                    break;
+                }
+
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
                 if (StatusBarColor && this.is_movil()) StatusBar.backgroundColorByHexString(StatusBarColor);
@@ -520,7 +649,7 @@ app = {
                 switch(ANIMATION){
                     
                     case 'out-right':
-                        page.stop().animate({'top':0,
+                        page.stop().animate({'top':cssTop,
                                       'left':(this.wDivice)+'px', 
                                       'position':'absolute'},velocity,function(){
                                     page.attr('style', '').removeClass('animated-page');
@@ -531,7 +660,7 @@ app = {
                         $('*').removeClass('currentPageActive');
                     break;
                     case 'out-left':
-                        page.stop().animate({'top':0,
+                        page.stop().animate({'top':cssTop,
                                       'left':'-'+(this.wDivice)+'px', 
                                       'position':'absolute'},velocity,function(){
                                       
@@ -553,15 +682,16 @@ app = {
                     case 'show':
                         
                         page.animate({'z-index': this.getzIndex(),
-                                      top:'0px', 
+                                      top:cssTop, 
                                       left : 0,
                                       'position':'absolute'},velocity,function(){
-
+                                        page.show()
                                         if (opc.endAnimation) eval(opc.endAnimation);
 
                                       });
                         
                         this.setNavigator(pageName);
+                        
                         this.lastEvent = 'in';
                         window.location.href = "#"+pageName;
                         
@@ -569,7 +699,7 @@ app = {
                         
                     break;
                     case 'in-right':
-                        page.stop().css({'right':'-'+(this.wDivice)+'px'});
+                        page.stop().css({'right':'-'+(this.wDivice)+'px', 'top':cssTop});
                         page.animate({'z-index': this.getzIndex(),right:'0px', 
                                       'position':'absolute'},velocity ,function(){
 
@@ -585,8 +715,8 @@ app = {
                         
                     case 'in-left':
                         
-                        page.stop().css({'left':'-'+(this.wDivice)+'px'});
-                        page.animate({'z-index': this.getzIndex(),'top':0,'left':'0px', 
+                        page.stop().css({'left':'-'+(this.wDivice)+'px', 'top':cssTop});
+                        page.animate({'z-index': this.getzIndex(),'top':cssTop,'left':'0px', 
                                        'position':'absolute'},velocity,function(){
 
                                         if (opc.endAnimation) eval(opc.endAnimation);
@@ -601,7 +731,7 @@ app = {
                     case 'bottom-top':
                         
                         page.stop().css({top: this.hDivice+'px'});
-                        page.animate({'z-index': this.getzIndex(),'top':0,'left':'0px', 
+                        page.animate({'z-index': this.getzIndex(),'top':cssTop,'left':'0px', 
                                        'position':'absolute'},velocity,function(){
 
                                         if (opc.endAnimation) eval(opc.endAnimation);
@@ -623,7 +753,7 @@ app = {
                         
                     default:
                          
-                         page.stop().animate({'top':0,'left':'-'+(this.wDivice + 150)+'px', 
+                         page.stop().animate({'top':cssTop,'left':'-'+(this.wDivice + 150)+'px', 
                                        'position':'absolute'},velocity,function(){
 
                                         if (opc.endAnimation) eval(opc.endAnimation);
@@ -724,7 +854,7 @@ app = {
         },
 
         is_movil : function(){
-            return true;
+           // return true;
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
