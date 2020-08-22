@@ -183,8 +183,21 @@ app = {
         },
 
         openPdf : function(url){
+            
             alert(url);
-            PDFViewer.openPDF(url)
+             
+            var onSuccess = function (res) {
+                console.info(res);
+        
+            };
+        
+            var onError = function (err) {
+        
+                console.error(err);
+        
+            };
+        
+            PdfReader.openPdf("Title Name","iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAmUlEQVR42u3X3QqAIAwFYKGg1/auF+rnzbo1hQIZImo6j7HBuf9Q2aYyxiikKAEJSEDh6CcQIAd5S/cG+RhXp83UCxTCLL1OiGKOGphSUDNMCYhi9pqYXFBzTA6IYrYWmFQQGyYFRDGXzep15i/JBlFM7RofBHdlkI+atQcN3RhZ5tgvhivk+gG5oMVQsyz56N8g+bkKSECx3F93twfcz7kPAAAAAElFTkSuQmCC",[{"id":1,"name":"btn1","isDefault":"true"},{"id":2,"name":"btn2","isDefault":"false"}],onSuccess, onError,"Email subject", "Description before buttons.");
         }, 
         openProduct : function(obj){
                 var productID   = $(obj).data('product');
@@ -207,9 +220,9 @@ app = {
                                         $('[data-page="product-details"] #list-doc-per').html('');   
                                           $('#product-personalizado').show();
                                            $(rs.doc.personales).each(function(index , item){
-                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');  
+                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');  
                                            })
-                                          
+                                           
                                     }else{
                                           $('#product-personalizado').hide();
                                           $('[data-page="product-details"] #list-doc-per').html('');       
@@ -219,7 +232,7 @@ app = {
                                         $('[data-page="product-details"] #list-doc-gen').html(''); 
                                         $('#product-generales').show();
                                         $(rs.doc.generales).each(function(index , item){
-                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');
+                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');
                                         })
 
                                     }else{
