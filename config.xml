@@ -182,7 +182,7 @@
     <plugin name="cordova-plugin-device" />
     <plugin name="cordova-plugin-dialogs" />
     <plugin name="cordova-plugin-pdf-viewer" />
-    <plugin name="cordova-plugin-document-viewer" /> 
+    <plugin name="de.cyberkatze.phonegap.plugin.PdfViewer" /> 
     
     
   
