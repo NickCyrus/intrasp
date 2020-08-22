@@ -181,8 +181,7 @@
     <plugin name="cordova-plugin-statusbar" />
     <plugin name="cordova-plugin-device" />
     <plugin name="cordova-plugin-dialogs" />
-   
-   
+    <plugin name="cordova-plugin-pdf-viewer" />
     
     
   
