@@ -182,7 +182,10 @@ app = {
                       })
         },
 
-        
+        openPdf : function(url){
+            alert(url);
+            PDFViewer.openPDF(url)
+        }, 
         openProduct : function(obj){
                 var productID   = $(obj).data('product');
                 var infoProduct = fn.getValueInObjectById(this.listProducto.productos , productID);
@@ -204,7 +207,7 @@ app = {
                                         $('[data-page="product-details"] #list-doc-per').html('');   
                                           $('#product-personalizado').show();
                                            $(rs.doc.personales).each(function(index , item){
-                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="PDFViewer.openPDF(\'https://app.socialpartners.org/storage/productos/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');  
+                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');  
                                            })
                                           
                                     }else{
@@ -216,7 +219,7 @@ app = {
                                         $('[data-page="product-details"] #list-doc-gen').html(''); 
                                         $('#product-generales').show();
                                         $(rs.doc.generales).each(function(index , item){
-                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="PDFViewer.openPDF(\'https://app.socialpartners.org/storage/personalizados/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');
+                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');
                                         })
 
                                     }else{
