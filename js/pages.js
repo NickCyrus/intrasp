@@ -4,8 +4,10 @@ let pages = {
         { path:"pages/modal-lopd.html", 'name': 'lopd'},
         { path:"pages/main-view.html", 'name': 'main-view'},
         { path:"pages/home.html", 'name': 'home' , target: "main-view" },
-        { path:"pages/sidebar.html", 'name': 'sidebar' , target: "main-view" },
+        
+        // { path:"pages/sidebar.html", 'name': 'sidebar' , target: "main-view" },
         { path:"pages/list-actualidad.html", 'name': 'listactualidad' , target: "main-view" },
+        { path:"pages/product-details.html", 'name': 'product-details' , target: "main-view" },
         { path:"pages/actualidad-details.html", 'name': 'listactualidad-details' , target: "main-view" },
         { path:"pages/modal-info.html", 'name' : 'minfo' },
         { path:"pages/modal-remember.html", 'name' : 'mremember' },

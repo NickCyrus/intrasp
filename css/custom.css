@@ -1033,10 +1033,90 @@ Wave Effects
 
 .back-arrow{
     display: inline-block;
-    width: 31px;
+    width: 32px;
     height: 31px;
     background: url(../svg/arrow-back.svg) center center ;
     position: absolute;
     top: 16px;
     left: 10px;
 }
+
+.p5{ padding: 5px; }
+.p10{ padding: 10px; }
+.p15{ padding: 15px; }
+.p20{ padding: 20px; }
+.p30{ padding: 30px; }
+
+.back-text{
+    background: url(../svg/arrow-back.svg) left center no-repeat;
+    display: inline-block;
+    background-size: contain;
+    padding: 5px 0px 5px 46px;
+    font-size: 22px;
+}
+
+.fl{ float: left;}
+#product-title{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+    margin:20px 0px;
+}
+
+.label-etiqueta{
+    font-style: normal;
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+ 
+#product-personalizado , #product-generales{
+    display: none;
+   
+}
+
+#product-personalizado ul , #product-generales ul{
+    margin-bottom: 20px;
+}
+
+#product-personalizado ul li , #product-generales ul li{
+        display: block;
+        padding: 13px 40px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
+}
+
+#product-personalizado ul li:after,
+#product-generales ul li:after
+{
+    content: ' ';
+    background: url(../svg/arrow-grey.svg) center center no-repeat;
+    width: 12px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 29%;
+    right: 13px;
+}
+
+#product-personalizado ul li:before,
+#product-generales ul li:before
+{
+    content: ' ';
+    width: 22px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 25.5%;
+    left: 10px;
+}
+
+#product-personalizado ul li.lotiene:before,
+#product-generales ul li.lotiene:before
+{ 
+    background: url(../svg/icon-vehicle.svg) center center no-repeat;
+}
+
+ 

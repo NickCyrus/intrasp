@@ -5,7 +5,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.socialpartnetorg.roc"
-        version   = "1.3.20">
+        version   = "1.3.40">
 
     <name>Intranet SocialPartners</name>
  
@@ -181,6 +181,9 @@
     <plugin name="cordova-plugin-statusbar" />
     <plugin name="cordova-plugin-device" />
     <plugin name="cordova-plugin-dialogs" />
+    <plugin name="cordova-plugin-document-viewer" />
+    <plugin name="cordova-plugin-pdf-viewer" />
+    
     
   
     

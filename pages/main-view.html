@@ -12,6 +12,31 @@
                         <img src="svg/logo-central.svg" />
                 </div>
             </nav>
+
+            <section class="sidebar " data-sidebar="profile" data-mode="content-header" data-start="right" >
+                <div class="sibar-content sidebar-right">
+                     <div class="avatar">
+                            <img src="images/avatar.jpg" id="avatar-user" />
+                     </div>
+                     <div class="nice-name name-user-login" id="name-user"></div>
+                     
+                     <div id="entidad-select" onclick="$('.list-entidad').toggle()">
+                            <i></i><span></span>
+                     </div>
+                     <ul class="list-entidad">
+                     </ul>
+                     <ul class="options-menu">
+                        <li class="ripple" onclick="app.page('intranet')"><i><img src="svg/packet.svg" /></i><span translate-text="opc-intranet">{{opc-intranet}}</span></li>
+                        <li class="ripple"><i><img src="svg/gestor.svg" /></i><span translate-html="opc-gestor">{{opc-gestor}}</span></li>
+                        <li class="ripple"><i><img src="svg/book.svg" /></i><span translate-html="opc-Serveis24">{{opc-Serveis24}}</span></li>
+                        <li class="ripple"><i><img src="svg/tel-sinientre.svg" /></i><span translate-html="opc-sinistre">{{opc-sinistre}}</span></li>
+                        <li class="ripple" onclick="app.page('actualidad')"><i id="cont_actualiadad"><img src="svg/packet.svg" /></i><span translate-html="opc-actualitat">{{opc-actualitat}}</span></li>
+                        <li class="ripple"><i><img src="svg/formacio.svg" /></i><span translate-html="opc-formacio">{{opc-formacio}}</span></li>
+                        <li class="ripple" onclick="app.logout()"><i><img src="svg/conf.svg" /></i><span translate-html="opc-Configuracio">{{opc-Configuracio}}</span></li> 
+                     </ul>
+                </div>
+            </section>
+            
     </header>
     <div id="main-view">
 
