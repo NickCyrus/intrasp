@@ -185,7 +185,8 @@ app = {
         openPdf : function(url){
             
             alert(url);
-            window.openPDF(url) 
+            PDFObject.embed(url, "#example1");
+             
             /*
             var onSuccess = function (res) {
                 console.info(res);
