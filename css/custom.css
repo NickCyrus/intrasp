@@ -1119,4 +1119,8 @@ Wave Effects
     background: url(../svg/icon-vehicle.svg) center center no-repeat;
 }
 
+#example1{
+    width: 100%;
+    height: 300px;
+}
  
