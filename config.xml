@@ -176,16 +176,15 @@
 
     <access origin="*"/>
     
-     
     <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-statusbar" />
     <plugin name="cordova-plugin-device" />
     <plugin name="cordova-plugin-dialogs" />
-    <plugin name="cordova-plugin-file-opener2" />
     
+    <plugin spec="https://github.com/neptsoft/cordova-plugin-file-opener2" source="git" />
    
   
-    
+     
     <plugin name="cordova-plugin-whitelist" /> 
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
