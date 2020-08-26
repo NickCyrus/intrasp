@@ -184,24 +184,23 @@ app = {
 
         openPdf : function(url){
             
-            alert(url);
-            PDFObject.embed(url, "#example1");
-             
-            /*
-            var onSuccess = function (res) {
-                console.info(res);
-        
-            };
-        
-            var onError = function (err) {
-        
-                console.error(err);
-        
-            };
-        
-            PdfReader.openPdf("Title Name","iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAmUlEQVR42u3X3QqAIAwFYKGg1/auF+rnzbo1hQIZImo6j7HBuf9Q2aYyxiikKAEJSEDh6CcQIAd5S/cG+RhXp83UCxTCLL1OiGKOGphSUDNMCYhi9pqYXFBzTA6IYrYWmFQQGyYFRDGXzep15i/JBlFM7RofBHdlkI+atQcN3RhZ5tgvhivk+gG5oMVQsyz56N8g+bkKSECx3F93twfcz7kPAAAAAElFTkSuQmCC",[{"id":1,"name":"btn1","isDefault":"true"},{"id":2,"name":"btn2","isDefault":"false"}],onSuccess, onError,"Email subject", "Description before buttons.");
-            */
+            // fn.openDocumentPdf(url , 'example1' );
+            this.loadPdfBase64(url );
+            
         }, 
+        loadPdfBase64: function(url){
+            var self = this
+            this.ajax({
+                beforeSend : function(){
+                    app.dialogWait( self.language['valiLogin']);
+                },
+                datos : { opc : 'loadPdfBase64', url: url },
+                success: function( rs){ 
+                    app.dialogClose();
+                    fn.openDocumentPdf(rs.base64 , 'example1' );
+                } 
+            })  
+        },
         openProduct : function(obj){
                 var productID   = $(obj).data('product');
                 var infoProduct = fn.getValueInObjectById(this.listProducto.productos , productID);
@@ -996,7 +995,7 @@ app = {
         },
 
         is_movil : function(){
-            return true;  
+            return false;   
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;

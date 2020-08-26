@@ -128,6 +128,57 @@ fn = {
                     }
                 }
                 return new Array();
+        },
+      
+        convertDataURIToBinary : function(dataURI) {
+            var BASE64_MARKER = ';base64,';
+            var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+            var base64 = dataURI.substring(base64Index);
+            var raw = window.btoa(unescape(encodeURIComponent(base64)));
+            var rawLength = raw.length;
+            var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+            for(var i = 0; i < rawLength; i++) {
+                array[i] = raw.charCodeAt(i);
+            }
+            return array;
+        },
+
+        uri2array : function (uri, buffer) {
+            var marker = ';base64,',
+                raw = window.atob(uri.substring(uri.indexOf(marker) + marker.length)),
+                n = raw.length,
+                a = new Uint8Array(new ArrayBuffer(n));
+            for(var i = 0; i < n ; i++){
+                a[i] = raw.charCodeAt(i);
+            }
+            return buffer ? a.buffer : a;
+        },
+
+        openDocumentPdf : function($url ,$canvas){
+
+                var url = atob($url)
+               //  pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdfjs/build/pdf.worker.js';
+
+                // var pdfAsArray = this.convertDataURIToBinary(url);
+
+                var loadingTask = pdfjsLib.getDocument({ data: url });
+                loadingTask.promise.then(function(pdf) {
+                    pdf.getPage(1).then(function(page) {
+                    var scale = 1.5;
+                    var viewport = page.getViewport({ scale: scale, });
+                    var canvas = document.getElementById($canvas);
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport,
+                    };
+                    page.render(renderContext);
+                    });
+                });
         }
        
         
