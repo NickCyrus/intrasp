@@ -162,7 +162,7 @@ fn = {
 
                 // var pdfAsArray = this.convertDataURIToBinary(url);
 
-                var loadingTask = pdfjsLib.getDocument({ data: url });
+                var loadingTask = pdfjsLib.getDocument({ data: url});
                 loadingTask.promise.then(function(pdf) {
                     pdf.getPage(1).then(function(page) {
                     var scale = 1.5;

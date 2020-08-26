@@ -70,6 +70,11 @@ app = {
         controlScrollTopMax : 0 ,
         listProducto : '',
         listCurrentDoc : '',
+        _PDF_DOC : '',
+        _CURRENT_PAGE : '',
+        _TOTAL_PAGES : '',
+        _PAGE_RENDERING_IN_PROGRESS : 0,
+        _CANVAS : '',
 
         main : function(){
             this.setLang();
@@ -182,13 +187,13 @@ app = {
                       })
         },
 
-        openPdf : function(url){
-            
-            // fn.openDocumentPdf(url , 'example1' );
-            this.loadPdfBase64(url );
+        openPdf : function(url , name){
+
+            window.open(url, '_blank');
+            // this.loadPdfBase64(url , name );
             
         }, 
-        loadPdfBase64: function(url){
+        loadPdfBase64: function(url , name){
             var self = this
             this.ajax({
                 beforeSend : function(){
@@ -197,14 +202,86 @@ app = {
                 datos : { opc : 'loadPdfBase64', url: url },
                 success: function( rs){ 
                     app.dialogClose();
-                    fn.openDocumentPdf(rs.base64 , 'example1' );
-                } 
+                    $('#product-title-file').html(name);
+                    app.animatePage('product-details-file','in-right');
+                    self.showPDF(rs.base64 , 'example1' );
+                    
+                },
+                error: function(){
+                    app.dialogClose();
+                }
             })  
         },
-        openProduct : function(obj){
+
+        showPDF : async function(pdf_url , _CANVAS){
+            
+
+            var _PDF_DOC = pdfjsLib.getDocument({ data: atob(pdf_url)});
+            
+            _PDF_DOC.promise.then(function(pdf) {
+
+                    this._PDF_DOC = pdf; 
+                    
+                    pdf.getPage(1).then(function(page) {
+                    var scale = 1.5;
+                    var viewport = page.getViewport({ scale: scale, });
+                    var canvas = document.getElementById(_CANVAS);
+                    var context = canvas.getContext('2d');
+                    
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport,
+                    };
+                    
+                    page.render(renderContext);
+
+                    this._TOTAL_PAGES = pdf.numPages;
+
+                });
+            });
+
+
+            
+            // this.showPage(1);
+        },
+
+        showPage :  async function(page_no){
+            this._PAGE_RENDERING_IN_PROGRESS = 1;
+            this._CURRENT_PAGE = page_no;
+            
+            try {
+                var page = await this._PDF_DOC.getPage(page_no);
+            }
+            catch(error) {
+                alert(error.message);
+            }
+
+            var pdf_original_width = page.getViewport(1).width;
+            var scale_required = this._CANVAS.width / pdf_original_width;
+            var viewport = page.getViewport(scale_required);
+
+            var render_context = {
+                canvasContext: this._CANVAS.getContext('2d'),
+                viewport: viewport
+            };
+            try {
+                await page.render(render_context);
+            }
+            catch(error) {
+                alert(error.message);
+            }
+        
+            this._PAGE_RENDERING_IN_PROGRESS = 0;
+
+        }, 
+        openProduct  : function(obj){
+                this.animatePage('home','hide');
                 var productID   = $(obj).data('product');
                 var infoProduct = fn.getValueInObjectById(this.listProducto.productos , productID);
-                $('[data-page="product-details"] #product-title').html(infoProduct.smtitulo);
+                $('[data-page="product-details"] #product-title , #product-title2').html(infoProduct.smtitulo);
 
                     var self = this
                     this.ajax({
@@ -222,7 +299,7 @@ app = {
                                         $('[data-page="product-details"] #list-doc-per').html('');   
                                           $('#product-personalizado').show();
                                            $(rs.doc.personales).each(function(index , item){
-                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');  
+                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+item.file+'\',\''+item.alt_title+'\');" class="lotiene">'+item.alt_title+'</li>');  
                                            })
                                            
                                     }else{
@@ -234,7 +311,7 @@ app = {
                                         $('[data-page="product-details"] #list-doc-gen').html(''); 
                                         $('#product-generales').show();
                                         $(rs.doc.generales).each(function(index , item){
-                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+item.file+'\');" class="lotiene">'+item.alt_title+'</li>');
+                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+item.file+'\',\''+item.alt_title+'\');" class="lotiene">'+item.alt_title+'</li>');
                                         })
 
                                     }else{
@@ -803,7 +880,7 @@ app = {
                     break;
                     case 'in-right':
                         page.stop().css({'left':(this.wDivice)+'px', 'top':cssTop,'position':position});
-                        page.animate({'z-index': this.getzIndex(),left:'0px'},velocity ,function(){
+                        page.animate({'z-index': this.getzIndex(),left:'0px',display: 'block'},velocity ,function(){
 
                                         if (opc.endAnimation) eval(opc.endAnimation);
 
