@@ -181,6 +181,8 @@
     <plugin name="cordova-plugin-device" />
     <plugin name="cordova-plugin-dialogs" />
     <plugin name="cordova-plugin-geolocation" />
+    <plugin name="cordova-plugin-advanced-geolocation" />
+    
    
     <plugin name="cordova-clipboard" />
      
