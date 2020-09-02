@@ -3,6 +3,16 @@ String.prototype.stripSlashes = function(){
     return this.replace(/\\(.)/mg, "$1");
 }
 
+function addslashes(string) {
+    return string.replace(/\\/g, '\\\\').
+        replace(/\u0008/g, '\\b').
+        replace(/\t/g, '\\t').
+        replace(/\n/g, '\\n').
+        replace(/\f/g, '\\f').
+        replace(/\r/g, '\\r').
+        replace(/'/g, '\\\'').
+        replace(/"/g, '\\"');
+}
 
 fn = {
 
@@ -50,8 +60,9 @@ fn = {
 
         alert : function(opc = { msg : '', title : '', buttonName:'', Callback: '' } ){
                     var msg = (opc.msg) ? opc.msg : opc;
+                    
                     if (navigator.notification){
-                        navigator.notification.alert(opc.msg, opc.Callback, opc.title, opc.buttonName);
+                        navigator.notification.alert( addslashes(opc.msg), opc.Callback, opc.title, opc.buttonName);
                     }else{
                         alert( msg )
                     }

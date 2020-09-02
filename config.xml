@@ -190,15 +190,18 @@
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" /> 
     <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
     <allow-intent href="maps:*" />
-
+    <allow-intent href="geo:*" />
+    
     <platform name="android">
         <allow-intent href="market:*" />
+        <allow-intent href="maps:*" />
+
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <allow-intent href="geo:*" />
     </platform>
 
 </widget>

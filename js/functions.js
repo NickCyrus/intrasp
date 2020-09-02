@@ -10,8 +10,7 @@ document.addEventListener("deviceready",onDeviceReady,false);
 function onDeviceReady() {
     StatusBar.backgroundColorByHexString('#999999');  
     navigator.splashscreen.hide();
-
-    console.log("navigator.geolocation works well");
+    navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
 
 }
 
@@ -1200,7 +1199,7 @@ app = {
      
 
         is_movil : function(){
-            return true;    
+            return false;    
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
