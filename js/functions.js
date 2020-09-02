@@ -78,6 +78,9 @@ app = {
         _CANVAS : '',
         classOpenPage : 'is_open_page',
         classClosePage : 'is_close_page',
+        geocoords : '',
+        tokenGPS : '',
+
 
         main : function(){
             this.setLang();
@@ -1163,25 +1166,32 @@ app = {
              
         }, 
 
-        getGPS : function(){
+        getGPS : function(tokenGPS){
             var self = this;
+            this.tokenGPS = tokenGPS;
+
             navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
+            // 
         },
         
         onSuccess : function(position) {
             
             var ubicacion = position.coords.latitude+','+position.coords.longitude;
             
-            if (ubicacion) cordova.plugins.clipboard.copy(ubicacion);
+                if (ubicacion) cordova.plugins.clipboard.copy(ubicacion);
 
-                var geocoords = lat + ',' + lng;
-
+                this.geocoords = ubicacion; 
+                
+                $('#GPS-'+ app.tokenGPS).prop('href','geo:'+this.geocoords).click(); 
+            
+                return  this.geocoords;
+                   
                 // if (window.device.platform === "iOS") {
                 //    window.open('maps://?q=' + ubicacion, '_system');
                 // }else { 
-                    window.open('geo:' + ubicacion);
+                //    window.open('geo:' + ubicacion);
                 // }
-            /*
+                /*
                 alert('Latitude: '          + position.coords.latitude          + '\n' +
                     'Longitude: '         + position.coords.longitude         + '\n' +
                     'Altitude: '          + position.coords.altitude          + '\n' +
@@ -1190,7 +1200,7 @@ app = {
                     'Heading: '           + position.coords.heading           + '\n' +
                     'Speed: '             + position.coords.speed             + '\n' +
                     'Timestamp: '         + position.timestamp                + '\n');
-            */
+                */
         },
         
         onError : function(error){
