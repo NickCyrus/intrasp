@@ -85,7 +85,6 @@ app = {
         main : function(){
             this.setLang();
             this.loadPages();
-           
         },
 
         checkNextStep : function(){
@@ -690,8 +689,7 @@ app = {
                         setTimeout(function(){ $('[data-page="login"]').fadeIn().addClass('active');
                         pageActive.removeClass('active');
                     }, 500);
-                    // 
-                   
+                    //                   
                 }
         },
     
@@ -1169,21 +1167,25 @@ app = {
         getGPS : function(tokenGPS){
             var self = this;
             this.tokenGPS = tokenGPS;
-
             navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
-            // 
         },
         
+        clickMaps : function(){
+            $('#GPS-'+ app.tokenGPS).click(); 
+        },
+
         onSuccess : function(position) {
             
-            var ubicacion = position.coords.latitude+','+position.coords.longitude;
+                var ubicacion = position.coords.latitude+','+position.coords.longitude;
             
                 if (ubicacion) cordova.plugins.clipboard.copy(ubicacion);
 
-                this.geocoords = ubicacion; 
+                this.geocoords = ubicacion;
+
+                $('#GPS-'+ app.tokenGPS).prop('href','geo:'+this.geocoords)
+
+                fn.confirm({msg :'Se ha copiado la ubicación a la memoria\n\nDesea Abir el mapa?', title : 'GPS', buttonName : ["SI","NO"] , Callback : 'app.clickMaps()'}) 
                 
-                $('#GPS-'+ app.tokenGPS).prop('href','geo:'+this.geocoords).click(); 
-            
                 return  this.geocoords;
                    
                 // if (window.device.platform === "iOS") {
