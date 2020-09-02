@@ -182,8 +182,6 @@
     <plugin name="cordova-plugin-dialogs" />
     <plugin name="cordova-plugin-geolocation" />
     <plugin name="cordova-clipboard" />
-    
-    
      
     <plugin name="cordova-plugin-whitelist" /> 
     <allow-intent href="http://*/*" />

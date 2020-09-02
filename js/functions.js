@@ -1170,6 +1170,19 @@ app = {
 
         },
         onSuccess : function(position) {
+            
+            var ubicacion = position.coords.latitude+','+position.coords.longitude;
+
+            if (ubicacion) cordova.plugins.clipboard.copy(ubicacion);
+
+                var geocoords = lat + ',' + lng;
+
+                if (window.device.platform === "iOS") {
+                    window.open('maps://?q=' + ubicacion, '_system');
+                 }else {
+                    window.open('geo:0,0?q=' + ubicacion, '_system');
+                }
+
             alert('Latitude: '          + position.coords.latitude          + '\n' +
                   'Longitude: '         + position.coords.longitude         + '\n' +
                   'Altitude: '          + position.coords.altitude          + '\n' +
@@ -1187,7 +1200,7 @@ app = {
      
 
         is_movil : function(){
-            return false;    
+            return true;    
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
