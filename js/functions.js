@@ -1172,26 +1172,25 @@ app = {
             
             var ubicacion = position.coords.latitude+','+position.coords.longitude;
             
-            alert(ubicacion);
-
             if (ubicacion) cordova.plugins.clipboard.copy(ubicacion);
 
                 var geocoords = lat + ',' + lng;
 
-                if (window.device.platform === "iOS") {
-                    window.open('maps://?q=' + ubicacion, '_system');
-                 }else {
-                    window.open('geo:0,0?q=' + ubicacion, '_system');
-                }
-
-            alert('Latitude: '          + position.coords.latitude          + '\n' +
-                  'Longitude: '         + position.coords.longitude         + '\n' +
-                  'Altitude: '          + position.coords.altitude          + '\n' +
-                  'Accuracy: '          + position.coords.accuracy          + '\n' +
-                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-                  'Heading: '           + position.coords.heading           + '\n' +
-                  'Speed: '             + position.coords.speed             + '\n' +
-                  'Timestamp: '         + position.timestamp                + '\n');
+                // if (window.device.platform === "iOS") {
+                //    window.open('maps://?q=' + ubicacion, '_system');
+                // }else { 
+                    window.open('geo:' + ubicacion, '_system');
+                // }
+            /*
+                alert('Latitude: '          + position.coords.latitude          + '\n' +
+                    'Longitude: '         + position.coords.longitude         + '\n' +
+                    'Altitude: '          + position.coords.altitude          + '\n' +
+                    'Accuracy: '          + position.coords.accuracy          + '\n' +
+                    'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+                    'Heading: '           + position.coords.heading           + '\n' +
+                    'Speed: '             + position.coords.speed             + '\n' +
+                    'Timestamp: '         + position.timestamp                + '\n');
+            */
         },
         
         onError : function(error){
