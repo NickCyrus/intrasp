@@ -10,8 +10,10 @@ document.addEventListener("deviceready",onDeviceReady,false);
 function onDeviceReady() {
     StatusBar.backgroundColorByHexString('#999999');  
     navigator.splashscreen.hide();
-}
 
+    console.log("navigator.geolocation works well");
+
+}
 
 
 jQuery(function($){
@@ -1162,8 +1164,30 @@ app = {
              
         },
 
+        getGPS : function(){
+
+            navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
+
+        },
+        onSuccess : function(position) {
+            alert('Latitude: '          + position.coords.latitude          + '\n' +
+                  'Longitude: '         + position.coords.longitude         + '\n' +
+                  'Altitude: '          + position.coords.altitude          + '\n' +
+                  'Accuracy: '          + position.coords.accuracy          + '\n' +
+                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+                  'Heading: '           + position.coords.heading           + '\n' +
+                  'Speed: '             + position.coords.speed             + '\n' +
+                  'Timestamp: '         + position.timestamp                + '\n');
+        },
+        
+        onError : function(error){
+            alert('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        },
+     
+
         is_movil : function(){
-            return false;   
+            return false;    
             var isMobile = false; 
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent.substr(0,4))) { 
             isMobile = true;
