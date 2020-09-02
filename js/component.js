@@ -62,7 +62,7 @@ fn = {
                     var msg = (opc.msg) ? opc.msg : opc;
                     
                     if (navigator.notification){
-                        navigator.notification.alert( addslashes(opc.msg), opc.Callback, opc.title, opc.buttonName);
+                        navigator.notification.alert( opc.msg , opc.Callback, opc.title, opc.buttonName);
                     }else{
                         alert( msg )
                     }

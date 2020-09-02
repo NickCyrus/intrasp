@@ -10,7 +10,7 @@ document.addEventListener("deviceready",onDeviceReady,false);
 function onDeviceReady() {
     StatusBar.backgroundColorByHexString('#999999');  
     navigator.splashscreen.hide();
-    navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
+    
 
 }
 
@@ -193,8 +193,8 @@ app = {
         },
 
         openPdf : function(url , name){
-
-            fn.alert(this.language['alerta_download']) ;
+            self  = this;
+            fn.alert(self.language['alertadownload']);
             window.open(url, '_blank');
 
             //this.loadPdfBase64(url , name );
@@ -1164,10 +1164,24 @@ app = {
         },
 
         getGPS : function(){
-
-            navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
+            var self = this;
+            navigator.permissions.query({name:'geolocation'}).then(function(result) {
+                if (result.state == 'granted') {
+                  console.log(result.state);
+                } else if (result.state == 'prompt') {
+                    console.log(result.state);
+                  navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
+                } else if (result.state == 'denied') {
+                    console.log(result.state);
+                }
+                result.onchange = function() {
+                    console.log(result.state);
+                }
+            })
+            // navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
 
         },
+        
         onSuccess : function(position) {
             
             var ubicacion = position.coords.latitude+','+position.coords.longitude;
