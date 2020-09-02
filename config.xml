@@ -5,7 +5,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.socialpartnetorg.roc"
-        version   = "1.6.4">
+        version   = "1.6.10">
 
     <name>Intranet SocialPartners</name>
  
@@ -192,7 +192,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="maps:*" />
     <allow-intent href="geo:*" />
-    
+
     <platform name="android">
         <allow-intent href="market:*" />
         <allow-intent href="maps:*" />
