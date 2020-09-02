@@ -5,8 +5,8 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.socialpartnetorg.roc"
-        version   = "1.6.50"> 
-
+        version   = "1.5.60"> 
+ 
     <name>Intranet SocialPartners</name>
  
     <description>

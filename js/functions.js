@@ -1179,7 +1179,7 @@ app = {
                 // if (window.device.platform === "iOS") {
                 //    window.open('maps://?q=' + ubicacion, '_system');
                 // }else { 
-                    window.open('geo:' + ubicacion, '_system');
+                    window.open('geo:' + ubicacion);
                 // }
             /*
                 alert('Latitude: '          + position.coords.latitude          + '\n' +
