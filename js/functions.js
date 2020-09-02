@@ -1161,30 +1161,18 @@ app = {
 
         activeCarrucel : function(){
              
-        },
+        }, 
 
         getGPS : function(){
             var self = this;
-            navigator.permissions.query({name:'geolocation'}).then(function(result) {
-                if (result.state == 'granted') {
-                  console.log(result.state);
-                } else if (result.state == 'prompt') {
-                    console.log(result.state);
-                  navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
-                } else if (result.state == 'denied') {
-                    console.log(result.state);
-                }
-                result.onchange = function() {
-                    console.log(result.state);
-                }
-            })
-            // navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
-
+            navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
         },
         
         onSuccess : function(position) {
             
             var ubicacion = position.coords.latitude+','+position.coords.longitude;
+            
+            alert(ubicacion);
 
             if (ubicacion) cordova.plugins.clipboard.copy(ubicacion);
 
