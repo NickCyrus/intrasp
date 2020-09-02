@@ -180,8 +180,10 @@
     <plugin name="cordova-plugin-statusbar" />
     <plugin name="cordova-plugin-device" />
     <plugin name="cordova-plugin-dialogs" />
+    <plugin name="cordova-plugin-geolocation" />
     
-  
+    
+    
      
     <plugin name="cordova-plugin-whitelist" /> 
     <allow-intent href="http://*/*" />
@@ -190,6 +192,8 @@
     <allow-intent href="sms:*" /> 
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="maps:*" />
+
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
@@ -197,4 +201,5 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+
 </widget>

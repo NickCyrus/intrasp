@@ -1126,3 +1126,40 @@ Wave Effects
     direction: ltr;
 }
  
+.content-list h1{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: -0.24px;
+    color: #E18560;
+    margin-bottom:20px;
+}
+.list-tabs {
+    margin-bottom:20px;
+}
+.list-tabs li {
+    display: block;
+    padding: 13px 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.list-tabs li:after {
+    content: ' ';
+    background: url(../svg/arrow-grey.svg) center center no-repeat;
+    width: 12px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 29%;
+    right: 13px;
+}
+
+.list-tabs li i{
+    position: absolute;
+    left: 8px;
+    top: 34%;
+    color : #E18560;
+}
+ 

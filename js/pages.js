@@ -8,6 +8,11 @@ let pages = {
         // { path:"pages/sidebar.html", 'name': 'sidebar' , target: "main-view" },
         { path:"pages/list-actualidad.html", 'name': 'listactualidad' , target: "main-view" },
         { path:"pages/product-details.html", 'name': 'product-details' , target: "main-view" },
+        { path:"pages/serveis24.html", 'name': 'serveis24' , target: "main-view" },
+        { path:"pages/serveis24Open.html", 'name': 'serveis24Open' , target: "main-view" },
+        { path:"pages/serveis24OpenDet.html", 'name': 'serveis24OpenDet' , target: "main-view" },
+        
+        
         { path:"pages/product-details-file.html", 'name': 'product-details-file' , target: "main-view" },
         { path:"pages/actualidad-details.html", 'name': 'listactualidad-details' , target: "main-view" },
         { path:"pages/modal-info.html", 'name' : 'minfo' },

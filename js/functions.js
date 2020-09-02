@@ -75,6 +75,8 @@ app = {
         _TOTAL_PAGES : '',
         _PAGE_RENDERING_IN_PROGRESS : 0,
         _CANVAS : '',
+        classOpenPage : 'is_open_page',
+        classClosePage : 'is_close_page',
 
         main : function(){
             this.setLang();
@@ -151,6 +153,8 @@ app = {
             return string.split(search).join(replace);
         },
 
+
+
         setLang : function (lang=''){
             var self = this
             if (!lang) lang = this.currentLang;
@@ -189,8 +193,10 @@ app = {
 
         openPdf : function(url , name){
 
+            fn.alert(this.language['alerta_download']) ;
             window.open(url, '_blank');
-            // this.loadPdfBase64(url , name );
+
+            //this.loadPdfBase64(url , name );
             
         }, 
         loadPdfBase64: function(url , name){
@@ -235,11 +241,13 @@ app = {
                         canvasContext: context,
                         viewport: viewport,
                     };
+
+
                     
                     page.render(renderContext);
 
                     this._TOTAL_PAGES = pdf.numPages;
-
+                    
                 });
             });
 
@@ -537,7 +545,7 @@ app = {
         },
 
         closeSubpage : function(){
-            $('.subpage').hide();
+            $('.'+this.classOpenPage).hide();
         },
         page : function(opc = {}){
             
@@ -556,10 +564,82 @@ app = {
                             this.animatePage('home','hide' ,  { endAnimation : "app.animatePage('profile','out-right')"});        
                             this.loadActualidad();
                             // .animatePage('listactualidad','show', { preload : true, showEnd : true , endAnimation :  'app.preloadImg();'});  
-                    break;    
+                    break; 
+                    case 'serveis24':
+                        this.closeSubpage();  
+                        this.loadServeis24();
+                    break;   
             }
             
         },
+        loadServeis24 : function(){
+
+            var self = this;
+            this.dialogClose();
+            this.ajax({
+                        beforeSend : function(){
+                            self.dialogWait(self.language['pleacewait']);     
+                        },
+                       datos : {opc : 'serveis24' , 
+                                entidad : self.currentEntidad , 
+                                lang : self.currentLang , 
+                                currentUser : self.LoginData.user.id 
+                             }, 
+                       success : function(rs){
+                            self.dialogClose();
+                            $('[data-page="serveis24"] #content').html(rs.infoPage);
+                                /* self.preloadImg(); */
+                            app.animatePage('serveis24','show');
+                       }   
+            })        
+
+        },
+
+        openServeis24 : function(id){
+                var self = this;
+                this.dialogClose();
+                this.ajax({
+                            beforeSend : function(){
+                                self.dialogWait(self.language['pleacewait']);     
+                            },
+                        datos : {opc : 'serveis24Open' ,
+                                    id : id,
+                                    entidad : self.currentEntidad , 
+                                    lang : self.currentLang , 
+                                    currentUser : self.LoginData.user.id 
+                                }, 
+                        success : function(rs){
+                                self.dialogClose();
+                                $('[data-page="serveis24Open"] #content #cards-serveis24').html(rs.infoPage);
+                                self.preloadImg(); 
+                                app.animatePage('serveis24Open','show');
+                        }   
+                })        
+        },
+
+        openServeis24Det : function(id){
+            var self = this;
+            this.dialogClose();
+            this.ajax({
+                        beforeSend : function(){
+                            self.dialogWait(self.language['pleacewait']);     
+                        },
+                    datos : {opc : 'serveis24OpenDet' ,
+                                id : id,
+                                entidad : self.currentEntidad , 
+                                lang : self.currentLang , 
+                                currentUser : self.LoginData.user.id 
+                            }, 
+                    success : function(rs){
+                            self.dialogClose();
+                            $('[data-page="serveis24OpenDet"] #content #cards-serveis24').html(rs.infoPage);
+                            self.preloadImg(); 
+                            app.animatePage('serveis24OpenDet','show');
+                    }   
+            })        
+        },
+        
+
         loadEntidad : function(ent){
               this.setEntidad(ent.id , ent.name , ent.rolcon);  
               $('.list-entidad li').removeClass('firts');
@@ -861,7 +941,10 @@ app = {
                 
                 $('*').removeClass('currentPageActive');
                 page.addClass('currentPageActive')
-                  
+                
+                var classOpenPage  = this.classOpenPage;
+                var classClosePage = this.classClosePage;
+
                 switch(ANIMATION){
                      case 'show':
                         page.animate({'z-index': this.getzIndex(),
@@ -869,6 +952,8 @@ app = {
                                       left : 0,
                                      'position':position},velocity,
                                      function(){
+                                        page.removeClass(classClosePage); 
+                                        page.addClass(classOpenPage); 
                                         page.show()
                                        if (opc.endAnimation) eval(opc.endAnimation);
                         });
@@ -881,7 +966,8 @@ app = {
                     case 'in-right':
                         page.stop().css({'left':(this.wDivice)+'px', 'top':cssTop,'position':position});
                         page.animate({'z-index': this.getzIndex(),left:'0px',display: 'block'},velocity ,function(){
-
+                                        page.removeClass(classClosePage);
+                                        page.addClass(classOpenPage);
                                         if (opc.endAnimation) eval(opc.endAnimation);
 
                                       });
@@ -897,6 +983,8 @@ app = {
                                       'position':position},
                                       velocity,
                                       function(){
+                                            page.removeClass(classOpenPage);
+                                            page.addClass(classClosePage);
                                             page.removeClass('animated-page').hide();
                                             if (opc.endAnimation) eval(opc.endAnimation);
                                                 }
@@ -910,7 +998,8 @@ app = {
                         page.stop().animate({'top':cssTop,
                                       'left':'-'+(this.wDivice)+'px', 
                                       'position':position},velocity,function(){
-                                      
+                                      page.removeClass(classOpenPage);
+                                      page.addClass(classClosePage); 
                                       page.attr('style', '').removeClass('animated-page');
                                       page.attr('style', '');              
                                       page.css({'left':'-'+(wDivice)+'px' });  
@@ -924,6 +1013,8 @@ app = {
                     case 'hide':{
                         this.controlScrollCheck = false;
                         page.css({'display':'none'});
+                        page.removeClass(classOpenPage);
+                        page.addClass(classClosePage);
                         //page.stop().animate({top: this.hDivice+'px' , left : this.wDivice+'px' },0,function(){
                          //   page.css({'display':'block'});
                         // });
