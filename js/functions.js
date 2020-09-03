@@ -1166,7 +1166,10 @@ app = {
         },
         
         clickMaps : function(ubicacion){
-            window.open('https://www.google.com/maps/@'+ubicacion+'z');    
+            
+            var url = 'https://www.google.com/maps/@'+ubicacion;
+            url = 'geo:'+ubicacion;
+            window.open(url);    
             
         },
 
@@ -1174,7 +1177,7 @@ app = {
             
                 var ubicacion = position.coords.latitude+','+position.coords.longitude;
             
-                if (ubicacion) cordova.plugins.clipboard.copy('https://www.google.com/maps/@'+ubicacion+'z');
+                if (ubicacion) cordova.plugins.clipboard.copy('https://www.google.com/maps/@'+ubicacion);
 
                 this.geocoords = ubicacion; 
 
