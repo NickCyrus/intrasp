@@ -8,7 +8,7 @@
     "textrecoverypass": "Introduir l'usuari o email associat al compte i rebràs un enllaç per a la seva recuperació.",
     "enviar": "Enviar",
     "valiLogin" : "Validant accés, per favor esperi",
-    "pleacewait" : "Per favor esperi",
+    "pleacewait" : "Actualizando",
     "valiLoginError" : "Acceso denegado",
     "valiLoginErrorMsg" : "Nom d'usuari incorrecte",
     "Error": "Error",
@@ -28,5 +28,6 @@
     "btnLopd":"Accepto la Política de privacidad",
     "doc_personalizado":"DOCUMENTS PERSONALITZATS",
     "doc_generales":"DOCUMENTS GENERALS",
-    "alertadownload":"Este documento es privado y para el uso exclusivo del usuario y de la entidad. En caso de que sea necesario compartir, hágalo con la maxima confidencialidad possible." 
-}
+    "alertadownload":"Este documento es privado y para el uso exclusivo del usuario y de la entidad. En caso de que sea necesario compartir, hágalo con la maxima confidencialidad possible.",
+    "copyLatLong": "Se ha copiado la ubicación a la memoria\n\nDesea Abrir el mapa?"
+} 

@@ -62,6 +62,9 @@ fn = {
                     var msg = (opc.msg) ? opc.msg : opc;
                     
                     if (navigator.notification){
+                        
+                        alert(opc.msg); 
+
                         navigator.notification.alert( opc.msg , opc.Callback, opc.title, opc.buttonName);
                     }else{
                         alert( msg )
@@ -81,7 +84,7 @@ fn = {
         },
 
         tagOnclick : function (tag, value, onclick=''){
-                return '<'+tag+' onclick="'+onclick+'">'+value+'</'+tag+'>';
+            return '<'+tag+' onclick="'+onclick+'">'+value+'</'+tag+'>';
         },
 
         article : function(opc = {} ){
@@ -90,8 +93,6 @@ fn = {
             
             
             opc.categoria = this.articleCategori(opc.categoria);
-
-
 
             var box =  '<article>\
                                 <div class="box-card-img pre-load-bg" onclick="app.openActualiadd('+opc.id+')" >\
@@ -123,12 +124,11 @@ fn = {
 
         contador : function(n = ''){
              if (n){
-                        return '<span class="contador">'+n+'</span>';
+                 return '<span class="contador">'+n+'</span>';
              }        
         },
 
         isObject : function(val){
-            
             return (typeof val === 'object') ? true : false;
         },
 

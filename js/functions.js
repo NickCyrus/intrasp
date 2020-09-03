@@ -195,13 +195,11 @@ app = {
         },
 
         openPdf : function(url , name){
-            self  = this;
-            fn.alert(self.language['alertadownload']);
+            this.alertConfirm('' , this.language['alertadownload']); 
             window.open(url, '_blank');
-
             //this.loadPdfBase64(url , name );
-            
-        }, 
+        },
+
         loadPdfBase64: function(url , name){
             var self = this
             this.ajax({
@@ -310,7 +308,7 @@ app = {
                                         $('[data-page="product-details"] #list-doc-per').html('');   
                                           $('#product-personalizado').show();
                                            $(rs.doc.personales).each(function(index , item){
-                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+item.file+'\',\''+item.alt_title+'\');" class="lotiene">'+item.alt_title+'</li>');  
+                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+addslashes(item.file)+'\',\''+addslashes(item.alt_title)+'\');" class="lotiene">'+item.alt_title+'</li>');  
                                            })
                                            
                                     }else{
@@ -322,7 +320,7 @@ app = {
                                         $('[data-page="product-details"] #list-doc-gen').html(''); 
                                         $('#product-generales').show();
                                         $(rs.doc.generales).each(function(index , item){
-                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+item.file+'\',\''+item.alt_title+'\');" class="lotiene">'+item.alt_title+'</li>');
+                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+addslashes(item.file)+'\',\''+addslashes(item.alt_title)+'\');" class="lotiene">'+item.alt_title+'</li>');
                                         })
 
                                     }else{
@@ -1073,10 +1071,6 @@ app = {
                     break;
                         
                 } 
-                    
-                     
-                
-                   
             
         },
     
@@ -1167,24 +1161,26 @@ app = {
         getGPS : function(tokenGPS){
             var self = this;
             this.tokenGPS = tokenGPS;
+
             navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
         },
         
-        clickMaps : function(){
-            $('#GPS-'+ app.tokenGPS).click(); 
+        clickMaps : function(ubicacion){
+            window.open('https://www.google.com/maps/@'+ubicacion+'z');    
+            
         },
 
         onSuccess : function(position) {
             
                 var ubicacion = position.coords.latitude+','+position.coords.longitude;
             
-                if (ubicacion) cordova.plugins.clipboard.copy(ubicacion);
+                if (ubicacion) cordova.plugins.clipboard.copy('https://www.google.com/maps/@'+ubicacion+'z');
 
-                this.geocoords = ubicacion;
+                this.geocoords = ubicacion; 
 
                 $('#GPS-'+ app.tokenGPS).prop('href','geo:'+this.geocoords)
 
-                fn.confirm({msg :'Se ha copiado la ubicación a la memoria\n\nDesea Abir el mapa?', title : 'GPS', buttonName : ["SI","NO"] , Callback : 'app.clickMaps()'}) 
+                fn.confirm({msg :'Se ha copiado la ubicación a la memoria\n\nDesea Abir el mapa?', title : 'GPS', buttonName : ["SI","NO"] , Callback : 'app.clickMaps(\''+ubicacion+'\')'}) 
                 
                 return  this.geocoords;
                    
@@ -1194,7 +1190,7 @@ app = {
                 //    window.open('geo:' + ubicacion);
                 // }
                 /*
-                alert('Latitude: '          + position.coords.latitude          + '\n' +
+                alert('Latitude: '        + position.coords.latitude          + '\n' +
                     'Longitude: '         + position.coords.longitude         + '\n' +
                     'Altitude: '          + position.coords.altitude          + '\n' +
                     'Accuracy: '          + position.coords.accuracy          + '\n' +
