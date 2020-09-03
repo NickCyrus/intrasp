@@ -29,5 +29,7 @@
         "doc_personalizado":"DOCUMENTS PERSONALITZATS",
         "doc_generales":"DOCUMENTS GENERALS", 
         "alertadownload":"Aquest document es privat i per a l'ús exclusiu de l'usuari i de l'entitat. En cas que l'hagueu de compartir, cal fer-ho amb la màxima confidencialitat.",
-        "copyLatLong": "S'ha copiat la ubicació a la memòria\n\nDesitja Obrir el mapa?"
+        "copyLatLong": "S'ha copiat la ubicació a la memòria\n\nDesitja Obrir el mapa?",
+        "titleLegalidad": "Aviso de seguridad"
+
 }

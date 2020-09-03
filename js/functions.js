@@ -195,7 +195,9 @@ app = {
         },
 
         openPdf : function(url , name){
-            this.alertConfirm('' , this.language['alertadownload']); 
+            var msg = {msg : app.language.alertadownload, title : app.language.titleLegalidad};
+            fn.alert(msg);
+            fn.sleep(3000);
             window.open(url, '_blank');
             //this.loadPdfBase64(url , name );
         },
@@ -252,9 +254,6 @@ app = {
                 });
             });
 
-
-            
-            // this.showPage(1);
         },
 
         showPage :  async function(page_no){
@@ -935,8 +934,7 @@ app = {
                 if (page.attr("data-speed")) velocity = parseFloat(page.attr("data-speed"));
                 
                 if (StatusBarColor && this.is_movil()) StatusBar.backgroundColorByHexString(StatusBarColor);
-            
-                
+             
                 var wDivice = this.wDivice;
                 
                 $('*').removeClass('currentPageActive');
@@ -1135,11 +1133,12 @@ app = {
     
         loadPage  : function(page , data){
                 
+                var self       = this;
                 var pageSelect =  $('[data-page="'+page+'"]');
             
                 this.ajax({
                             beforeSend : function(){
-                                    app.dialogWait('Per favor esperi');
+                                    app.dialogWait( self.language['pleacewait']);
                             },
                             datos : data,
                             success : function(rs){
@@ -1161,42 +1160,34 @@ app = {
         getGPS : function(tokenGPS){
             var self = this;
             this.tokenGPS = tokenGPS;
-
             navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
         },
         
         clickMaps : function(ubicacion){
             
-            window.location.href = 'geo:'+ubicacion;
-            
-            // $('#GPS-'+ app.tokenGPS).click();
-            /*
-            var url = 'https://www.google.com/maps/@'+ubicacion;
-            url = 'geo:'+ubicacion;
-            window.open(url);    
-            */
-            
+             if (window.device.platform === "iOS") {
+                window.location.href = 'maps://?q=' + ubicacion +'_system';
+             }else { 
+                window.location.href = 'geo:' + ubicacion;
+             }
+
         },
 
         onSuccess : function(position) {
-            
+                
+                var self = this;
+                
                 var ubicacion = position.coords.latitude+','+position.coords.longitude;
             
                 // if (ubicacion) cordova.plugins.clipboard.copy('https://www.google.com/maps/@'+ubicacion);
 
                 this.geocoords = ubicacion; 
 
-                $('#GPS-'+ app.tokenGPS).prop('href','geo:'+this.geocoords)
-
-                fn.confirm({msg :'Se ha copiado la ubicación a la memoria\n\nDesea Abir el mapa?', title : 'GPS', buttonName : ["SI","NO"] , Callback : 'app.clickMaps(\''+ubicacion+'\')'}) 
+                fn.confirm({msg : app.language.copyLatLong, title : 'GPS', buttonName : ["SI","NO"] , Callback : 'app.clickMaps(\''+ubicacion+'\')'}) 
                 
                 return  this.geocoords;
                    
-                // if (window.device.platform === "iOS") {
-                //    window.open('maps://?q=' + ubicacion, '_system');
-                // }else { 
-                //    window.open('geo:' + ubicacion);
-                // }
+                
                 /*
                 alert('Latitude: '        + position.coords.latitude          + '\n' +
                     'Longitude: '         + position.coords.longitude         + '\n' +
@@ -1224,7 +1215,7 @@ app = {
              return isMobile;
         }
          
-    
+     
         
     
      

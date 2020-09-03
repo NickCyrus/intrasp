@@ -29,5 +29,6 @@
     "doc_personalizado":"DOCUMENTS PERSONALITZATS",
     "doc_generales":"DOCUMENTS GENERALS",
     "alertadownload":"Este documento es privado y para el uso exclusivo del usuario y de la entidad. En caso de que sea necesario compartir, hágalo con la maxima confidencialidad possible.",
-    "copyLatLong": "Se ha copiado la ubicación a la memoria\n\nDesea Abrir el mapa?"
+    "copyLatLong": "Se ha copiado la ubicación a la memoria\n\nDesea Abrir el mapa?",
+    "titleLegalidad": "Aviso de seguridad" 
 } 
