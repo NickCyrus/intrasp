@@ -45,7 +45,7 @@
                             <div class="label-price">0</div>
                         </div>
 
-                        <div class="box-ask">
+                        <div class="box-ask" onclick="openSelectNumber()" >
                                 <div class="label" translate-text="tar-cursos-opc7"></div>
                         </div>
 
@@ -60,6 +60,39 @@
 </div>
 <!-- END tar-cursos !-->
 <script>
+    
+    var data = { numbers: [
+                    {description: "1"},
+                    {description: "2"},
+                    {description: "3"},
+                    {description: "4"},
+                    {description: "5"},
+                    {description: "6"},
+                    {description: "7"},
+                    {description: "8"},
+                    {description: "9"},
+                    {description: "10"}
+                 ] 
+              };
+
+    var config = {
+        title: "Select a quantity",
+        items:[
+            [data.numbers]
+        ],
+        positiveButtonText: "Done",
+        negativeButtonText: "Cancel"
+    };
+
+    function openSelectNumber(){
+ 
+            window.SelectorCordovaPlugin.showSelector(config, function(result) {
+                alert('User chose number: ' + result[0].description + ' at array index: ' + result[0].index);
+            }, function() {
+                alert('Canceled');
+            });
+    }
+
     function despesesMed(){
             if (!$('#despesesMed').is('.off')){
                     $('#despesesMed').addClass('off')
