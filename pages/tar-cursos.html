@@ -49,7 +49,7 @@
                                 <div class="label" translate-text="tar-cursos-opc7"></div>
                         </div>
 
-                        <div class="box-ask">
+                        <div class="box-ask" onclick="getCalendar()">
                             <div class="label" translate-text="tar-cursos-opc8"></div>
                     </div>
 
@@ -96,4 +96,25 @@
                     $('#opc4, #opc5').removeClass('invisible');
             }
     }
+
+    
+    var options = {
+            date: new Date(),
+            mode: 'date'
+        };
+
+    function onSuccess(date) {
+            alert('Selected date: ' + date);
+    }
+
+    function onError(error) { // Android only
+            alert('Error: ' + error);
+    }
+
+    function getCalendar() { 
+        datePicker.show(options, onSuccess, onError);
+    } 
+       
+
+
 </script>
