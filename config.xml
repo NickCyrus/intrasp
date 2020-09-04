@@ -183,6 +183,8 @@
     <plugin name="cordova-plugin-geolocation" />
     <plugin name="cordova-plugin-advanced-geolocation" />
     <plugin name="cordova-wheel-selector-plugin" />
+    <plugin name="cordova-plugin-datetimepicker" />
+    
     
     
    
