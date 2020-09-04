@@ -1,0 +1,72 @@
+<!-- PAGE tar-cursos !-->
+<div class="page bg-white subpage" data-page="tar-cursos" data-scroll="top" data-start="right" data-StatusBar="#E18560">
+        <div class="content" id="content">
+            <div class="p10" style="position: relative;" >
+                <div class="back-text" onclick="app.backNavigator();"><span class="fl" translate-text="opc-intranet">{{opc-intranet}}</span></div>
+                <div class="title-h1">
+                    <span class="" translate-text="tar-cursos">{{tar-cursos}}</span>
+                </div>
+                <span class="mt-5" translate-text="tar-cursos-ley">{{tar-cursos-ley}}</span>
+
+                <div class="circle-area-curso">
+                        <div class="arrow-right-orange"></div>
+                        <div class="label" translate-text="tar-cursos-opc1"></div>
+                        <div class="label-price">23.432,25</div>
+                </div>
+
+                <div class="circle-area-curso">
+                    <div class="arrow-right-orange"></div>
+                    <div class="label" translate-text="tar-cursos-opc2"></div>
+                    <div class="label-price">46.864,52</div>
+                </div>
+
+                <div class="circle-area-curso">
+                    <div class="circle-ckeck" id="despesesMed" onclick="despesesMed()"></div>
+                    <div class="arrow-right-orange"></div>
+                    <div class="label" translate-text="tar-cursos-opc3"></div>
+                </div>
+                
+                <div class="circle-area-curso" id="opc4">
+                    <div class="arrow-right-orange"></div>
+                    <div class="label" translate-text="tar-cursos-opc4"></div>
+                    <div class="label-price">6.000</div>
+                </div>
+
+                <div class="circle-area-curso" id="opc5">
+                    <div class="arrow-right-orange"></div>
+                    <div class="label" translate-text="tar-cursos-opc5"></div>
+                    <div class="label-price">ILIMITADO</div>
+                </div>
+
+                <div class="area-gris">
+
+                        <div class="circle-area-curso">
+                            <div class="label" translate-text="tar-cursos-opc6"></div>
+                            <div class="label-price">0</div>
+                        </div>
+
+                        <div class="box-ask">
+                                <div class="label" translate-text="tar-cursos-opc7"></div>
+                        </div>
+
+                        <div class="box-ask">
+                            <div class="label" translate-text="tar-cursos-opc8"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>         
+</div>
+<!-- END tar-cursos !-->
+<script>
+    function despesesMed(){
+            if (!$('#despesesMed').is('.off')){
+                    $('#despesesMed').addClass('off')
+                    $('#opc4, #opc5').addClass('invisible');
+            }else{
+                    $('#despesesMed').removeClass('off')
+                    $('#opc4, #opc5').removeClass('invisible');
+            }
+    }
+</script>

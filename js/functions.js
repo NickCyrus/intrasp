@@ -195,12 +195,15 @@ app = {
         },
 
         openPdf : function(url , name){
+
+            var web_url = 'https://app.socialpartners.org/'+url;
+
             var msg = {msg : app.language.alertadownload, title : app.language.titleLegalidad};
             fn.alert(msg);
             fn.sleep(3000);
-            window.open(url, '_blank');
-            //this.loadPdfBase64(url , name );
-        },
+            window.open(web_url, '_blank');
+        
+        }, 
 
         loadPdfBase64: function(url , name){
             var self = this
@@ -211,11 +214,17 @@ app = {
                 datos : { opc : 'loadPdfBase64', url: url },
                 success: function( rs){ 
                     app.dialogClose();
-                    $('#product-title-file').html(name);
-                    app.animatePage('product-details-file','in-right');
-                    self.showPDF(rs.base64 , 'example1' );
-                    
-                },
+                    // $('#product-title-file').html(name);
+                    // app.animatePage('product-details-file','in-right');
+                    // self.showPDF(rs.base64 , 'example1' );
+
+                    // var file = new Blob([atob(rs.base64)], {type: 'application/pdf'});
+                    // var fileURL = URL.createObjectURL(file);
+                    // window.open(fileURL);
+
+                    // console.log("data:application/pdf;base64," + encodeURI(rs.base64));
+                    // window.open("data:application/pdf;base64," + encodeURI(rs.base64));
+                }, 
                 error: function(){
                     app.dialogClose();
                 }
@@ -296,9 +305,20 @@ app = {
                          beforeSend : function(){
                                 app.dialogWait( self.language['valiLogin']);
                          },
-                         datos : { opc : 'getDocumentos', producto: infoProduct.id , entidad : infoProduct.entidadID , estado : infoProduct.estado },
+                         datos : { opc : 'getDocumentos', 
+                                   producto: infoProduct.id , 
+                                   entidad : infoProduct.entidadID , 
+                                   estado : infoProduct.estado,
+                                   lang   : self.currentLang
+                                },
                          success: function( rs){
                                 app.dialogClose();
+
+                                $('[data-page="product-details"] #product-extra-event').html('');
+                                      
+                                if (rs.extraEvent){
+                                  $('[data-page="product-details"] #product-extra-event').html(rs.extraEvent);
+                                }
 
                                 if (rs.doc){
                                     self.listCurrentDoc = rs.doc;
@@ -307,21 +327,21 @@ app = {
                                         $('[data-page="product-details"] #list-doc-per').html('');   
                                           $('#product-personalizado').show();
                                            $(rs.doc.personales).each(function(index , item){
-                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/personalizados/'+addslashes(item.file)+'\',\''+addslashes(item.alt_title)+'\');" class="lotiene">'+item.alt_title+'</li>');  
+                                              $('[data-page="product-details"] #list-doc-per').append('<li onclick="app.openPdf(\'storage/personalizados/'+addslashes(item.file)+'\',\''+addslashes(item.alt_title)+'\');" class="lotiene ext-'+fn.getExt(item.file)+'">'+item.alt_title+'</li>');  
                                            })
                                            
                                     }else{
                                           $('#product-personalizado').hide();
-                                          $('[data-page="product-details"] #list-doc-per').html('');       
+                                          $('[data-page="product-details"] #list-doc-per').html('');        
                                     }
-
+ 
                                     if (rs.doc.generales.length){
                                         $('[data-page="product-details"] #list-doc-gen').html(''); 
                                         $('#product-generales').show();
                                         $(rs.doc.generales).each(function(index , item){
-                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'https://app.socialpartners.org/storage/productos/'+addslashes(item.file)+'\',\''+addslashes(item.alt_title)+'\');" class="lotiene">'+item.alt_title+'</li>');
+                                            $('[data-page="product-details"] #list-doc-gen').append('<li onclick="app.openPdf(\'storage/productos/'+addslashes(item.file)+'\',\''+addslashes(item.alt_title)+'\');" class="lotiene ext-'+fn.getExt(item.file)+'">'+item.alt_title+'</li>');
                                         })
-
+ 
                                     }else{
                                         $('#product-generales').hide(); 
                                         $('[data-page="product-details"] #list-doc-gen').html();   
@@ -538,6 +558,10 @@ app = {
                        }   
             })
             
+        },
+        
+        tarCursos : function(){
+            app.animatePage('tar-cursos','in-right');
         },
 
         filterActualidad : function( filterType , filterValue){
@@ -1160,12 +1184,13 @@ app = {
         getGPS : function(tokenGPS){
             var self = this;
             this.tokenGPS = tokenGPS;
+            app.dialogWait( self.language['localizandoUbicacion']);
             navigator.geolocation.getCurrentPosition(self.onSuccess, self.onError );
         },
         
         clickMaps : function(ubicacion){
             
-             if (window.device.platform === "iOS") {
+             if (fn.getMobileOperatingSystem == "iOS") {
                 window.location.href = 'maps://?q=' + ubicacion +'_system';
              }else { 
                 window.location.href = 'geo:' + ubicacion;
@@ -1176,13 +1201,14 @@ app = {
         onSuccess : function(position) {
                 
                 var self = this;
-                
+                app.dialogClose(); 
+
                 var ubicacion = position.coords.latitude+','+position.coords.longitude;
             
                 // if (ubicacion) cordova.plugins.clipboard.copy('https://www.google.com/maps/@'+ubicacion);
 
                 this.geocoords = ubicacion; 
-
+                
                 fn.confirm({msg : app.language.copyLatLong, title : 'GPS', buttonName : ["SI","NO"] , Callback : 'app.clickMaps(\''+ubicacion+'\')'}) 
                 
                 return  this.geocoords;

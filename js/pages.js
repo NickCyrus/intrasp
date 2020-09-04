@@ -11,6 +11,9 @@ let pages = {
         { path:"pages/serveis24.html", 'name': 'serveis24' , target: "main-view" },
         { path:"pages/serveis24Open.html", 'name': 'serveis24Open' , target: "main-view" },
         { path:"pages/serveis24OpenDet.html", 'name': 'serveis24OpenDet' , target: "main-view" },
+
+        { path:"pages/tar-cursos.html", 'name': 'tar-cursos' , target: "main-view" },
+        
         
         
         { path:"pages/product-details-file.html", 'name': 'product-details-file' , target: "main-view" },

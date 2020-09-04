@@ -58,6 +58,10 @@ fn = {
                   return box;
         },
 
+        getExt : function (nameFile=''){
+            return nameFile.substr(nameFile.lastIndexOf('.') + 1);
+        },
+ 
         sleep : function(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         },
@@ -66,9 +70,6 @@ fn = {
                     var msg = (opc.msg) ? opc.msg : opc;
                     
                     if (navigator.notification){
-                        
-                        alert(opc.msg); 
-
                         navigator.notification.alert( opc.msg , opc.Callback, opc.title, opc.buttonName);
                     }else{
                         alert( msg )

@@ -754,9 +754,9 @@ a{
     left: 10px;
 }
 
-.productos .boxProduc.lotiene:before{
-    background: url(../svg/circle-check.svg) center center no-repeat;
-}
+.productos .boxProduc.lotiene:before{ background: url(../svg/circle-check.svg) center center no-repeat; }
+
+
 
 .productos .boxProduc.nolotiene:before{
     background: url(../svg/circle-orange.svg) center center no-repeat;
@@ -1112,12 +1112,44 @@ Wave Effects
     top: 25.5%;
     left: 10px;
 }
-
+ 
 #product-personalizado ul li.lotiene:before,
 #product-generales ul li.lotiene:before
 { 
     background: url(../svg/icon-vehicle.svg) center center no-repeat;
 }
+ 
+ 
+#product-personalizado ul li.ext-doc:before,
+#product-generales ul li.ext-doc:before { 
+    background: url(../svg/doc.svg) center center no-repeat !important; 
+}
+#product-personalizado ul li.ext-docx:before,
+#product-generales ul li.ext-docx:before{ background: url(../svg/docx.svg) center center no-repeat !important; }
+
+#product-personalizado ul li.ext-xls:before,
+#product-generales ul li.ext-xls:before{ background: url(../svg/xls.svg) center center no-repeat !important; } 
+
+#product-personalizado ul li.ext-xlsx:before,
+#product-generales ul li.ext-xlsx:before{ background: url(../svg/xlsx.svg) center center no-repeat !important; }
+
+#product-personalizado ul li.ext-pdf:before, 
+#product-generales ul li.ext-pdf:before{ background: url(../svg/pdf.svg) center center no-repeat !important; }
+
+#product-personalizado ul li.ext-png:before,
+#product-generales ul li.ext-png:before{ background: url(../svg/png.svg) center center no-repeat !important; }
+
+#product-personalizado ul li.ext-gif:before,
+#product-generales ul li.ext-gif:before{ background: url(../svg/png.svg) center center no-repeat !important; }
+
+#product-personalizado ul li.ext-jpg:before,
+#product-generales ul li.ext-jpg:before{ background: url(../svg/png.svg) center center no-repeat !important; }
+
+#product-personalizado ul li.ext-jpeg:before,
+#product-generales ul li.ext-jpeg:before{ background: url(../svg/png.svg) center center no-repeat !important; }
+
+ 
+
 
 #example1{
     width: 100%;
@@ -1162,4 +1194,136 @@ Wave Effects
     top: 34%;
     color : #E18560;
 }
+
+.btn{
+    display: block;
+    text-align: center;
+    padding: 9px;
+    margin-bottom: 20;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+}  
+
+.btn-primary{
+  background: #e18560;
+  color: #FFF;
+} 
+
+.mt-5{
+    margin-top:5px;
+}
+
+.title-h1{ 
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+    margin: 10px;
+} 
+
+.circle-area-curso{
+    border: 2px solid #E18560;
+    padding: 7px 20px;
+    color: #6B6B6B;
+    border-radius: 11px;
+    width: 50%;
+    margin: 5px 0px 0px 0px;
+    position: relative; 
+}
+
+.circle-area-curso
+.arrow-right-orange{
+    position: absolute;
+    width: 21px;
+    height: 82%;
+    right: 7px;
+    background: url(../svg/arrow-right-orange.svg) center center no-repeat;
+}
+
+.circle-area-curso
+.label{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.24px;
+    color: #6B6B6B;
+    width: 100%;
+    margin-bottom: 0px; 
+}
+
+.circle-area-curso
+.label-price{
+    background: #E18560;
+    border-radius: 5px;
+    text-align: right;
+    color: #FFF;
+    padding: 5px;
+    width: 52%;
+    font-weight: bold;
+    padding-right: 35px;
+    position: relative;
+}
  
+.circle-area-curso .label-price:after{
+    content: ' ';
+    width: 24px;
+    height: 24px;
+    background: url(../svg/price-euro.svg) center center no-repeat;
+    display: block;
+    position: absolute;
+    right: 4px;
+    top: 9%;
+}
+
+.circle-area-curso .circle-ckeck {
+    width: 26px;
+    height: 26px;
+    background: url(../svg/circle-check-orange.svg) center center no-repeat;
+    position: absolute;
+    left: -9px;
+    top: -7px;     
+}
+.circle-area-curso .circle-ckeck.off{
+    background: url(../svg/circle-uncheck.svg) center center no-repeat !important;
+}
+
+.invisible{
+    visibility: hidden;
+}
+
+.area-gris{
+    background: #979797;
+    position: absolute;
+    width: 90.3%;
+    left: 0px;
+    padding: 20px;
+    margin-top: 20px;
+    min-height: 30%;
+}
+
+.box-ask{
+    display: block;
+    color : #FFF;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.24px;
+    color: #FFFFFF;
+    margin-top: 20px;
+}
+
+.area-gris .circle-area-curso{
+    position: absolute;
+    width: 109px;
+    right: 4px;
+    top: -46px;
+    background: #FFF;
+    padding: 10px;
+}
+ 
+.area-gris .circle-area-curso .label-price{
+    width: 69%; 
+} 

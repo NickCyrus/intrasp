@@ -29,6 +29,17 @@
     "doc_personalizado":"DOCUMENTS PERSONALITZATS",
     "doc_generales":"DOCUMENTS GENERALS",
     "alertadownload":"Este documento es privado y para el uso exclusivo del usuario y de la entidad. En caso de que sea necesario compartir, hágalo con la maxima confidencialidad possible.",
-    "copyLatLong": "Se ha copiado la ubicación a la memoria\n\nDesea Abrir el mapa?",
-    "titleLegalidad": "Aviso de seguridad" 
+    "copyLatLong": "Se ha copiado la ubicación a la memoria\n\nDesea abrir el mapa?",
+    "titleLegalidad": "Aviso de seguridad",
+    "localizandoUbicacion": "Estamos buscando tu ubicación",
+    "tar-cursos": "CURSOS FORMACIÒ",
+    "tar-cursos-ley": "Cotitza i demana la teva assegurança",
+    "tar-cursos-opc1": "Mort per accident",
+    "tar-cursos-opc2": "Invalidesa per accident",
+    "tar-cursos-opc3": "Despeses mèdiques per accident",
+    "tar-cursos-opc4": "Lliure elecció",
+    "tar-cursos-opc5": "Centres concertats",
+    "tar-cursos-opc6": "Rebut únic",
+    "tar-cursos-opc7": "Numero de participants",
+    "tar-cursos-opc8": "Durada prevista del curs (Pràctiques incloses)"
 } 
