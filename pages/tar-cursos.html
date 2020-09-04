@@ -61,28 +61,23 @@
 <!-- END tar-cursos !-->
 <script>
     
-    var data = { numbers: [
-                    {description: "1"},
-                    {description: "2"},
-                    {description: "3"},
-                    {description: "4"},
-                    {description: "5"},
-                    {description: "6"},
-                    {description: "7"},
-                    {description: "8"},
-                    {description: "9"},
-                    {description: "10"}
-                 ] 
-              };
+    var data = { numbers: [] };
 
+    for(i=1;i<=150;i++){
+        data.numbers.push({description : i});  
+    }
+
+    
     var config = {
-        title: "Select a quantity",
+        title: app.language.tar-cursos-opc7,
         items:[
             [data.numbers]
         ],
-        positiveButtonText: "Done",
-        negativeButtonText: "Cancel"
+        wrapWheelText: true,
+        positiveButtonText: "Ok",
+        negativeButtonText: "Cancelar"
     };
+    
 
     function openSelectNumber(){
  
