@@ -43,14 +43,16 @@
                 
                 <div class="circle-area-curso" id="precio-final">
                     <div class="label" translate-text="tar-cursos-opc6"></div>
-                    <div class="label-price">0</div>
+                    <div class="label-price" id="valor">0</div>
                 </div>
 
                 <div class="area-gris">
 
+                        <input type="hidden" id="no-medico" name="no-medico" value="0" />
 
                         <div class="box-ask" onclick="openSelectNumber()" >
                                 <div class="label" translate-text="tar-cursos-opc7"></div>
+                                <span id="numero_personas_text"></span> 
                                 <input type="hidden" id="numero_personas" name="numero_personas" />
                         </div>
                         <div class="divider" data-h="20"></div>
@@ -75,11 +77,15 @@
                         "></textarea>
 
                             <div class="divider" data-h="20"></div>
-                            <label class="label" translate-text="tar-cursos-opc12" id="step3">
-                                <input type="file">
+                            <label class="label">
+                                <span translate-text="tar-cursos-opc12"></span>
+                                <input type="file" name="name-file"> 
                             </label>
                             <div class="divider" data-h="20"></div>
-                            <div class="label" translate-text="tar-cursos-opc13" id="step3"></div>
+                            <div class="label" translate-text="tar-cursos-opc13">
+                                <span translate-text="tar-cursos-opc13"></span>
+                                <input type="file" name="name-file-2">
+                            </div>
                     </div>
 
                 </div>
@@ -90,6 +96,81 @@
 <!-- END tar-cursos !-->
 <script>
     
+    $(function(){
+ 
+        $("#numero_personas,#fecha_inicio,#fecha_fin, #descripcion ").on({ 
+					 
+					change : function(){
+							tarifica()
+					}
+            })
+    
+    })
+    function validForm(){
+
+            if (!$('#numero_personas').val()){
+                openSelectNumber();
+                return false
+            }
+               
+            if (!$('#fecha_inicio').val() || $('#fecha_inicio').val()){
+
+            }
+
+
+    }
+
+    function tarifica(){
+	
+    var nPersonas, fecha_ini,fecha_fin,descripcion
+    
+    nPersonas    = $('#numero_personas').val();
+    fecha_ini    = $('#fecha_inicio').val();
+    fecha_fin    = $('#fecha_fin').val();
+    descripcion  = $('#descripcion').val();
+    medico		 = $('#no-medico').val();
+    
+    var f1 = fecha_ini.split('/'); //31 de diciembre de 2015
+    var f2 = fecha_fin.split('/'); ; //30 de noviembre de 2014
+    
+    f1 = new Date(f1[2], f1[1], f1[0]); //31 de diciembre de 2015
+    f2 = new Date(f2[2], f2[1], f2[0]); //30 de noviembre de 2014
+    
+    if (nPersonas &&  fecha_ini && fecha_fin){
+        
+         if (f2 < f1 ){
+             alert("Data final invÃ lida");
+             return false;
+         }
+      
+         
+        
+                app.ajax({ type   : "POST",
+                           datos    : {
+                            opc : 'tarifica',
+                            personas : nPersonas,
+                            fini : fecha_ini,
+                            fend : fecha_fin,
+                            descripcion : descripcion,
+                            descripcion : medico,
+                         },
+                         cache  : false,
+                         success: function(response){
+                            console.log(response);
+                             if (response.error) {
+                                fn.alert(response.error)
+                             }
+                             $('.token').val(response.token);
+                             $('#valor').html(response.primaFinal) 
+                         }
+                })
+       
+    }
+                  
+    
+}
+
+
     function areagris(){
             var hw  =  $(window).height();
             var ht  =  $('#tarinfo').height();
@@ -118,6 +199,8 @@
  
             window.SelectorCordovaPlugin.showSelector(config, function(result) {
                 $('#numero_personas').val(result[0].description);
+                $('#numero_personas_text').html( result[0].description );
+                validForm()
             }, function() {
                 
             });
@@ -127,9 +210,11 @@
             if (!$('#despesesMed').is('.off')){
                     $('#despesesMed').addClass('off')
                     $('#opc4, #opc5').addClass('invisible');
+                    $('#no-medico').val(1)
             }else{
                     $('#despesesMed').removeClass('off')
                     $('#opc4, #opc5').removeClass('invisible');
+                    $('#no-medico').val(0)
             }
     }
 

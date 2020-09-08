@@ -1333,9 +1333,11 @@ Wave Effects
     position: absolute;
     z-index: 9;
     background: #FFF;
-    width: 25%;
+    width: 28%;
     right: 1px;
     bottom: -36px;
+    padding-left: 6px;
+    padding-top: 0px;
 }
 
 .width-50 { width: 50%; }
@@ -1352,4 +1354,13 @@ Wave Effects
 .divider{
     height: 30px;
     clear: both;
+}
+
+#numero_personas_text{
+
+}
+.label input[type="file"]{
+    opacity: 0;
+    height: 0px;
+    width: 0px; 
 }
