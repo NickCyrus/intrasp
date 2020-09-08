@@ -28,6 +28,8 @@ function onDeviceReady() {
         .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
         .endInit();
     
+    // window.plugins.OneSignal.sendTags({key: "value", key2: "value2"});
+
     // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 6)
     window.plugins.OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
         console.log("User accepted notifications: " + accepted);
