@@ -51,18 +51,35 @@
 
                         <div class="box-ask" onclick="openSelectNumber()" >
                                 <div class="label" translate-text="tar-cursos-opc7"></div>
+                                <input type="hidden" id="numero_personas" name="numero_personas" />
                         </div>
-
-                        <div class="box-ask">
+                        <div class="divider" data-h="20"></div>
+                        <div class="box-ask" id="step2">
                             <div class="label" translate-text="tar-cursos-opc8"></div>
                             <div class="label width-50 d-inline fl">
-                                <span translate-text="tar-cursos-opc9"></span>
-                                <input type="date" id="fecha_inicio" class="fecha-trasparente" >
+                                <label translate-text="tar-cursos-opc9" for="fecha_inicio"></label>
+                                <input type="date" id="fecha_inicio" name="fecha_inicio" class="fecha-trasparente" >
                             </div>
+                            
                             <div class="label width-50 d-inline fl">
-                                <span translate-text="tar-cursos-opc10"></span>
-                                <input type="date" id="fecha_fin" class="fecha-trasparente" >
+                                <label translate-text="tar-cursos-opc10" for="fecha_fin"></label>
+                                <input type="date" id="fecha_fin" name="fecha_fin" class="fecha-trasparente" >
                             </div>
+                            <div class="divider" data-h="20"></div>
+                            <div class="label" translate-text="tar-cursos-opc11" id="step3"></div>
+                            <textarea id="descripcion" name="descripcion" style="
+                            width: 100%;
+                            border-radius: 5px;
+                            padding: 10px;
+                            font-size: 18px;
+                        "></textarea>
+
+                            <div class="divider" data-h="20"></div>
+                            <label class="label" translate-text="tar-cursos-opc12" id="step3">
+                                <input type="file">
+                            </label>
+                            <div class="divider" data-h="20"></div>
+                            <div class="label" translate-text="tar-cursos-opc13" id="step3"></div>
                     </div>
 
                 </div>
@@ -100,7 +117,7 @@
     function openSelectNumber(){
  
             window.SelectorCordovaPlugin.showSelector(config, function(result) {
-                alert('User chose number: ' + result[0].description + ' at array index: ' + result[0].index);
+                $('#numero_personas').val(result[0].description);
             }, function() {
                 
             });

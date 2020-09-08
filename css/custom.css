@@ -1346,4 +1346,10 @@ Wave Effects
     border: 0px;
     float: right;
     width: 119px;
+    color:#FFF; 
 } 
+
+.divider{
+    height: 30px;
+    clear: both;
+}
