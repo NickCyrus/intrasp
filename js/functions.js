@@ -80,7 +80,7 @@ app = {
         classClosePage : 'is_close_page',
         geocoords : '',
         tokenGPS : '',
-
+        tempInfo : '',
 
         main : function(){
             this.setLang();
@@ -319,6 +319,10 @@ app = {
                                 if (rs.extraEvent){
                                   $('[data-page="product-details"] #product-extra-event').html(rs.extraEvent);
                                 }
+
+                                if (rs.tempInfo){
+                                    app.tempInfo = rs.tempInfo;
+                                  }
 
                                 if (rs.doc){
                                     self.listCurrentDoc = rs.doc;

@@ -12,54 +12,61 @@
                 <span class="mt-5" translate-text="tar-cursos-ley">{{tar-cursos-ley}}</span>
 
                 <div class="circle-area-curso">
-                        <div class="arrow-right-orange"></div>
+                      <!-- <div class="arrow-right-orange" onclick="openModalInfo(app.tempInfo.msg_curs_help1)"></div> !-->
                         <div class="label" translate-text="tar-cursos-opc1"></div>
                         <div class="label-price">23.432,25</div>
                 </div>
 
                 <div class="circle-area-curso">
-                    <div class="arrow-right-orange"></div>
+                    <!-- <div class="arrow-right-orange"></div> !-->
                     <div class="label" translate-text="tar-cursos-opc2"></div>
                     <div class="label-price">46.864,52</div>
                 </div>
 
                 <div class="circle-area-curso">
                     <div class="circle-ckeck" id="despesesMed" onclick="despesesMed()"></div>
-                    <div class="arrow-right-orange"></div>
+                    <div class="arrow-right-orange" onclick="openModalInfo(app.tempInfo.msg_curs_help4)"></div>
                     <div class="label" translate-text="tar-cursos-opc3"></div>
                 </div>
                 
                 <div class="circle-area-curso" id="opc4">
-                    <div class="arrow-right-orange"></div>
+                    <div class="arrow-right-orange" onclick="openModalInfo(app.tempInfo.msg_curs_help5)"></div>
                     <div class="label" translate-text="tar-cursos-opc4"></div>
                     <div class="label-price">6.000</div>
                 </div>
 
                 <div class="circle-area-curso" id="opc5">
-                    <div class="arrow-right-orange"></div>
+                    <!-- <div class="arrow-right-orange"></div> !-->
                     <div class="label" translate-text="tar-cursos-opc5"></div>
                     <div class="label-price">ILIMITADO</div>
                 </div>
                 
-                <div class="circle-area-curso" id="precio-final">
+                <div class="circle-area-curso" id="precio-final" onclick="openModalInfo(app.tempInfo.msg_curs_help9)">
                     <div class="label" translate-text="tar-cursos-opc6"></div>
                     <div class="label-price" id="valor">0</div>
                 </div>
 
                 <div class="area-gris">
 
-                        <input type="hidden" id="no-medico" name="no-medico" value="0" />
+                        <input type="hidden" id="no-medico" name="no-medico" value="0" /> 
 
                         <div class="box-ask" onclick="openSelectNumber()" >
-                                <div class="label" translate-text="tar-cursos-opc7"></div>
-                                <span id="numero_personas_text"></span> 
+                                <div class="label" >
+                                    <span translate-text="tar-cursos-opc7"></span>
+                                    <img src="svg/info-blanco.svg" class="img-info" onclick="openModalInfo(app.tempInfo.msg_curs_help2)" /> 
+                                </div>
+                                <span id="numero_personas_text">0</span> 
                                 <input type="hidden" id="numero_personas" name="numero_personas" />
+                                
                         </div>
                         <div class="divider" data-h="20"></div>
                         <div class="box-ask" id="step2">
-                            <div class="label" translate-text="tar-cursos-opc8"></div>
+                            <div class="label" >
+                                <span translate-text="tar-cursos-opc8"></span>
+                                <img src="svg/info-blanco.svg" class="img-info" onclick="openModalInfo(app.tempInfo.msg_curs_help3)" /> 
+                            </div>
                             <div class="label width-50 d-inline fl">
-                                <label translate-text="tar-cursos-opc9" for="fecha_inicio"></label>
+                                <label  for="fecha_inicio" translate-text="tar-cursos-opc9" ></label>
                                 <input type="date" id="fecha_inicio" name="fecha_inicio" class="fecha-trasparente" >
                             </div>
                             
@@ -68,7 +75,10 @@
                                 <input type="date" id="fecha_fin" name="fecha_fin" class="fecha-trasparente" >
                             </div>
                             <div class="divider" data-h="20"></div>
-                            <div class="label" translate-text="tar-cursos-opc11" id="step3"></div>
+                            <div class="label" id="step3">
+                                <span translate-text="tar-cursos-opc11"></span>
+                                <img src="svg/info-blanco.svg" class="img-info" onclick="openModalInfo(app.tempInfo.msg_curs_help10)" /> 
+                            </div> 
                             <textarea id="descripcion" name="descripcion" style="
                             width: 100%;
                             border-radius: 5px;
@@ -81,11 +91,21 @@
                                 <span translate-text="tar-cursos-opc12"></span>
                                 <input type="file" name="name-file"> 
                             </label>
+
                             <div class="divider" data-h="20"></div>
-                            <div class="label" translate-text="tar-cursos-opc13">
-                                <span translate-text="tar-cursos-opc13"></span>
-                                <input type="file" name="name-file-2">
-                            </div>
+
+                            <div class="btn-poliza">Demanar pòlissa  <img src="svg/info-blanco.svg" class="img-info" onclick="openModalInfo(app.tempInfo.msg_curs_help6)" /> </div>
+                            <div class="btn-poliza">Que em truquin</div>
+                            <div class="btn-poliza">Vull més informació</div>
+
+
+                            <!--
+                                <div class="divider" data-h="20"></div>
+                                <div class="label" translate-text="tar-cursos-opc13">
+                                    <span translate-text="tar-cursos-opc13"></span>
+                                    <input type="file" name="name-file-2">
+                                </div>
+                            !--> 
                     </div>
 
                 </div>
@@ -93,11 +113,19 @@
             </div>
         </div>         
 </div>
+<div class="modalInfo" onclick="$('.modalInfo').hide()">
+    <div class="p20 contemt-modalinfo">
+        <div class="corner"></div>    
+        <div class="info-modal"></div>
+    </div>
+</div>
 <!-- END tar-cursos !-->
 <script>
     
+    $('.modalInfo').height($(window).height()-50);
+
     $(function(){
- 
+        
         $("#numero_personas,#fecha_inicio,#fecha_fin, #descripcion ").on({ 
 					 
 					change : function(){
@@ -106,6 +134,12 @@
             })
     
     })
+
+    function openModalInfo($info){
+        $('.modalInfo .contemt-modalinfo .info-modal').html($info);
+        $('.modalInfo').show();
+    }
+
     function validForm(){
 
             if (!$('#numero_personas').val()){
@@ -152,16 +186,17 @@
                             fini : fecha_ini,
                             fend : fecha_fin,
                             descripcion : descripcion,
-                            descripcion : medico,
+                            medico : medico,
                          },
                          cache  : false,
                          success: function(response){
                             console.log(response);
                              if (response.error) {
-                                fn.alert(response.error)
+                                var msg = {msg : response.error, title : '' };
+                                fn.alert(msg)
                              }
                              $('.token').val(response.token);
-                             $('#valor').html(response.primaFinal) 
+                             $('#valor').html(response.primaFinal)  
                          }
                 })
        
@@ -200,22 +235,27 @@
             window.SelectorCordovaPlugin.showSelector(config, function(result) {
                 $('#numero_personas').val(result[0].description);
                 $('#numero_personas_text').html( result[0].description );
-                validForm()
+                tarifica();
             }, function() {
                 
             });
     }
 
     function despesesMed(){
+            
+           
+
             if (!$('#despesesMed').is('.off')){
                     $('#despesesMed').addClass('off')
                     $('#opc4, #opc5').addClass('invisible');
                     $('#no-medico').val(1)
-            }else{
+            }else{  
                     $('#despesesMed').removeClass('off')
                     $('#opc4, #opc5').removeClass('invisible');
                     $('#no-medico').val(0)
             }
+
+            tarifica()
     }
 
     

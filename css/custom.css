@@ -1309,7 +1309,7 @@ Wave Effects
     color : #FFF;
     font-style: normal;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px; 
     line-height: 20px;
     letter-spacing: -0.24px;
     color: #FFFFFF;
@@ -1363,4 +1363,65 @@ Wave Effects
     opacity: 0;
     height: 0px;
     width: 0px; 
+}
+
+.btn-poliza{
+    width: 95.99%;
+    padding: 5px;
+    border-radius: 5px;
+    background: #e18560;
+    color: #FFF;
+    text-align: center;
+    margin-bottom: 5px;
+    border: 1px solid #FFF;
+}
+
+.modalInfo{
+    position: absolute;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    display: block;
+    top: 50px;
+    z-index: 99999989;
+    overflow-y: auto;
+    display:none;
+}
+
+.contemt-modalinfo{
+    display: block;
+    margin: 30px auto;
+    width: 80%;
+    border: 1px solid #E18560;
+    background: #FFF;
+    border-radius: 12px; 
+    position: relative;
+}
+
+.contemt-modalinfo .corner{
+    background: url(../svg/corner-info.svg) left center no-repeat;
+    display: block;
+    width: 61px;
+    height: 61px;
+    position: absolute;
+    top: -4px;
+    left: 0px; 
+}
+
+.contemt-modalinfo .info-modal{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* or 143% */
+
+    letter-spacing: -0.24px;
+
+    color: #000000;
+    margin-top:30px;
+}
+
+.img-info {
+    position: relative;
+    margin-bottom: -6px;
+    margin-left: 10px;    
 }
