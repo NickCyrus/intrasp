@@ -1245,10 +1245,6 @@ app = {
             } 
              return isMobile;
         }
-         
-     
-        
-    
      
 }
 
