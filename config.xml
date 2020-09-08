@@ -190,7 +190,6 @@
     <plugin name="cordova-plugin-datepicker" />
     <plugin name="onesignal-cordova-plugin"  spec="^2.4.1" source="npm"/>  
     
-   
     <plugin name="cordova-clipboard" />
      
     <plugin name="cordova-plugin-whitelist" /> 
