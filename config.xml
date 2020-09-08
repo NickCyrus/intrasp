@@ -180,19 +180,8 @@
 
     <access origin="*"/>
     
-    <plugin name="cordova-clipboard" spec="1.3.0" />
-    <plugin name="cordova-plugin-advanced-geolocation" spec="1.1.0" />
-    <plugin name="cordova-plugin-datepicker" spec="0.9.3" />
-    <plugin name="cordova-plugin-device" spec="2.0.3" />
-    <plugin name="cordova-plugin-dialogs" spec="2.0.2" />
-    <plugin name="cordova-plugin-geolocation" spec="4.0.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="6.0.0" />
-    <plugin name="cordova-plugin-statusbar" spec="2.4.3" />
-    <plugin name="cordova-plugin-whitelist" spec="1.3.4" />
-    <plugin name="cordova-wheel-selector-plugin" spec="1.0.0" />
-    <plugin name="onesignal-cordova-plugin" spec="2.11.1" />
-
-    <!--
+     
+    
         <plugin name="cordova-plugin-splashscreen" />
         <plugin name="cordova-plugin-statusbar" />
         <plugin name="cordova-plugin-device" />
@@ -202,7 +191,7 @@
         <plugin name="cordova-wheel-selector-plugin" />
         <plugin name="cordova-plugin-datepicker" />
         <plugin name="onesignal-cordova-plugin"  spec="^2.4.1" source="npm"/>  
-    !-->
+    
 
     <plugin name="cordova-clipboard" />
      
