@@ -41,5 +41,12 @@
         "tar-cursos-opc5": "Centres concertats",
         "tar-cursos-opc6": "Rebut únic",
         "tar-cursos-opc7": "Numero de participants",
-        "tar-cursos-opc8": "Durada prevista del curs (Pràctiques incloses)"
+        "tar-cursos-opc8": "Durada prevista del curs (Pràctiques incloses)",
+        "tar-cursos-opc9": "INICI",
+        "tar-cursos-opc10": "FINAL",
+        "tar-cursos-opc11": "NOM DEL CURS",
+        "tar-cursos-opc12": "NECESSITES UN CERTIFICAT?",
+        "tar-cursos-opc13": "PUJA EL DOCUMENT DE NO SINISTRALITAT"
+
+   
 }

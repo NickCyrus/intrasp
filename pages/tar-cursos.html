@@ -1,7 +1,10 @@
+<style>
+  .area-gris{ overflow: auto; }
+</style>
 <!-- PAGE tar-cursos !-->
 <div class="page bg-white subpage" data-page="tar-cursos" data-scroll="top" data-start="right" data-StatusBar="#E18560">
         <div class="content" id="content">
-            <div class="p10" style="position: relative;" >
+            <div class="p10" style="position: relative;" id="tarinfo" >
                 <div class="back-text" onclick="app.backNavigator();"><span class="fl" translate-text="opc-intranet">{{opc-intranet}}</span></div>
                 <div class="title-h1">
                     <span class="" translate-text="tar-cursos">{{tar-cursos}}</span>
@@ -37,20 +40,29 @@
                     <div class="label" translate-text="tar-cursos-opc5"></div>
                     <div class="label-price">ILIMITADO</div>
                 </div>
+                
+                <div class="circle-area-curso" id="precio-final">
+                    <div class="label" translate-text="tar-cursos-opc6"></div>
+                    <div class="label-price">0</div>
+                </div>
 
                 <div class="area-gris">
 
-                        <div class="circle-area-curso">
-                            <div class="label" translate-text="tar-cursos-opc6"></div>
-                            <div class="label-price">0</div>
-                        </div>
 
                         <div class="box-ask" onclick="openSelectNumber()" >
                                 <div class="label" translate-text="tar-cursos-opc7"></div>
                         </div>
 
-                        <div class="box-ask" onclick="getCalendar()">
+                        <div class="box-ask">
                             <div class="label" translate-text="tar-cursos-opc8"></div>
+                            <div class="label width-50 d-inline fl">
+                                <span translate-text="tar-cursos-opc9"></span>
+                                <input type="date" id="fecha_inicio" class="fecha-trasparente" >
+                            </div>
+                            <div class="label width-50 d-inline fl">
+                                <span translate-text="tar-cursos-opc10"></span>
+                                <input type="date" id="fecha_fin" class="fecha-trasparente" >
+                            </div>
                     </div>
 
                 </div>
@@ -61,6 +73,13 @@
 <!-- END tar-cursos !-->
 <script>
     
+    function areagris(){
+            var hw  =  $(window).height();
+            var ht  =  $('#tarinfo').height();
+            var dif =  (hw-ht) - 122;
+            $('.area-gris').height(dif)
+    }
+   
     var data = { numbers: [] };
 
     for(i=1;i<=150;i++){
@@ -83,7 +102,7 @@
             window.SelectorCordovaPlugin.showSelector(config, function(result) {
                 alert('User chose number: ' + result[0].description + ' at array index: ' + result[0].index);
             }, function() {
-                alert('Canceled');
+                
             });
     }
 
@@ -111,9 +130,7 @@
             alert('Error: ' + error);
     }
 
-    function getCalendar() { 
-        datePicker.show(options, onSuccess, onError);
-    } 
+    // function getCalendarInici() { datePicker.show(options, onSuccess, onError); } 
        
 
 

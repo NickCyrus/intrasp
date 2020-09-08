@@ -562,6 +562,7 @@ app = {
         
         tarCursos : function(){
             app.animatePage('tar-cursos','in-right');
+            areagris();
         },
 
         filterActualidad : function( filterType , filterValue){

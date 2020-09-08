@@ -216,7 +216,14 @@ fn = {
               }
           
               return false;
-          }
+          },
        
+          setHeightWindow : function(obj){
+                $(obj).height($(window).height());
+          },
+          
+          setWidthWindow : function(obj){
+            $(obj).width($(window).width());
+          }
         
 }
